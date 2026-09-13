@@ -11,8 +11,8 @@
 <body>
   <div id="root" role="application" aria-label="Portfolio Application"></div>
 
-  <!-- In-Page Live Modal -->
-  <div id="live-preview-modal" onclick="handleModalBackdropClick(event)">
+  <!-- In-Page Live Modal (hidden until opened via openLiveModal) -->
+  <div id="live-preview-modal" style="display:none" onclick="handleModalBackdropClick(event)">
     <div class="modal-sheet-window" id="modalWindow">
       <div class="modal-sheet-header">
         <div class="modal-sheet-dots">
@@ -51,12 +51,14 @@
       titleEl.textContent = title || 'پیش‌نمایش زنده';
       extLink.href = url;
       iframe.src = url;
+      modal.style.display = '';
       modal.classList.add('active');
     };
 
     window.closeLiveModal = function() {
       const modal = document.getElementById('live-preview-modal');
       modal.classList.remove('active');
+      modal.style.display = 'none';
       setTimeout(() => {
         document.getElementById('liveIframe').src = 'about:blank';
       }, 300);
