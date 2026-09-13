@@ -1525,7 +1525,8 @@ const x6=(i=.8,e=2.5,t=1.2)=>{const[s,a]=C.useState(0),o=C.useRef(0),u=C.useRef(
           children: [
             /* RIGHT SIDE: 3-dot Menu Button */
             v.jsx("div", {
-              className: "flex justify-center items-center pointer-events-auto",
+              className: "flex justify-center items-center",
+              style: { pointerEvents: o ? "none" : "auto" },
               children: v.jsx(le.button, {
                 type: "button",
                 className: "rounded-full p-1.5 hover:bg-white/10 cursor-pointer border border-white/15 backdrop-blur-md group hover:bg-white/5 duration-300",
