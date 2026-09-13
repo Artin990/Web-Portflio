@@ -1624,7 +1624,7 @@ const x6=(i=.8,e=2.5,t=1.2)=>{const[s,a]=C.useState(0),o=C.useRef(0),u=C.useRef(
                         "aria-label": "پروژه‌ها",
                         "aria-current": u === "/" ? "page" : void 0,
                         onClick: f,
-                        className: `text-[7vw] max-md:text-[11vw] font-normal hover:text-gray-300 transition-colors duration-200 leading-[1] flex justify-center items-center ${u === "/" ? "text-white" : "text-white/30"}`,
+                        className: `text-[7vw] max-md:text-[11vw] font-normal hover:text-gray-300 transition-colors duration-200 leading-[1.6] flex justify-center items-center ${u === "/" ? "text-white" : "text-white/30"}`,
                         children: "پروژه‌ها"
                       })
                     })
@@ -1641,7 +1641,7 @@ const x6=(i=.8,e=2.5,t=1.2)=>{const[s,a]=C.useState(0),o=C.useRef(0),u=C.useRef(
                         "aria-label": "من کی‌ام؟",
                         "aria-current": u === "/about" ? "page" : void 0,
                         onClick: f,
-                        className: `text-[7vw] max-md:text-[11vw] font-normal hover:text-gray-300 transition-colors duration-200 leading-[1] flex justify-center items-center ${u === "/about" ? "text-white" : "text-white/30"}`,
+                        className: `text-[7vw] max-md:text-[11vw] font-normal hover:text-gray-300 transition-colors duration-200 leading-[1.6] flex justify-center items-center ${u === "/about" ? "text-white" : "text-white/30"}`,
                         children: "من کی‌ام؟"
                       })
                     })
