@@ -1587,37 +1587,68 @@ const x6=(i=.8,e=2.5,t=1.2)=>{const[s,a]=C.useState(0),o=C.useRef(0),u=C.useRef(
         })
       }),
 
-      /* Menu Overlay with 2 Persian links: "پروژه‌ها" & "من کی‌ام؟" */
+      /* Menu Overlay — v9.joseph-san.com reveal style (clip wipe + staggered slide-in links) */
       v.jsx(us, {
         children: i && v.jsx(le.div, {
           id: "navigation-menu",
-          className: "fixed inset-0 z-[99998] bg-black/85 backdrop-blur-2xl w-screen h-dvh cursor-pointer flex flex-col justify-center items-center",
+          className: "fixed inset-0 z-[99998] bg-black/70 backdrop-blur-md w-screen h-dvh cursor-pointer pt-24 pb-24",
           variants: y,
           initial: "hidden",
           animate: "visible",
           exit: "exit",
           onClick: f,
           onKeyDown: d,
-          children: v.jsxs("ul", {
-            className: "flex flex-col items-center gap-12 text-center",
-            children: [
-              v.jsx("li", {
-                children: v.jsx(Gn, {
-                  to: "/",
-                  className: "text-4xl md:text-6xl font-bold text-white hover:text-[#e5a97a] transition-colors",
-                  onClick: f,
-                  children: "پروژه‌ها"
-                })
-              }),
-              v.jsx("li", {
-                children: v.jsx(Gn, {
-                  to: "/about",
-                  className: "text-4xl md:text-6xl font-bold text-white hover:text-[#e5a97a] transition-colors",
-                  onClick: f,
-                  children: "من کی‌ام؟"
-                })
+          role: "dialog",
+          "aria-modal": "true",
+          "aria-label": "منوی ناوبری",
+          tabIndex: -1,
+          children: v.jsx("div", {
+            className: "flex flex-col items-center justify-center h-full w-full",
+            children: v.jsx(le.section, {
+              variants: w,
+              initial: "hidden",
+              animate: "visible",
+              className: "w-full",
+              children: v.jsxs(le.ul, {
+                className: "flex w-full justify-center items-center flex-col px-12 max-md:px-6",
+                children: [
+                  v.jsx("li", {
+                    className: "overflow-hidden w-full flex justify-start items-center",
+                    children: v.jsx(le.div, {
+                      variants: { hidden: { opacity: 0, y: "-100%", transition: { duration: .8, ease: "circOut" } }, visible: { opacity: 1, y: 0, transition: { duration: 1.2, ease: "anticipate" } } },
+                      initial: "hidden",
+                      animate: "visible",
+                      exit: "hidden",
+                      children: v.jsx(Gn, {
+                        to: "/",
+                        "aria-label": "پروژه‌ها",
+                        "aria-current": u === "/" ? "page" : void 0,
+                        onClick: f,
+                        className: `text-[7vw] max-md:text-[11vw] font-normal hover:text-gray-300 transition-colors duration-200 leading-[1] flex justify-center items-center ${u === "/" ? "text-white" : "text-white/30"}`,
+                        children: "پروژه‌ها"
+                      })
+                    })
+                  }),
+                  v.jsx("li", {
+                    className: "overflow-hidden w-full flex justify-end items-center",
+                    children: v.jsx(le.div, {
+                      variants: { hidden: { opacity: 0, y: "100%", transition: { duration: .8, ease: "circOut" } }, visible: { opacity: 1, y: 0, transition: { duration: 1.2, ease: "anticipate" } } },
+                      initial: "hidden",
+                      animate: "visible",
+                      exit: "hidden",
+                      children: v.jsx(Gn, {
+                        to: "/about",
+                        "aria-label": "من کی‌ام؟",
+                        "aria-current": u === "/about" ? "page" : void 0,
+                        onClick: f,
+                        className: `text-[7vw] max-md:text-[11vw] font-normal hover:text-gray-300 transition-colors duration-200 leading-[1] flex justify-center items-center ${u === "/about" ? "text-white" : "text-white/30"}`,
+                        children: "من کی‌ام؟"
+                      })
+                    })
+                  })
+                ]
               })
-            ]
+            })
           })
         })
       })
