@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E7DCC8" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#C9A77C" stop-opacity="0.18"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="#F4EEE2"/>
+  <rect width="400" height="300" fill="url(#g)"/>
+  
+    <rect x="140" y="120" width="120" height="100" rx="6" fill="none" stroke="#3A2C21" stroke-width="3"/>
+    <path d="M200 120 V220" fill="none" stroke="#B26A4F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M140 160 H260" fill="none" stroke="#B26A4F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M200 120 L185 95 L200 110 L215 95 Z" fill="#C9A77C"/>
+  
+  <text x="200" y="282" font-family="Tahoma, sans-serif" font-size="14" fill="#3A2C21" text-anchor="middle" opacity="0.5">محصول</text>
+</svg>

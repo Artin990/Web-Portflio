@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E7DCC8" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#C9A77C" stop-opacity="0.18"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="#F4EEE2"/>
+  <rect width="400" height="300" fill="url(#g)"/>
+  
+    <circle cx="200" cy="150" r="20" fill="none" stroke="#B26A4F" stroke-width="3"/>
+    <path d="M200 150 L150 90" fill="none" stroke="#3A2C21" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M200 150 L250 210" fill="none" stroke="#3A2C21" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M250 210 L262 222 L270 200 Z" fill="#C9A77C"/>
+    <path d="M150 90 L142 78" fill="none" stroke="#C9A77C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <text x="200" y="282" font-family="Tahoma, sans-serif" font-size="14" fill="#3A2C21" text-anchor="middle" opacity="0.5">طراح</text>
+</svg>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>سبد خرید | Nudéa Beauty</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<link rel="stylesheet"
+href="../../vendor/fontawesome-6.6/css/all.min.css">
+
+</head>
+
+<body>
+
+<header>
+
+<div class="container">
+
+<div class="header">
+
+<a href="index.html" class="logo">
+
+<div class="logo-img">
+    <img src="images/logo.jpeg" alt="">
+</div>
+
+<div class="logo-text">
+
+<h2>Nudéa</h2>
+
+<p>Beauty Store</p>
+
+</div>
+
+</a>
+
+<a href="index.html" class="hero-btn">
+
+<i class="fa-solid fa-arrow-right"></i>
+
+بازگشت به صفحه اصلی
+
+</a>
+
+</div>
+
+</div>
+
+</header>
+
+<section class="cart-page">
+
+<div class="container">
+
+<!-- عنوان صفحه -->
+<div class="cart-page-header">
+    <h1><i class="fa-solid fa-bag-shopping"></i> سبد خرید شما</h1>
+    <span class="cart-item-count" id="cartItemCount">۰ کالا</span>
+</div>
+
+<div class="cart-layout">
+
+    <!-- لیست محصولات -->
+    <div class="cart-products-section">
+
+        <div class="cart-products-list" id="cartProductsList">
+            <!-- توسط جاوااسکریپت پر می‌شود -->
+        </div>
+
+    </div>
+
+    <!-- خلاصه سفارش -->
+    <div class="cart-summary-section">
+
+        <div class="cart-summary-card">
+
+            <h3>خلاصه سفارش</h3>
+
+            <div class="summary-rows">
+                <div class="summary-row">
+                    <span>جمع کل محصولات</span>
+                    <span id="subtotalPrice">۰ تومان</span>
+                </div>
+                <div class="summary-row">
+                    <span>هزینه ارسال</span>
+                    <span class="delivery-free">رایگان</span>
+                </div>
+                <div class="summary-row discount-row" id="discountRow" style="display:none;">
+                    <span>تخفیف</span>
+                    <span id="discountAmount">۰ تومان</span>
+                </div>
+            </div>
+
+            <div class="discount-input-group">
+                <input type="text" id="discountInput" placeholder="کد تخفیف">
+                <button id="applyDiscountBtn" onclick="applyDiscount()">اعمال</button>
+            </div>
+
+            <div class="summary-divider"></div>
+
+            <div class="summary-total">
+                <span>مبلغ قابل پرداخت</span>
+                <span id="totalPrice">۰ تومان</span>
+            </div>
+
+            <button class="checkout-btn" onclick="checkout()">
+                <i class="fa-solid fa-credit-card"></i>
+                تکمیل خرید
+            </button>
+
+            <a href="products.html" class="continue-shopping-link">
+                <i class="fa-solid fa-arrow-right"></i>
+                مشاهده محصولات
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- پیام سبد خالی -->
+<div class="empty-cart" id="emptyCart" style="display:none;">
+    <div class="empty-cart-icon">
+        <i class="fa-solid fa-bag-shopping"></i>
+    </div>
+    <h2>سبد خرید شما خالی است</h2>
+    <p>محصولات مورد علاقه خود را به سبد اضافه کنید</p>
+    <a href="products.html" class="hero-btn">
+        <i class="fa-solid fa-plus"></i>
+        مشاهده محصولات
+    </a>
+</div>
+
+</div>
+
+</section>
+
+<footer>
+    <div class="container">
+        <div class="copyright">
+            <p>© 2025 Nudéa Beauty Store — تمامی حقوق محفوظ است</p>
+        </div>
+    </div>
+</footer>
+
+<script src="js/products-data.js"></script>
+<script src="js/cart-page.js"></script>
+
+</body>
+
+</html>

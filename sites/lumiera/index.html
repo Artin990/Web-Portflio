@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لومیرا | استودیو زیبایی و پوست</title>
+<link rel="stylesheet" href="../../fonts/vazirmatn.css">
+<style>
+/* ============ Design tokens — inspired by Framer × Stripe ============ */
+:root{
+  --void:#050505; --surface:#0a0a0b; --surface2:#111113; --elev:#17171a;
+  --txt:#ffffff; --muted:#a6a6a6; --ghost:rgba(255,255,255,.55);
+  --gold:#d8b27c; --gold-deep:#b08d57; --rose:#e8c4b8;
+  --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.14);
+  --ring:rgba(216,178,124,.18);
+  --r-btn:100px; --r-card:14px;
+  --sh-float:0 .5px 0 .5px rgba(255,255,255,.08), 0 18px 44px -18px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--txt);font-family:Vazirmatn,'Segoe UI',Tahoma,system-ui,sans-serif;line-height:1.7;overflow-x:hidden;font-feature-settings:"ss01"}
+::selection{background:rgba(216,178,124,.32)}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+.mono{font-family:'Cascadia Code',Consolas,monospace;direction:ltr;unicode-bidi:isolate}
+
+/* ============ Nav ============ */
+.nav{position:fixed;top:0;inset-inline:0;z-index:70;padding:14px 0;border-bottom:1px solid transparent;transition:background .35s,border-color .35s}
+.nav.solid{background:rgba(5,5,5,.82);border-bottom-color:var(--line)}
+.nav .in{display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:19px;letter-spacing:-.3px}
+.brand .mk{width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,var(--gold),#8a6a3f);display:grid;place-items:center;color:#141008;font-weight:900;font-size:15px}
+.brand small{display:block;font-size:10px;color:var(--muted);font-weight:400;letter-spacing:1px}
+.nav nav{display:flex;gap:30px;font-size:14.5px;color:var(--ghost)}
+.nav nav a{transition:color .2s}
+.nav nav a:hover{color:var(--txt)}
+.pill-btn{border-radius:var(--r-btn);padding:10px 22px;font-weight:700;font-size:13.5px;cursor:pointer;transition:transform .25s,box-shadow .25s;border:0;font-family:inherit}
+.pill-white{background:var(--txt);color:#000}
+.pill-white:hover{transform:scale(1.04);box-shadow:0 0 34px rgba(255,255,255,.25)}
+.pill-frost{background:rgba(255,255,255,.09);color:var(--txt);border:1px solid var(--line2)}
+.pill-frost:hover{background:rgba(255,255,255,.16)}
+.pill-gold{background:linear-gradient(135deg,var(--gold),var(--gold-deep));color:#171208}
+.pill-gold:hover{transform:scale(1.04);box-shadow:0 10px 40px -8px rgba(216,178,124,.45)}
+@media(max-width:820px){.nav nav{display:none}}
+
+/* ============ Hero ============ */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;padding:130px 0 90px;overflow:hidden}
+.hero .glow{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none}
+.hero .g1{width:560px;height:560px;background:radial-gradient(circle,rgba(216,178,124,.16),transparent 65%);top:-160px;inset-inline-start:-120px}
+.hero .g2{width:640px;height:640px;background:radial-gradient(circle,rgba(120,90,220,.10),transparent 65%);bottom:-220px;inset-inline-end:-160px}
+.hero .grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 80% 65% at 50% 35%,#000 30%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse 80% 65% at 50% 35%,#000 30%,transparent 75%)}
+.hero .in{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+@media(max-width:900px){.hero .in{grid-template-columns:1fr}}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;color:var(--gold);border:1px solid var(--ring);border-radius:99px;padding:7px 16px;background:rgba(216,178,124,.06)}
+.eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold);font-style:normal}
+h1{font-size:clamp(38px,5.8vw,68px);line-height:1.16;font-weight:900;letter-spacing:-1.5px;margin:22px 0 0}
+h1 .it{font-style:normal;background:linear-gradient(100deg,var(--gold) 10%,var(--rose) 60%,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{margin-top:20px;color:var(--muted);font-size:16.5px;max-width:480px}
+.hero-btns{display:flex;gap:14px;margin-top:36px;flex-wrap:wrap}
+.hero-mini{display:flex;gap:34px;margin-top:48px;flex-wrap:wrap}
+.hero-mini .it b{display:block;font-size:26px;font-weight:900;letter-spacing:-1px}
+.hero-mini .it span{font-size:12.5px;color:var(--muted)}
+
+/* hero visual card stack */
+.stack{position:relative;height:520px}
+.stack .ph{position:absolute;border-radius:20px;border:1px solid var(--line);box-shadow:var(--sh-float);overflow:hidden}
+.stack .p1{inset:0 12% 18% 0;background:linear-gradient(160deg,#2b2131,#120d18 70%)}
+.stack .p2{inset:18% 0 0 22%;background:linear-gradient(160deg,#241a12,#0f0b07 75%)}
+.stack .p3{inset:auto 18% -4% 12%;height:150px;background:rgba(255,255,255,.045);border-color:var(--line2);display:flex;align-items:center;gap:14px;padding:0 20px;backdrop-filter:blur(6px)}
+.avail{display:flex;gap:8px;align-items:center}
+.avail .dot{width:8px;height:8px;border-radius:50%;background:#34d399;box-shadow:0 0 10px #34d399;font-style:normal}
+.p-ic{position:absolute;inset:0;display:grid;place-items:center;font-size:84px;opacity:.85}
+.p-cap{position:absolute;bottom:14px;inset-inline:14px;font-size:12px;color:rgba(255,255,255,.75);background:rgba(5,5,5,.5);border:1px solid var(--line);border-radius:10px;padding:8px 12px}
+.p-cap b{color:var(--gold)}
+.p3 .av-txt b{display:block;font-size:14px}
+.p3 .av-txt span{font-size:11.5px;color:var(--muted)}
+.p3 .pill-btn{margin-inline-start:auto;font-size:12px;padding:8px 16px}
+@media(max-width:900px){.stack{height:420px;margin-top:20px}}
+
+/* ============ Marquee ============ */
+.marq{border-block:1px solid var(--line);padding:18px 0;overflow:hidden;background:var(--surface);position:relative}
+.marq .lane{display:flex;gap:52px;white-space:nowrap;width:max-content;color:var(--muted);font-size:14px}
+.marq .lane b{color:var(--gold)}
+.marq .sep{color:rgba(255,255,255,.2)}
+
+/* ============ Sections ============ */
+section{padding:100px 0;position:relative}
+.tag{font-size:12px;letter-spacing:2px;color:var(--gold);font-weight:700}
+h2{font-size:clamp(26px,3.6vw,42px);font-weight:900;letter-spacing:-1px;margin-top:10px;line-height:1.3}
+.sec-desc{color:var(--muted);margin-top:12px;max-width:520px;font-size:15.5px}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:44px}
+
+/* services */
+.svc{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:940px){.svc{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.svc{grid-template-columns:1fr}}
+.svc .card{background:var(--surface2);border:1px solid var(--line);border-radius:var(--r-card);padding:26px 22px 24px;position:relative;overflow:hidden;transition:border-color .3s}
+.svc .card::after{content:"";position:absolute;inset-inline-start:-40%;top:-40%;width:130%;height:130%;background:radial-gradient(circle,rgba(216,178,124,.09),transparent 60%);opacity:0;transition:opacity .4s;pointer-events:none}
+.svc .card:hover{border-color:var(--ring)}
+.svc .card:hover::after{opacity:1}
+.svc .ic{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:21px;background:linear-gradient(135deg,rgba(216,178,124,.22),rgba(216,178,124,.06));border:1px solid var(--ring);margin-bottom:16px}
+.svc h3{font-size:17px;font-weight:800;letter-spacing:-.3px}
+.svc p{font-size:13.5px;color:var(--muted);margin-top:7px;min-height:56px}
+.svc .meta{display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-top:14px;border-top:1px dashed rgba(255,255,255,.1)}
+.svc .price{font-size:14px;font-weight:800;color:var(--gold)}
+.svc .dur{font-size:11.5px;color:var(--muted)}
+
+/* ritual / process */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;counter-reset:st}
+@media(max-width:900px){.steps{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:540px){.steps{grid-template-columns:1fr}}
+.st{border:1px solid var(--line);border-radius:var(--r-card);background:linear-gradient(180deg,var(--surface2),var(--void));padding:24px 20px;position:relative}
+.st::before{counter-increment:st;content:"0" counter(st);position:absolute;top:16px;inset-inline-end:18px;font-size:30px;font-weight:900;color:rgba(255,255,255,.07);font-family:Consolas,monospace}
+.st h4{font-size:15.5px;font-weight:800;margin-top:30px}
+.st p{font-size:13px;color:var(--muted);margin-top:6px}
+.st .bar{width:34px;height:3px;border-radius:2px;background:linear-gradient(90deg,var(--gold),var(--rose));margin-top:16px}
+
+/* gallery */
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:800px){.gal{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.gal{grid-template-columns:1fr}}
+.g-item{aspect-ratio:4/5;border-radius:var(--r-card);position:relative;overflow:hidden;border:1px solid var(--line)}
+.g-item .art{position:absolute;inset:0;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.g-item:hover .art{transform:scale(1.06)}
+.g-item .lbl{position:absolute;bottom:0;inset-inline:0;padding:14px;background:linear-gradient(transparent,rgba(3,3,3,.85) 60%)}
+.g-item .lbl b{font-size:14px}
+.g-item .lbl span{display:block;font-size:11.5px;color:var(--muted)}
+.g-item .chip{position:absolute;top:12px;inset-inline-start:12px;font-size:10.5px;padding:4px 10px;border-radius:99px;background:rgba(216,178,124,.14);border:1px solid var(--ring);color:var(--gold)}
+
+/* testimonials */
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:880px){.quotes{grid-template-columns:1fr}}
+.q{background:var(--surface2);border:1px solid var(--line);border-radius:var(--r-card);padding:26px 22px;position:relative}
+.q::before{content:"”";position:absolute;top:6px;inset-inline-end:18px;font-size:64px;color:rgba(216,178,124,.25);font-family:Georgia,serif}
+.q p{font-size:14px;color:#d6d6d6;min-height:84px}
+.q .who{display:flex;align-items:center;gap:12px;margin-top:18px}
+.q .av{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:14px;color:#171208;background:linear-gradient(135deg,var(--gold),var(--rose))}
+.q .who b{font-size:13.5px;display:block}
+.q .who span{font-size:11.5px;color:var(--muted)}
+.stars{color:var(--gold);font-size:12px;letter-spacing:2px;margin-bottom:12px}
+
+/* pricing */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch}
+@media(max-width:900px){.plans{grid-template-columns:1fr;max-width:440px;margin-inline:auto}}
+.pl{background:var(--surface2);border:1px solid var(--line);border-radius:18px;padding:30px 26px;display:flex;flex-direction:column;position:relative}
+.pl.hot{background:linear-gradient(180deg,#15100a,#0b0906);border-color:var(--ring);box-shadow:0 0 0 1px var(--ring),var(--sh-float)}
+.pl .pop{position:absolute;top:-12px;inset-inline-start:22px;background:linear-gradient(135deg,var(--gold),var(--gold-deep));color:#171208;font-size:11px;font-weight:800;border-radius:99px;padding:4px 14px}
+.pl h3{font-size:17px;font-weight:800}
+.pl .amt{font-size:32px;font-weight:900;letter-spacing:-1.2px;margin:14px 0 2px}
+.pl .amt small{font-size:12.5px;color:var(--muted);font-weight:400;letter-spacing:0}
+.pl ul{list-style:none;margin:20px 0 26px;flex:1}
+.pl li{font-size:13.5px;color:var(--muted);padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05);display:flex;gap:10px;align-items:center}
+.pl li i{color:var(--gold);font-style:normal}
+.pl .pill-btn{width:100%}
+
+/* booking CTA */
+.book{border:1px solid var(--line);border-radius:24px;padding:56px 40px;text-align:center;position:relative;overflow:hidden;background:
+ radial-gradient(640px 280px at 50% -40%,rgba(216,178,124,.16),transparent 70%),var(--surface)}
+.book h2{margin-top:0}
+.book .sub2{color:var(--muted);max-width:460px;margin:14px auto 30px;font-size:15px}
+.book .hero-btns{justify-content:center}
+.fine{font-size:12px;color:var(--muted);margin-top:22px}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:54px 0 30px;background:var(--surface)}
+.f-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px}
+@media(max-width:820px){.f-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.f-grid{grid-template-columns:1fr}}
+.f-grid h5{font-size:13.5px;letter-spacing:.5px;margin-bottom:14px;color:var(--txt)}
+.f-grid a,.f-grid p{display:block;font-size:13px;color:var(--muted);margin-bottom:9px;transition:color .2s}
+.f-grid a:hover{color:var(--gold)}
+.f-bottom{margin-top:40px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-size:12px;color:var(--muted);flex-wrap:wrap;gap:10px}
+
+.reveal{opacity:1}
+.no-js .reveal{opacity:1!important;transform:none!important}
+</style>
+</head>
+<body>
+
+<div class="nav" id="nav"><div class="wrap in">
+  <div class="brand"><div class="mk">L</div><div>لومیرا<small>LUMIÈRA STUDIO</small></div></div>
+  <nav>
+    <a href="#services">خدمات</a>
+    <a href="#ritual">مسیر مراقبت</a>
+    <a href="#gallery">نمونه‌کارها</a>
+    <a href="#plans">تعرفه‌ها</a>
+  </nav>
+  <button class="pill-btn pill-white" onclick="document.getElementById('book').scrollIntoView()">رزرو نوبت</button>
+</div></div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="glow g1"></div><div class="glow g2"></div><div class="grid-bg"></div>
+  <div class="wrap in">
+    <div>
+      <span class="eyebrow"><i></i> استودیو زیبایی و پوست — مشهد</span>
+      <h1>زیبایی، <span class="it">به سبک شما</span><br>طراحی می‌شود.</h1>
+      <p class="sub">در لومیرا، هر سرویس یک تجربه‌ی شخصی‌سازی‌شده است: مشاوره‌ی تخصصی پوست، کادر حرفه‌ای و محصولاتی که پوست شما دوستشان دارد.</p>
+      <div class="hero-btns">
+        <button class="pill-btn pill-gold" onclick="document.getElementById('book').scrollIntoView()">✨ همین حالا نوبت بگیرید</button>
+        <button class="pill-btn pill-frost" onclick="document.getElementById('services').scrollIntoView()">مشاهده خدمات</button>
+      </div>
+      <div class="hero-mini">
+        <div class="it"><b data-count="9.8" data-dec="1">0</b><span>رضایت مشتریان / ۱۰</span></div>
+        <div class="it"><b data-count="12" >0</b><span>سال تجربه</span></div>
+        <div class="it"><b data-count="25000">0</b><span>سرویس انجام‌شده</span></div>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="ph p1"><div class="p-ic">💆‍♀️</div><div class="p-cap">فیشال تخصصی <b>Gold Ritual</b> — ۹۰ دقیقه</div></div>
+      <div class="ph p2"><div class="p-ic">💅</div><div class="p-cap">ناخن و <b>طراحی مانیکور</b> سفارشی</div></div>
+      <div class="ph p3">
+        <span class="avail"><i class="dot"></i></span>
+        <div class="av-txt"><b>امروز ۳ وقت آزاد دارید</b><span>ساعت ۱۴:۰۰ · ۱۶:۳۰ · ۱۹:۰۰</span></div>
+        <button class="pill-btn pill-gold" onclick="document.getElementById('book').scrollIntoView()">رزرو سریع</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MARQUEE -->
+<div class="marq"><div class="lane" id="lane">
+  <span>فیشال <b>HydraGlow</b></span><span class="sep">✦</span>
+  <span>میکروبلیدینگ ابرو</span><span class="sep">✦</span>
+  <span>ناخن و طراحی ژلیش</span><span class="sep">✦</span>
+  <span>لیزر موهای زائد</span><span class="sep">✦</span>
+  <span>ماساژ صورت <b>لیفتینگ</b></span><span class="sep">✦</span>
+  <span>رنگ و مش مو</span><span class="sep">✦</span>
+  <span>پاکسازی پوست عمیق</span><span class="sep">✦</span>
+</div></div>
+
+<!-- SERVICES -->
+<section id="services"><div class="wrap">
+  <div class="sec-head">
+    <div><div class="tag rv">SERVICES · خدمات</div><h2 class="rv">هر چیزی که پوست و ظاهر شما نیاز دارد</h2>
+      <p class="sec-desc rv">شش سرویس اصلی، همگی با محصولات درجه یک و کادر دارای مدرک بین‌المللی.</p></div>
+    <a class="pill-btn pill-frost rv" href="#plans">مشاهده تعرفه‌ها</a>
+  </div>
+  <div class="svc">
+    <div class="card rv"><div class="ic">✨</div><h3>فیشال تخصصی</h3><p>پاکسازی عمیق، لایه‌برداری ملایم و ماساژ لیفتینگ متناسب با نوع پوست شما.</p>
+      <div class="meta"><span class="price">از ۱,۸۵۰,۰۰۰ تومان</span><span class="dur">۶۰–۹۰ دقیقه</span></div></div>
+    <div class="card rv"><div class="ic">💅</div><h3>ناخن و مانیکور</h3><p>کیور، ژلیش، کاشت و طراحی سفارشی با استریک کامل ابزار و متریال اورجینال.</p>
+      <div class="meta"><span class="price">از ۹۵۰,۰۰۰ تومان</span><span class="dur">۴۵–۱۲۰ دقیقه</span></div></div>
+    <div class="card rv"><div class="ic">🌹</div><h3>میکروبلیدینگ ابرو</h3><p>طراحی متناسب با فرم صورت با هاشور طبیعی و پیگمنت‌های نیمه‌دائمی.</p>
+      <div class="meta"><span class="price">از ۴,۲۰۰,۰۰۰ تومان</span><span class="dur">۲ جلسه</span></div></div>
+    <div class="card rv"><div class="ic">⚡</div><h3>لیزر موهای زائد</h3><p>دستگاه الکسندرایت نسل جدید با پنل خنک‌کننده و بدون درد، زیر نظر پزشک.</p>
+      <div class="meta"><span class="price">از ۲,۴۰۰,۰۰۰ تومان</span><span class="dur">۸ عدد</span></div></div>
+    <div class="card rv"><div class="ic">🧖‍♀️</div><h3>پاکسازی و ماسک</h3><p>پکیج پوست‌شادابی: بخور، استخراج کمدون، ماسک روشن‌کننده و سировیتامین C.</p>
+      <div class="meta"><span class="price">از ۱,۴۰۰,۰۰۰ تومان</span><span class="dur">۵۰ دقیقه</span></div></div>
+    <div class="card rv"><div class="ic">💇‍♀️</div><h3>مو و رنگ</h3><p>کراتین، پروتئین‌تراپی، بالیاژ و رنگ‌های بدون‌آمونیاک با مشاوره قبل از سرویس.</p>
+      <div class="meta"><span class="price">توافقی</span><span class="dur">۱–۴ ساعت</span></div></div>
+  </div>
+</div></section>
+
+<!-- RITUAL -->
+<section id="ritual" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
+  <div class="sec-head"><div>
+    <div class="tag rv">THE RITUAL · مسیر مراقبت</div>
+    <h2 class="rv">چهار گام تا تجربه‌ی لومیرا</h2>
+  </div></div>
+  <div class="steps">
+    <div class="st rv"><h4>مشاوره‌ی رایگان</h4><p>بررسی پوست و مو و شناخت سلیقه‌ی شما، آنلاین یا حضوری.</p><div class="bar"></div></div>
+    <div class="st rv"><h4>طراحی برنامه</h4><p>پیشنهاد سرویس‌ها و زمان‌بندی مناسب بودجه و تقویم شما.</p><div class="bar"></div></div>
+    <div class="st rv"><h4>روز سرویس</h4><p>وقت رزورشده، محیط آرام، نوشیدنی مهمانی و ابزار استریل.</p><div class="bar"></div></div>
+    <div class="st rv"><h4>پشتیبانی پس از سرویس</h4><p>راهنمای مراقبت خانگی و پیگیری ۴۸ ساعته‌ی نتیجه.</p><div class="bar"></div></div>
+  </div>
+</div></section>
+
+<!-- GALLERY -->
+<section id="gallery"><div class="wrap">
+  <div class="sec-head"><div>
+    <div class="tag rv">PORTFOLIO · نمونه‌کارها</div>
+    <h2 class="rv">نتیجه‌ها، نه تبلیغات</h2>
+    <p class="sec-desc rv">برخی از کارهای انجام‌شده در استودیو — با رضایت و اجازه‌ی مراجعان.</p>
+  </div></div>
+  <div class="gal">
+    <div class="g-item"><div class="art" style="background:radial-gradient(300px 220px at 30% 20%,#3b2b4d,transparent 65%),linear-gradient(160deg,#241a30,#0c0910)"></div><span class="chip">فیشال</span><div class="lbl"><b>روشن‌سازی پوست HydraGlow</b><span>۳ جلسه · ۹۲٪ رضایت</span></div></div>
+    <div class="g-item"><div class="art" style="background:radial-gradient(300px 220px at 70% 30%,#4d2b33,transparent 65%),linear-gradient(160deg,#2e171d,#120809)"></div><span class="chip">ناخن</span><div class="lbl"><b>مانیکور ژلیش مینیمال</b><span>طراحی فرانسوی مدرن</span></div></div>
+    <div class="g-item"><div class="art" style="background:radial-gradient(300px 220px at 40% 70%,#2b4049,transparent 65%),linear-gradient(160deg,#152a30,#070f12)"></div><span class="chip">ابرو</span><div class="lbl"><b>میکروبلیدینگ هاشوری</b><span>ثبات رنگ ۱۸ ماه</span></div></div>
+    <div class="g-item"><div class="art" style="background:radial-gradient(300px 220px at 60% 25%,#49412b,transparent 65%),linear-gradient(160deg,#2c2712,#100d05)"></div><span class="chip">مو</span><div class="lbl"><b>بالیاژ کاراملی</b><span>رنگ بدون‌آمونیاک</span></div></div>
+    <div class="g-item"><div class="art" style="background:radial-gradient(300px 220px at 25% 60%,#3a2b49,transparent 65%),linear-gradient(160deg,#221231,#0d0713)"></div><span class="chip">پاکسازی</span><div class="lbl"><b>پکیج پوست شاداب</b><span>ماسک ویتامین C</span></div></div>
+    <div class="g-item"><div class="art" style="background:radial-gradient(300px 220px at 75% 70%,#2b4936,transparent 65%),linear-gradient(160deg,#12301f,#06120b)"></div><span class="chip">لیزر</span><div class="lbl"><b>دوره لیزر ۸ ترم</b><span>۸۵٪ کاهش در ۶ ماه</span></div></div>
+  </div>
+</div></section>
+
+<!-- TESTIMONIALS -->
+<section style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap">
+  <div class="sec-head"><div>
+    <div class="tag rv">VOICES · بازخوردها</div>
+    <h2 class="rv">مشتری‌هایمان چه می‌گویند</h2>
+  </div></div>
+  <div class="quotes">
+    <div class="q rv"><div class="stars">★★★★★</div><p>اولین بارم بود این‌قدر حس خوبی از فیشال گرفتم. پوستم دو هفته بعد هم هنوز شاداب بود؛ پیگیری‌شون بعد از سرویس واقعاً حرفه‌ایه.</p><div class="who"><div class="av">م‌ر</div><div><b>مریم ر.</b><span>فیشال HydraGlow</span></div></div></div>
+    <div class="q rv"><div class="stars">★★★★★</div><p>طراحی ناخن‌ها دقیقاً همونی شد که تو عکس نشون داده بودم. محیط استودیو تمیز و آرامش‌بخشه و نوبت‌دهی آنلاینشون عالی کار می‌کنه.</p><div class="who"><div class="av">س‌ک</div><div><b>سارا ک.</b><span>مانیکور ژلیش</span></div></div></div>
+    <div class="q rv"><div class="stars">★★★★☆</div><p>دوره لیزر رو با مشورت پزشک خودشون شروع کردم، نه فروش بیشتر. نتیجه بعد از شش ترم عالی بود و بدون درد.</p><div class="who"><div class="av">ن‌م</div><div><b>نگار م.</b><span>لیزر موهای زائد</span></div></div></div>
+  </div>
+</div></section>
+
+<!-- PLANS -->
+<section id="plans"><div class="wrap">
+  <div class="sec-head"><div>
+    <div class="tag rv">PLANS · عضویت</div>
+    <h2 class="rv">پکیج‌های مراقبت ماهانه</h2>
+    <p class="sec-desc rv">تا ۳۰٪ صرفه‌جویی با عضویت ماهانه؛ لغو هر زمان، بدون جریمه.</p>
+  </div></div>
+  <div class="plans">
+    <div class="pl rv"><h3>برنز</h3><div class="amt">۱,۹۰۰ <small>هزار تومان / ماه</small></div>
+      <ul><li><i>✓</i> یک فیشال پایه (۶۰ دقیقه)</li><li><i>✓</i> یک ژلیش دست</li><li><i>✓</i> ۱۰٪ تخفیف سایر خدمات</li></ul>
+      <button class="pill-btn pill-frost">انتخاب پکیج</button></div>
+    <div class="pl hot rv"><span class="pop">محبوب‌ترین ✦</span><h3>گلد</h3><div class="amt">۳,۴۰۰ <small>هزار تومان / ماه</small></div>
+      <ul><li><i>✓</i> دو فیشال تخصصی (۹۰ دقیقه)</li><li><i>✓</i> مانیکور + پدیکور</li><li><i>✓</i> یک ماسک پاکسازی</li><li><i>✓</i> ۱۵٪ تخفیف و اولویت رزرو</li></ul>
+      <button class="pill-btn pill-gold">انتخاب پکیج</button></div>
+    <div class="pl rv"><h3>پلاتینیوم</h3><div class="amt">۵,۹۰۰ <small>هزار تومان / ماه</small></div>
+      <ul><li><i>✓</i> همه‌ی خدمات پکیج گلد</li><li><i>✓</i> یک جلسه مو (کراتین/رنگ)</li><li><i>✓</i> مشاوره‌ی فصلی پوست</li><li><i>✓</i> ۲۰٪ تخفیف + سرویس VIP</li></ul>
+      <button class="pill-btn pill-frost">انتخاب پکیج</button></div>
+  </div>
+</div></section>
+
+<!-- BOOKING -->
+<section id="book" style="padding-bottom:120px"><div class="wrap">
+  <div class="book rv">
+    <div class="tag">READY? · شروع کنید</div>
+    <h2>نوبت شما امروز آزاد است</h2>
+    <p class="sub2">فرم کوتاه رزرو را پر کنید — کارشناس ما در کمتر از ۱۵ دقیقه برای تأیید ساعت با شما تماس می‌گیرد.</p>
+    <div class="hero-btns">
+      <button class="pill-btn pill-gold" onclick="alert('دمو: به صفحه رزرو آنلاین متصل می‌شود ✨')">رزرو آنلاین نوبت</button>
+      <button class="pill-btn pill-frost" onclick="alert('تماس: ۰۵۱-۰۰۰۰۰۰۰۰')">مشاوره تلفنی رایگان</button>
+    </div>
+    <div class="fine">شنبه تا پنجشنبه ۹–۲۱ · مشهد، بلوار مژده، پلاک ۱۲</div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="f-grid">
+    <div>
+      <div class="brand" style="margin-bottom:14px"><div class="mk">L</div><div>لومیرا<small>LUMIÈRA STUDIO</small></div></div>
+      <p>استودیو زیبایی و پوست با بیش از ۱۲ سال تجربه؛ جایی که مراقبت، یک آیین روزانه است.</p>
+    </div>
+    <div><h5>خدمات</h5><a href="#services">فیشال تخصصی</a><a href="#services">ناخن و مانیکور</a><a href="#services">میکروبلیدینگ</a><a href="#services">لیزر</a></div>
+    <div><h5>استودیو</h5><a href="#ritual">مسیر مراقبت</a><a href="#gallery">نمونه‌کارها</a><a href="#plans">تعرفه‌ها</a><a href="#book">رزرو نوبت</a></div>
+    <div><h5>تماس</h5><p>مشهد، بلوار مژده پلاک ۱۲</p><p class="mono">051-0000-0000</p><p>hello@lumiera.studio</p></div>
+  </div>
+  <div class="f-bottom"><span>© ۱۴۰۵ لومیرا — تمامی حقوق محفوظ است.</span><span>ساخته‌شده با دقت ✦</span></div>
+</div></footer>
+
+<script src="../../gsap.min.js"></script>
+<script src="../../ScrollTrigger.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* reveal system */
+gsap.utils.toArray('.rv').forEach(el=>{
+  gsap.from(el,{y:36,opacity:0,duration:.85,ease:'power3.out',clearProps:'all',
+    scrollTrigger:{trigger:el,start:'top 88%'}});
+});
+
+/* hero entrance */
+gsap.timeline({delay:.1})
+  .from('.hero .eyebrow',{y:24,opacity:0,duration:.7,ease:'power3.out'})
+  .from('h1',{y:40,opacity:0,duration:.9,ease:'power3.out'},'-=.4')
+  .from('.sub',{y:24,opacity:0,duration:.7},'-=.55')
+  .from('.hero-btns',{y:24,opacity:0,duration:.7},'-=.45')
+  .from('.hero-mini .it',{y:20,opacity:0,stagger:.12,duration:.6},'-=.4')
+  .from('.stack .p1',{x:60,opacity:0,rotate:3,duration:1,ease:'power3.out'},'-=.9')
+  .from('.stack .p2',{x:80,opacity:0,duration:.9,ease:'power3.out'},'-=.75')
+  .from('.stack .p3',{y:40,opacity:0,duration:.8,ease:'power3.out'},'-=.6');
+
+/* stack float */
+gsap.to('.stack .p1',{y:-14,duration:3.2,yoyo:true,repeat:-1,ease:'sine.inOut'});
+gsap.to('.stack .p2',{y:12,duration:2.6,yoyo:true,repeat:-1,ease:'sine.inOut'});
+gsap.to('.hero .g1',{x:60,y:80,duration:9,yoyo:true,repeat:-1,ease:'sine.inOut'});
+gsap.to('.hero .g2',{x:-70,y:-60,duration:11,yoyo:true,repeat:-1,ease:'sine.inOut'});
+
+/* marquee */
+const lane=document.getElementById('lane');
+lane.innerHTML += lane.innerHTML;
+gsap.to(lane,{xPercent:-50,duration:26,ease:'none',repeat:-1});
+
+/* counters */
+document.querySelectorAll('[data-count]').forEach(el=>{
+  const target=parseFloat(el.dataset.count), dec=+(el.dataset.dec||0);
+  const o={v:0};
+  ScrollTrigger.create({trigger:el,start:'top 92%',once:true,onEnter:()=>{
+    gsap.to(o,{v:target,duration:1.8,ease:'power2.out',onUpdate:()=>{
+      let s = dec? o.v.toFixed(dec) : Math.round(o.v).toLocaleString('fa-IR');
+      if(target>=1000) s = Math.round(o.v).toLocaleString('fa-IR')+'+';
+      el.textContent = s;
+    }});
+  }});
+});
+
+/* cards tilt-lift */
+gsap.utils.toArray('.svc .card').forEach(c=>{
+  c.addEventListener('mouseenter',()=>gsap.to(c,{y:-8,duration:.35,ease:'power2.out'}));
+  c.addEventListener('mouseleave',()=>gsap.to(c,{y:0,duration:.35}));
+});
+/* gallery stagger */
+gsap.from('.g-item',{scale:.9,opacity:0,duration:.7,stagger:.09,ease:'power3.out',
+  scrollTrigger:{trigger:'.gal',start:'top 85%'}});
+
+/* nav solidify */
+addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('solid',scrollY>40));
+</script>
+</body>
+</html>

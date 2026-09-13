@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>نمای کارها ⁂ طراح و توسعه‌دهنده تعاملی وب</title>
+  <meta name="description" content="نمایشگاه تعاملی نمونه‌کارهای طراحی رابط کاربری، فرانت‌اند و موشن وب">
+  <link rel="stylesheet" crossorigin href="/assets/index-D5zpw1WX.css">
+</head>
+<body>
+  <div id="root" role="application" aria-label="Portfolio Application"></div>
+
+  <!-- In-Page Live Modal -->
+  <div id="live-preview-modal" onclick="handleModalBackdropClick(event)">
+    <div class="modal-sheet-window" id="modalWindow">
+      <div class="modal-sheet-header">
+        <div class="modal-sheet-dots">
+          <i style="background:#ff5f56" onclick="closeLiveModal()" title="بستن (ESC)"></i>
+          <i style="background:#ffbd2e" onclick="toggleModalFullscreen()" title="تغییر اندازه"></i>
+          <i style="background:#27c93f" onclick="toggleModalFullscreen()" title="تمام‌صفحه"></i>
+        </div>
+
+        <div class="modal-sheet-title">
+          <span id="modalProjectName">پیش‌نمایش زنده</span>
+          <span class="badge" id="modalProjectBadge">دموی زنده و تعاملی</span>
+        </div>
+
+        <div class="modal-sheet-actions">
+          <button class="modal-sheet-btn" onclick="closeLiveModal()">
+            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <span>بستن (Esc)</span>
+          </button>
+          <a class="modal-sheet-btn" id="modalExternalLink" href="#" target="_blank" rel="noopener">
+            <span>تب جدید</span>
+            <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2" fill="none"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+      <iframe class="modal-sheet-iframe" id="liveIframe" src="about:blank"></iframe>
+    </div>
+  </div>
+
+  <script>
+    window.openLiveModal = function(url, title) {
+      const modal = document.getElementById('live-preview-modal');
+      const iframe = document.getElementById('liveIframe');
+      const titleEl = document.getElementById('modalProjectName');
+      const extLink = document.getElementById('modalExternalLink');
+      
+      titleEl.textContent = title || 'پیش‌نمایش زنده';
+      extLink.href = url;
+      iframe.src = url;
+      modal.classList.add('active');
+    };
+
+    window.closeLiveModal = function() {
+      const modal = document.getElementById('live-preview-modal');
+      modal.classList.remove('active');
+      setTimeout(() => {
+        document.getElementById('liveIframe').src = 'about:blank';
+      }, 300);
+    };
+
+    window.handleModalBackdropClick = function(e) {
+      if (e.target.id === 'live-preview-modal') {
+        closeLiveModal();
+      }
+    };
+
+    window.toggleModalFullscreen = function() {
+      const w = document.getElementById('modalWindow');
+      if (w.style.maxWidth === '100%') {
+        w.style.maxWidth = '1400px';
+        w.style.height = '94vh';
+      } else {
+        w.style.maxWidth = '100%';
+        w.style.height = '100vh';
+      }
+    };
+
+    window.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeLiveModal();
+      }
+    });
+
+    document.addEventListener('click', function(e) {
+      const liveBtn = e.target.closest('a[href*="/sites/"]');
+      if (liveBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        const url = liveBtn.getAttribute('href');
+        let title = 'پیش‌نمایش پروژه';
+        if (url.includes('lumiera')) title = 'لومیرا (lumiera)';
+        else if (url.includes('nudea')) title = 'Nudéa Beauty (nudea)';
+        else if (url.includes('gsap-demo')) title = 'آزمایشگاه حرکت (gsap-demo)';
+        else if (url.includes('gsap-showcase')) title = 'GSAP Showcase (gsap-showcase)';
+        else if (url.includes('khordo')) title = 'خُردو (khordo)';
+        window.openLiveModal(url, title);
+      }
+    }, true);
+  </script>
+  <script type="module" crossorigin src="/assets/index-BZ_LNnp5.js"></script>
+</body>
+</html>

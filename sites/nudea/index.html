@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nudéa Beauty | فروشگاه لوازم آرایشی</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <link rel="stylesheet" href="../../fonts/poppins/poppins-local.css"> <link rel="stylesheet" href="../../fonts/vazirmatn.css">
+
+    <link rel="stylesheet"
+        href="../../vendor/fontawesome-6.6/css/all.min.css">
+
+</head>
+
+<body>
+
+<!-- Loading -->
+
+<div id="loader">
+
+    <div class="loader-content">
+
+        <div class="logo-circle">
+
+            <span>N</span>
+
+        </div>
+
+        <h2>Nudéa Beauty</h2>
+
+        <div class="loading-bar">
+
+            <span></span>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Header -->
+
+<header>
+
+<div class="container">
+
+<div class="header">
+
+<button class="menu-btn">
+
+<i class="fa-solid fa-bars"></i>
+
+</button>
+
+<a href="index.html" class="logo">
+
+<div class="logo-img">
+
+<img src="images/logo.jpeg" alt="">
+
+</div>
+
+<div class="logo-text">
+
+<h2>Nudéa</h2>
+
+<p>Beauty Store</p>
+
+</div>
+
+</a>
+
+<div class="search-box">
+
+<input type="text" id="searchInput" placeholder="جستجوی محصولات...">
+
+<button>
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+</button>
+
+</div>
+
+<div class="header-icons">
+
+<a href="login.html">
+
+<i class="fa-regular fa-user"></i>
+
+</a>
+
+<a href="#">
+
+<i class="fa-regular fa-heart"></i>
+
+</a>
+
+<a href="cart.html" class="cart-icon">
+
+<i class="fa-solid fa-bag-shopping"></i>
+
+<span id="cart-count">
+
+0
+
+</span>
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</header>
+
+<!-- Sidebar -->
+
+<nav class="sidebar">
+
+<div class="close-menu">
+
+<i class="fa-solid fa-xmark"></i>
+
+</div>
+
+<ul>
+
+<li><a href="index.html">خانه</a></li>
+
+<li><a href="#categories">دسته بندی محصولات</a></li>
+
+<li><a href="products.html">محصولات</a></li>
+
+<li><a href="#discount">تخفیف ها</a></li>
+
+<li><a href="#contact">ارتباط با ما</a></li>
+
+<li><a href="admin-login.html">پنل ادمین</a></li>
+
+</ul>
+
+</nav>
+<!-- ================= Hero Slider ================= -->
+
+<section class="hero">
+
+<div class="slider">
+
+<!-- Slide 1 -->
+
+<div class="slide active">
+
+<img src="images/back.png" alt="">
+
+<div class="overlay"></div>
+
+<div class="hero-content">
+
+<span>New Collection 2026</span>
+
+<h1>زیبایی طبیعی خودت را کشف کن</h1>
+
+<p>
+با جدیدترین محصولات آرایشی و مراقبت پوست،
+درخشش واقعی را تجربه کن.
+</p>
+
+<a href="products.html" class="hero-btn">
+مشاهده محصولات
+</a>
+
+</div>
+
+</div>
+
+<!-- Slide 2 -->
+
+<div class="slide">
+
+<img src="images/back.png" alt="">
+
+<div class="overlay"></div>
+
+<div class="hero-content">
+
+<span>Luxury Makeup</span>
+
+<h1>برندهای لوکس دنیا</h1>
+
+<p>
+
+Dior • Chanel • Rare Beauty • Huda Beauty
+
+</p>
+
+<a href="products.html" class="hero-btn">
+
+خرید کنید
+
+</a>
+
+</div>
+
+</div>
+
+<!-- Slide 3 -->
+
+<div class="slide">
+
+<img src="images/back.png" alt="">
+
+<div class="overlay"></div>
+
+<div class="hero-content">
+
+<span>Special Offer</span>
+
+<h1>تا ۵۰٪ تخفیف</h1>
+
+<p>
+
+فقط تا پایان این هفته
+
+</p>
+
+<a href="#discount" class="hero-btn">
+
+مشاهده تخفیف‌ها
+
+</a>
+
+</div>
+
+</div>
+
+<!-- Slide 4 -->
+
+<div class="slide">
+
+<img src="images/back.png" alt="">
+
+<div class="overlay"></div>
+
+<div class="hero-content">
+
+<span>Beauty Starts Here</span>
+
+<h1>مراقبت پوست و مو</h1>
+
+<p>
+
+محصولات اصل با تضمین کیفیت
+
+</p>
+
+<a href="products.html" class="hero-btn">
+
+شروع خرید
+
+</a>
+
+</div>
+
+</div>
+
+<!-- Previous -->
+
+<button class="prev">
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</button>
+
+<!-- Next -->
+
+<button class="next">
+
+<i class="fa-solid fa-chevron-left"></i>
+
+</button>
+
+<!-- Dots -->
+
+<div class="slider-dots">
+
+<span class="dot active"></span>
+
+<span class="dot"></span>
+
+<span class="dot"></span>
+
+<span class="dot"></span>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- پایان Hero -->
+ <!-- ================= Categories ================= -->
+
+<section class="categories" id="categories">
+
+    <div class="section-title">
+
+        <span>Categories</span>
+
+        <h2>دسته بندی محصولات</h2>
+
+        <p>محصول مورد علاقه‌ات را سریع پیدا کن.</p>
+
+    </div>
+
+    <div class="category-container">
+
+        <a href="products.html" class="category-card">
+
+            <div class="category-image">
+
+                <img src="images/buti.jpeg" alt="آرایشی">
+
+            </div>
+
+            <h3>آرایشی</h3>
+
+        </a>
+
+        <a href="products.html" class="category-card">
+
+            <div class="category-image">
+
+                <img src="images/atr.jpeg" alt="عطر">
+
+            </div>
+
+            <h3>عطر</h3>
+
+        </a>
+
+        <a href="products.html" class="category-card">
+
+            <div class="category-image">
+
+                <img src="images/buti10.jpeg" alt="مراقبت پوست">
+
+            </div>
+
+            <h3>مراقبت پوست</h3>
+
+        </a>
+
+        <a href="products.html" class="category-card">
+
+            <div class="category-image">
+
+                <img src="images/IMG_1010.jpeg" alt="مراقبت مو">
+
+            </div>
+
+            <h3>مراقبت مو</h3>
+
+        </a>
+
+    </div>
+
+</section>
+
+<!-- ================= Featured Products ================= -->
+
+<section class="featured-products">
+
+    <div class="section-title">
+
+        <span>Featured</span>
+
+        <h2>محصولات ویژه</h2>
+
+    </div>
+
+    <div class="products-grid">
+
+        <!-- Product -->
+
+        <div class="product-card">
+
+            <span class="discount">20%</span>
+
+            <img src="images/buti2.jpeg" alt="">
+
+            <h3>رژ لب مات Dior</h3>
+
+            <div class="stars">
+
+                ★★★★★
+
+            </div>
+
+            <div class="price">
+
+                <del>3,900,000</del>
+
+                <span>3,120,000 تومان</span>
+
+            </div>
+
+            <button class="add-cart">
+
+                افزودن به سبد
+
+            </button>
+
+        </div>
+
+        <!-- Product -->
+
+        <div class="product-card">
+
+            <span class="discount">35%</span>
+
+            <img src="images/care11.jpeg" alt="">
+
+            <h3>سرم پوست The Ordinary</h3>
+
+            <div class="stars">
+
+                ★★★★★
+
+            </div>
+
+            <div class="price">
+
+                <del>2,100,000</del>
+
+                <span>1,365,000 تومان</span>
+
+            </div>
+
+            <button class="add-cart">
+
+                افزودن به سبد
+
+            </button>
+
+        </div>
+
+        <!-- Product -->
+
+        <div class="product-card">
+
+            <span class="discount">15%</span>
+
+            <img src="images/atr3.jpeg" alt="">
+
+            <h3>عطر Chanel Coco</h3>
+
+            <div class="stars">
+
+                ★★★★★
+
+            </div>
+
+            <div class="price">
+
+                <del>8,900,000</del>
+
+                <span>7,565,000 تومان</span>
+
+            </div>
+
+            <button class="add-cart">
+
+                افزودن به سبد
+
+            </button>
+
+        </div>
+
+        <!-- Product -->
+
+        <div class="product-card">
+
+            <span class="discount">30%</span>
+
+            <img src="images/care.jpeg" alt="">
+
+            <h3>کرم آبرسان CeraVe</h3>
+
+            <div class="stars">
+
+                ★★★★★
+
+            </div>
+
+            <div class="price">
+
+                <del>1,800,000</del>
+
+                <span>1,260,000 تومان</span>
+
+            </div>
+
+            <button class="add-cart">
+
+                افزودن به سبد
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ================= Discount Banner ================= -->
+
+<section class="discount-banner" id="discount">
+
+    <div class="discount-content">
+
+        <span>Special Offer</span>
+
+        <h2>تا ۵۰٪ تخفیف روی محصولات منتخب</h2>
+
+        <p>
+            فقط تا پایان این هفته فرصت داری محصولات مورد علاقه‌ات را با قیمت ویژه تهیه کنی.
+        </p>
+
+        <a href="products.html" class="discount-btn">
+            مشاهده تخفیف‌ها
+        </a>
+
+        <div class="countdown">
+
+            <div class="time-box">
+                <span id="days">07</span>
+                <small>روز</small>
+            </div>
+
+            <div class="time-box">
+                <span id="hours">12</span>
+                <small>ساعت</small>
+            </div>
+
+            <div class="time-box">
+                <span id="minutes">35</span>
+                <small>دقیقه</small>
+            </div>
+
+            <div class="time-box">
+                <span id="seconds">48</span>
+                <small>ثانیه</small>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= Best Sellers ================= -->
+
+<section class="best-sellers">
+
+    <div class="section-title">
+
+        <span>Best Sellers</span>
+
+        <h2>پرفروش‌ترین محصولات</h2>
+
+    </div>
+
+    <div class="products-grid">
+
+        <div class="product-card">
+
+            <img src="images/buti5.jpeg" alt="">
+
+            <h3>رژگونه Rare Beauty</h3>
+
+            <div class="stars">★★★★★</div>
+
+            <span class="price">۲,۹۹۰,۰۰۰ تومان</span>
+
+            <button class="add-cart">
+                افزودن به سبد
+            </button>
+
+        </div>
+
+        <div class="product-card">
+
+            <img src="images/buti16.jpeg" alt="">
+
+            <h3>کرم پودر MAC</h3>
+
+            <div class="stars">★★★★★</div>
+
+            <span class="price">۳,۶۵۰,۰۰۰ تومان</span>
+
+            <button class="add-cart">
+                افزودن به سبد
+            </button>
+
+        </div>
+
+        <div class="product-card">
+
+            <img src="images/atr6.jpeg" alt="">
+
+            <h3>عطر Dior J'adore</h3>
+
+            <div class="stars">★★★★★</div>
+
+            <span class="price">۹,۴۰۰,۰۰۰ تومان</span>
+
+            <button class="add-cart">
+                افزودن به سبد
+            </button>
+
+        </div>
+
+        <div class="product-card">
+
+            <img src="images/care2.jpeg" alt="">
+
+            <h3>سرم پوست La Roche-Posay</h3>
+
+            <div class="stars">★★★★★</div>
+
+            <span class="price">۲,۷۵۰,۰۰۰ تومان</span>
+
+            <button class="add-cart">
+                افزودن به سبد
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= Brands ================= -->
+
+<section class="brands">
+
+    <div class="section-title">
+
+        <span>Top Brands</span>
+
+        <h2>برندهای محبوب</h2>
+
+    </div>
+
+    <div class="brand-container">
+
+        <div class="brand-item">Dior</div>
+
+        <div class="brand-item">Chanel</div>
+
+        <div class="brand-item">Rare Beauty</div>
+
+        <div class="brand-item">Huda Beauty</div>
+
+        <div class="brand-item">MAC</div>
+
+        <div class="brand-item">Maybelline</div>
+
+        <div class="brand-item">The Ordinary</div>
+
+        <div class="brand-item">CeraVe</div>
+
+    </div>
+
+</section>
+<!-- ================= Testimonials ================= -->
+
+<section class="testimonials">
+
+    <div class="section-title">
+
+        <span>Customers</span>
+
+        <h2>رضایت مشتریان</h2>
+
+        <p>نظرات برخی از مشتریان ما</p>
+
+    </div>
+
+    <div class="testimonial-container">
+
+        <div class="testimonial-card">
+
+            <img src="images/logo.jpeg" alt="">
+
+            <h3>زهرا محمدی</h3>
+
+            <div class="stars">★★★★★</div>
+
+            <p>
+                کیفیت محصولات فوق‌العاده بود و سفارش خیلی سریع به دستم رسید.
+            </p>
+
+        </div>
+
+        <div class="testimonial-card">
+
+            <img src="images/logo.jpeg" alt="">
+
+            <h3>نگار احمدی</h3>
+
+            <div class="stars">★★★★★</div>
+
+            <p>
+                بسته‌بندی بسیار شیک و محصولات کاملاً اصل بودند.
+            </p>
+
+        </div>
+
+        <div class="testimonial-card">
+
+            <img src="images/logo.jpeg" alt="">
+
+            <h3>الهام رضایی</h3>
+
+            <div class="stars">★★★★★</div>
+
+            <p>
+                اولین خریدم بود و قطعاً دوباره از این فروشگاه خرید می‌کنم.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= Review Form ================= -->
+
+<section class="review-section">
+
+    <div class="section-title">
+
+        <span>Review</span>
+
+        <h2>ثبت نظر</h2>
+
+    </div>
+
+    <form class="review-form">
+
+        <input type="text" placeholder="نام و نام خانوادگی">
+
+        <input type="email" placeholder="ایمیل">
+
+        <select>
+
+            <option>★★★★★</option>
+            <option>★★★★☆</option>
+            <option>★★★☆☆</option>
+            <option>★★☆☆☆</option>
+            <option>★☆☆☆☆</option>
+
+        </select>
+
+        <textarea placeholder="نظر خود را بنویسید..."></textarea>
+
+        <button type="submit">
+
+            ثبت نظر
+
+        </button>
+
+    </form>
+
+</section>
+
+<!-- ================= Newsletter ================= -->
+
+<section class="newsletter">
+
+    <div class="newsletter-content">
+
+        <h2>
+
+            عضو خبرنامه Nudéa Beauty شوید
+
+        </h2>
+
+        <p>
+
+            از جدیدترین محصولات و تخفیف‌های ویژه زودتر از همه باخبر شوید.
+
+        </p>
+
+        <form>
+
+            <input type="email" placeholder="ایمیل خود را وارد کنید">
+
+            <button>
+
+                عضویت
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+<!-- ================= Footer ================= -->
+
+<footer id="contact">
+
+<div class="footer-container">
+
+<div class="footer-box">
+
+<h3>Nudéa Beauty</h3>
+
+<p>
+
+فروشگاه تخصصی لوازم آرایشی، عطر، مراقبت پوست و مو
+
+</p>
+
+</div>
+
+<div class="footer-box">
+
+<h3>لینک‌های سریع</h3>
+
+<a href="index.html">خانه</a>
+
+<a href="products.html">محصولات</a>
+
+<a href="#categories">دسته‌بندی‌ها</a>
+
+<a href="#discount">تخفیف‌ها</a>
+
+</div>
+
+<div class="footer-box">
+
+<h3>ارتباط با ما</h3>
+
+<p>📞 09123456789</p>
+
+<p>✉️ info@nudeabeauty.com</p>
+
+<p>📍 تهران، ایران</p>
+
+</div>
+
+<div class="footer-box">
+
+<h3>شبکه‌های اجتماعی</h3>
+
+<a href="#"><i class="fa-brands fa-instagram"></i></a>
+
+<a href="#"><i class="fa-brands fa-telegram"></i></a>
+
+<a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+
+</div>
+
+</div>
+
+<div class="copyright">
+
+© 2026 Nudéa Beauty | All Rights Reserved
+
+</div>
+
+</footer>
+
+<!-- سبد خرید شناور -->
+
+<a href="cart.html" class="floating-cart">
+
+<i class="fa-solid fa-bag-shopping"></i>
+
+<span id="floating-cart-count">0</span>
+
+</a>
+
+<!-- دکمه بازگشت به بالا -->
+
+<button id="backToTop">
+
+<i class="fa-solid fa-chevron-up"></i>
+
+</button>
+
+<script src="js/main.js"></script>
+<script src="js/slider.js"></script>
+<script src="js/search.js"></script>
+<script src="js/products-data.js"></script>
+<script src="js/cart.js"></script>
+
+</body>
+
+</html>

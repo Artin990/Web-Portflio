@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html lang="fa" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>پنل مدیریت | Nudéa Beauty</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<link rel="stylesheet"
+href="../../vendor/fontawesome-6.6/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="admin-container">
+
+<!-- Sidebar -->
+
+<aside class="admin-sidebar">
+
+<div class="admin-logo">
+
+<h2>Nudéa</h2>
+
+<p>Admin Panel</p>
+
+</div>
+
+<ul>
+
+<li class="active">
+
+<i class="fa-solid fa-chart-line"></i>
+
+داشبورد
+
+</li>
+
+<li>
+
+<i class="fa-solid fa-box"></i>
+
+محصولات
+
+</li>
+
+<li>
+
+<i class="fa-solid fa-plus"></i>
+
+افزودن محصول
+
+</li>
+
+<li>
+
+<i class="fa-solid fa-cart-shopping"></i>
+
+سفارش‌ها
+
+</li>
+
+<li>
+
+<i class="fa-solid fa-users"></i>
+
+کاربران
+
+</li>
+
+<li>
+
+<i class="fa-solid fa-tags"></i>
+
+تخفیف‌ها
+
+</li>
+
+<li>
+
+<i class="fa-solid fa-gear"></i>
+
+تنظیمات
+
+</li>
+
+<li>
+
+<a href="index.html">
+
+<i class="fa-solid fa-right-from-bracket"></i>
+
+خروج
+
+</a>
+
+</li>
+
+</ul>
+
+</aside>
+
+<!-- Main -->
+
+<main class="admin-main">
+
+<header class="admin-header">
+
+<h1>
+
+داشبورد مدیریت
+
+</h1>
+
+<div>
+
+سلام مدیر 👋
+
+</div>
+
+</header>
+<div class="dashboard-cards">
+
+<div class="dashboard-card">
+
+<i class="fa-solid fa-box"></i>
+
+<h2>
+
+30
+
+</h2>
+
+<p>
+
+محصول
+
+</p>
+
+</div>
+
+<div class="dashboard-card">
+
+<i class="fa-solid fa-users"></i>
+
+<h2>
+
+152
+
+</h2>
+
+<p>
+
+کاربر
+
+</p>
+
+</div>
+
+<div class="dashboard-card">
+
+<i class="fa-solid fa-cart-shopping"></i>
+
+<h2>
+
+74
+
+</h2>
+
+<p>
+
+سفارش
+
+</p>
+
+</div>
+
+<div class="dashboard-card">
+
+<i class="fa-solid fa-money-bill"></i>
+
+<h2>
+
+245M
+
+</h2>
+
+<p>
+
+فروش
+
+</p>
+
+</div>
+
+</div>
+<section class="products-table">
+
+<h2>
+
+مدیریت محصولات
+
+</h2>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+
+عکس
+
+</th>
+
+<th>
+
+نام
+
+</th>
+
+<th>
+
+قیمت
+
+</th>
+
+<th>
+
+موجودی
+
+</th>
+
+<th>
+
+عملیات
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>
+
+<img src="images/product1.jpg">
+
+</td>
+
+<td>
+
+سرم پوست The Ordinary
+
+</td>
+
+<td>
+
+1,365,000
+
+</td>
+
+<td>
+
+25
+
+</td>
+
+<td>
+
+<button>
+
+ویرایش
+
+</button>
+
+<button>
+
+حذف
+
+</button>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</section>
+<section class="add-product">
+
+<h2>
+
+افزودن محصول جدید
+
+</h2>
+
+<form id="addProductForm">
+
+<div class="admin-grid">
+
+<div>
+
+<label>نام محصول</label>
+
+<input
+type="text"
+id="productName"
+placeholder="نام محصول">
+
+</div>
+
+<div>
+
+<label>برند</label>
+
+<input
+type="text"
+id="productBrand"
+placeholder="برند">
+
+</div>
+
+<div>
+
+<label>قیمت</label>
+
+<input
+type="number"
+id="productPrice"
+placeholder="قیمت">
+
+</div>
+
+<div>
+
+<label>موجودی</label>
+
+<input
+type="number"
+id="productStock"
+placeholder="موجودی">
+
+</div>
+
+<div>
+
+<label>دسته بندی</label>
+
+<select id="productCategory">
+
+<option>آرایشی</option>
+
+<option>عطر</option>
+
+<option>مراقبت پوست</option>
+
+<option>مراقبت مو</option>
+
+</select>
+
+</div>
+
+<div>
+
+<label>تصویر محصول</label>
+
+<input
+type="file"
+id="productImage">
+
+</div>
+
+</div>
+
+<label>
+
+توضیحات
+
+</label>
+
+<textarea
+id="productDescription">
+
+</textarea>
+
+<button type="submit">
+
+افزودن محصول
+
+</button>
+
+</form>
+
+</section>
+</main>
+
+</div>
+
+<script src="js/admin.js"></script>
+
+</body>
+
+</html>

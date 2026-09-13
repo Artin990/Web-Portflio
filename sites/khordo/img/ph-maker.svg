@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E7DCC8" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#C9A77C" stop-opacity="0.18"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="#F4EEE2"/>
+  <rect width="400" height="300" fill="url(#g)"/>
+  
+    <path d="M150 200 L250 200 L240 230 H160 Z" fill="none" stroke="#3A2C21" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M200 200 V150" fill="none" stroke="#B26A4F" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M185 150 L215 150 L208 130 L192 130 Z" fill="#B26A4F"/>
+    <path d="M260 110 L285 95" fill="none" stroke="#3A2C21" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="288" cy="92" r="8" fill="#3A2C21"/>
+  
+  <text x="200" y="282" font-family="Tahoma, sans-serif" font-size="14" fill="#3A2C21" text-anchor="middle" opacity="0.5">سازنده</text>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E7DCC8" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#C9A77C" stop-opacity="0.18"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="#F4EEE2"/>
+  <rect width="400" height="300" fill="url(#g)"/>
+  
+    <path d="M70 230 V150 Q70 120 100 120 H140 Q170 120 170 150 V230" fill="none" stroke="#3A2C21" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M230 230 V150 Q230 120 260 120 H300 Q330 120 330 150 V230" fill="none" stroke="#3A2C21" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M150 230 V140 Q200 90 250 140 V230" fill="none" stroke="#3A2C21" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M175 140 Q200 110 225 140" fill="none" stroke="#3A2C21" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="200" cy="95" r="14" fill="none" stroke="#B26A4F" stroke-width="3"/>
+    <path d="M60 230 H340" fill="none" stroke="#3A2C21" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M90 175 H130" fill="none" stroke="#C9A77C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M270 175 H310" fill="none" stroke="#C9A77C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <text x="200" y="282" font-family="Tahoma, sans-serif" font-size="14" fill="#3A2C21" text-anchor="middle" opacity="0.5">خانه تاریخی</text>
+</svg>
