@@ -1523,32 +1523,7 @@ const x6=(i=.8,e=2.5,t=1.2)=>{const[s,a]=C.useState(0),o=C.useRef(0),u=C.useRef(
           className: "w-full flex justify-between items-center flex-row-reverse",
           role: "navigation",
           children: [
-            /* RIGHT SIDE: Logo "نمونه‌کارها" and Flower Icon */
-            v.jsxs("div", {
-              className: "flex items-center gap-x-4",
-              children: [
-                v.jsx(Gn, {
-                  to: "/",
-                  onClick: () => e(!1),
-                  className: "flex justify-center items-end gap-x-2 flex-col pointer-events-auto",
-                  children: v.jsx("h1", {
-                    className: "text-lg text-white font-bold tracking-wider",
-                    children: "نمونه‌کارها"
-                  })
-                }),
-                v.jsx("div", {
-                  className: "pointer-events-auto",
-                  children: v.jsx(wc, {
-                    scrollSensitivity: 5,
-                    clickSensitivity: .7,
-                    dragSensitivity: 10,
-                    className: "w-7 h-7"
-                  })
-                })
-              ]
-            }),
-
-            /* LEFT SIDE: 3-dot Menu Button */
+            /* RIGHT SIDE: 3-dot Menu Button */
             v.jsx("div", {
               className: "flex justify-center items-center pointer-events-auto",
               children: v.jsx(le.button, {
@@ -1582,7 +1557,32 @@ const x6=(i=.8,e=2.5,t=1.2)=>{const[s,a]=C.useState(0),o=C.useRef(0),u=C.useRef(
                   ]
                 })
               })
+            }),/* LEFT SIDE: Logo "نمونه‌کارها" and Flower Icon */
+            v.jsxs("div", {
+              className: "flex items-center gap-x-4",
+              children: [
+                v.jsx(Gn, {
+                  to: "/",
+                  onClick: () => e(!1),
+                  className: "flex justify-center items-end gap-x-2 flex-col pointer-events-auto",
+                  children: v.jsx("h1", {
+                    className: "text-lg text-white font-bold tracking-wider",
+                    children: "نمونه‌کارها"
+                  })
+                }),
+                v.jsx("div", {
+                  className: "pointer-events-auto",
+                  children: v.jsx(wc, {
+                    scrollSensitivity: 5,
+                    clickSensitivity: .7,
+                    dragSensitivity: 10,
+                    className: "w-7 h-7"
+                  })
+                })
+              ]
             })
+
+            
           ]
         })
       }),
