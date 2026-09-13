@@ -38,7 +38,7 @@ const server = http.createServer((req, res) => {
   }
 
   fs.stat(filePath, (err, stats) => {
-    if (err || stats.isDirectory()) {
+    if (err) {
       const indexPath = path.join(__dirname, 'index.html');
       fs.readFile(indexPath, (err2, data) => {
         if (err2) {
@@ -56,10 +56,34 @@ const server = http.createServer((req, res) => {
       return;
     }
 
-    const ext = path.extname(filePath).toLowerCase();
+    let targetFile = filePath;
+    if (stats.isDirectory()) {
+      const subIndex = path.join(filePath, 'index.html');
+      if (fs.existsSync(subIndex)) {
+        targetFile = subIndex;
+      } else {
+        const indexPath = path.join(__dirname, 'index.html');
+        fs.readFile(indexPath, (err2, data) => {
+          if (err2) {
+            res.writeHead(404);
+            res.end('Not Found');
+          } else {
+            res.writeHead(200, {
+              'Content-Type': 'text/html; charset=utf-8',
+              'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',
+              'Pragma': 'no-cache'
+            });
+            res.end(data);
+          }
+        });
+        return;
+      }
+    }
+
+    const ext = path.extname(targetFile).toLowerCase();
     const contentType = MIME_TYPES[ext] || 'application/octet-stream';
 
-    fs.readFile(filePath, (err, data) => {
+    fs.readFile(targetFile, (err, data) => {
       if (err) {
         res.writeHead(500);
         res.end('Error');

@@ -12,7 +12,7 @@
   <div id="root" role="application" aria-label="Portfolio Application"></div>
 
   <!-- In-Page Live Modal (hidden until opened via openLiveModal) -->
-  <div id="live-preview-modal" style="display:none" onclick="handleModalBackdropClick(event)">
+  <div id="live-preview-modal" onclick="handleModalBackdropClick(event)">
     <div class="modal-sheet-window" id="modalWindow">
       <div class="modal-sheet-header">
         <div class="modal-sheet-dots">
@@ -22,8 +22,8 @@
         </div>
 
         <div class="modal-sheet-title">
-          <span id="modalProjectName">پیش‌نمایش زنده</span>
-          <span class="badge" id="modalProjectBadge">دموی زنده و تعاملی</span>
+          <span id="modalProjectName">Live Preview</span>
+          <span class="badge" id="modalProjectBadge">دموی تعاملی و زنده</span>
         </div>
 
         <div class="modal-sheet-actions">
@@ -37,31 +37,60 @@
           </a>
         </div>
       </div>
-      <iframe class="modal-sheet-iframe" id="liveIframe" src="about:blank"></iframe>
+      <div class="modal-sheet-body">
+        <iframe class="modal-sheet-iframe" id="liveIframe" src="about:blank"></iframe>
+      </div>
     </div>
   </div>
 
   <script>
+    function injectNoScrollbar(iframe) {
+      try {
+        const doc = iframe.contentDocument || iframe.contentWindow.document;
+        if (!doc) return;
+        const style = doc.createElement('style');
+        style.id = 'hide-scrollbars-injected';
+        style.textContent = `
+          html, body, * {
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+          }
+          *::-webkit-scrollbar {
+            display: none !important;
+            width: 0px !important;
+            height: 0px !important;
+            background: transparent !important;
+          }
+        `;
+        (doc.head || doc.documentElement).appendChild(style);
+      } catch(e) {}
+    }
+
     window.openLiveModal = function(url, title) {
       const modal = document.getElementById('live-preview-modal');
       const iframe = document.getElementById('liveIframe');
       const titleEl = document.getElementById('modalProjectName');
       const extLink = document.getElementById('modalExternalLink');
       
-      titleEl.textContent = title || 'پیش‌نمایش زنده';
-      extLink.href = url;
-      iframe.src = url;
-      modal.style.display = '';
+      titleEl.textContent = title || 'Live Preview';
+      extLink.href = url || '#';
+      
+      iframe.onload = function() {
+        injectNoScrollbar(iframe);
+      };
+      
+      iframe.src = url || 'about:blank';
       modal.classList.add('active');
     };
 
     window.closeLiveModal = function() {
       const modal = document.getElementById('live-preview-modal');
       modal.classList.remove('active');
-      modal.style.display = 'none';
       setTimeout(() => {
-        document.getElementById('liveIframe').src = 'about:blank';
-      }, 300);
+        if (!modal.classList.contains('active')) {
+          document.getElementById('liveIframe').src = 'about:blank';
+        }
+      }, 400);
     };
 
     window.handleModalBackdropClick = function(e) {
@@ -72,12 +101,16 @@
 
     window.toggleModalFullscreen = function() {
       const w = document.getElementById('modalWindow');
-      if (w.style.maxWidth === '100%') {
-        w.style.maxWidth = '1400px';
-        w.style.height = '94vh';
+      if (w.style.maxWidth === '100vw') {
+        w.style.maxWidth = '1100px';
+        w.style.width = '86vw';
+        w.style.height = '82vh';
+        w.style.borderRadius = '18px';
       } else {
-        w.style.maxWidth = '100%';
+        w.style.maxWidth = '100vw';
+        w.style.width = '100vw';
         w.style.height = '100vh';
+        w.style.borderRadius = '0px';
       }
     };
 
@@ -93,12 +126,12 @@
         e.preventDefault();
         e.stopPropagation();
         const url = liveBtn.getAttribute('href');
-        let title = 'پیش‌نمایش پروژه';
-        if (url.includes('lumiera')) title = 'لومیرا (lumiera)';
-        else if (url.includes('nudea')) title = 'Nudéa Beauty (nudea)';
-        else if (url.includes('gsap-demo')) title = 'آزمایشگاه حرکت (gsap-demo)';
-        else if (url.includes('gsap-showcase')) title = 'GSAP Showcase (gsap-showcase)';
-        else if (url.includes('khordo')) title = 'خُردو (khordo)';
+        let title = 'Live Preview';
+        if (url.includes('lumiera')) title = 'Lumiera';
+        else if (url.includes('nudea')) title = 'Nudéa Beauty';
+        else if (url.includes('gsap-demo')) title = 'Motion Lab';
+        else if (url.includes('gsap-showcase')) title = 'GSAP Showcase';
+        else if (url.includes('khordo')) title = 'Khordo';
         window.openLiveModal(url, title);
       }
     }, true);
