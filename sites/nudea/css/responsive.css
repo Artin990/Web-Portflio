@@ -1,0 +1,10 @@
+/* Nudea Responsive Styles */
+@media (max-width: 992px) {
+  .hero-container { flex-direction: column; text-align: center; }
+  .products-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 16px !important; }
+}
+@media (max-width: 640px) {
+  .products-grid { grid-template-columns: 1fr !important; }
+  .nav-menu { display: none; }
+  .cart-table { font-size: 13px; }
+}
