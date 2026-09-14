@@ -1603,11 +1603,11 @@ const x6=(i=.8,e=2.5,t=1.2)=>{const[s,a]=C.useState(0),o=C.useRef(0),u=C.useRef(
                       exit: "hidden",
                       children: v.jsx(Gn, {
                         to: "/about",
-                        "aria-label": "من کی‌ام؟",
+                        "aria-label": "درباره من",
                         "aria-current": u === "/about" ? "page" : void 0,
                         onClick: f,
                         className: `text-[7vw] max-md:text-[11vw] font-normal hover:text-gray-300 transition-colors duration-200 leading-[1.6] flex justify-center items-center ${u === "/about" ? "text-white" : "text-white/30"}`,
-                        children: "من کی‌ام؟"
+                        children: "درباره من"
                       })
                     })
                   })
@@ -1650,32 +1650,28 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
     [s, a] = C.useState(0),
     o = C.useRef(null),
     [u, c] = C.useState(!1),
-    [formState, setFormState] = C.useState({ name: "", contact: "", message: "", sent: !1 });
+    [formState, setFormState] = C.useState({ name: '', contact: '', message: '', sent: !1 });
 
   C.useEffect(() => {
     const d = () => {
       c(window.innerWidth < 768);
     };
     d();
-    window.addEventListener("resize", d);
+    window.addEventListener('resize', d);
     (async () => {
       const { default: y } = await Aj(async () => {
-        const { default: w } = await import("./lenis-BjvHh5Q9.js");
+        const { default: w } = await import('./lenis-BjvHh5Q9.js');
         return { default: w };
       }, []);
-      if (o.current) {
-        o.current.destroy();
-        o.current = null;
-      }
       if (i.current && e.current) {
-        let w = function(_) {
+        const w = function(_) {
           x.raf(_);
           requestAnimationFrame(w);
         };
         const x = new y({
           wrapper: i.current,
           content: e.current,
-          orientation: u ? "vertical" : "horizontal",
+          orientation: u ? 'vertical' : 'horizontal',
           lerp: 0.08,
           wheelMultiplier: u ? 2 : 1.5,
           smoothWheel: true,
@@ -1684,7 +1680,7 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
         });
         o.current = x;
         window.__lenis = x;
-        x.on("scroll", ({ scroll: _ }) => {
+        x.on('scroll', ({ scroll: _ }) => {
           f(_);
         });
         requestAnimationFrame(w);
@@ -1694,7 +1690,7 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
       }
     })();
     return () => {
-      window.removeEventListener("resize", d);
+      window.removeEventListener('resize', d);
       o.current && (o.current.destroy(), (o.current = null));
     };
   }, [u]);
@@ -1709,154 +1705,219 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
 
   const handleFormSubmit = ev => {
     ev.preventDefault();
-    const mailto = "mailto:arabasal606@gmail.com?subject=" + encodeURIComponent("پیام همکاری از: " + formState.name) + "&body=" + encodeURIComponent("اطلاعات تماس: " + formState.contact + "\n\n" + formState.message);
+    const mailto = 'mailto:arabasal606@gmail.com?subject=' + encodeURIComponent('پیام همکاری از: ' + formState.name) + '&body=' + encodeURIComponent('اطلاعات تماس: ' + formState.contact + '\n\n' + formState.message);
     window.location.href = mailto;
-    setFormState({ name: "", contact: "", message: "", sent: true });
+    setFormState({ name: '', contact: '', message: '', sent: true });
     setTimeout(() => setFormState(prev => ({ ...prev, sent: false })), 4000);
   };
 
-  return v.jsxs("div", {
+  return v.jsxs('div', {
     ref: i,
-    className: "md:fixed md:inset-0 w-screen md:h-screen md:overflow-hidden text-white",
-    style: { background: "#080808", color: "#f3f3f3" },
+    className: 'md:fixed md:inset-0 w-screen md:h-screen md:overflow-hidden text-white',
+    style: { background: '#080808', color: '#f3f3f3' },
     children: [
-      /* Progress Indicator */
-      v.jsx("div", {
-        className: "fixed bottom-8 left-[15%] z-50 max-md:hidden pointer-events-none",
-        children: v.jsx("div", {
-          className: "flex items-center gap-3",
-          children: v.jsxs("div", {
-            className: "text-white text-xs font-mono opacity-60",
-            children: [Math.round(s), "%"]
-          })
+      /* 1. Progress Indicator: Progress bar to the left of the percentage value */
+      v.jsx('div', {
+        className: 'max-md:hidden',
+        style: {
+          position: 'fixed',
+          bottom: '34px',
+          left: '60px',
+          zIndex: 50,
+          pointerEvents: 'none'
+        },
+        children: v.jsxs('div', {
+          style: { display: 'flex', alignItems: 'center', gap: '14px', direction: 'ltr' },
+          children: [
+            /* Progress Bar (to the left in LTR) */
+            v.jsx('div', {
+              style: {
+                width: '120px',
+                height: '4px',
+                background: 'rgba(255,255,255,0.18)',
+                borderRadius: '999px',
+                overflow: 'hidden'
+              },
+              children: v.jsx('div', {
+                style: {
+                  width: Math.round(s) + '%',
+                  height: '100%',
+                  background: '#ffffff',
+                  transition: 'width 0.12s ease-out',
+                  borderRadius: '999px',
+                  boxShadow: '0 0 8px rgba(255,255,255,0.6)'
+                }
+              })
+            }),
+            /* Percentage */
+            v.jsxs('span', {
+              style: {
+                color: 'rgba(255,255,255,0.85)',
+                fontSize: '13px',
+                fontFamily: "'Poppins', monospace, sans-serif",
+                fontWeight: '600',
+                letterSpacing: '0.5px',
+                direction: 'ltr',
+                unicodeBidi: 'isolate'
+              },
+              children: [Math.round(s), '%']
+            })
+          ]
         })
       }),
 
       /* Main Horizontal Scroll Track */
-      v.jsxs("section", {
+      v.jsxs('section', {
         ref: e,
-        className: "max-md:flex-col flex items-center justify-start md:w-fit md:h-full max-md:h-fit",
+        className: 'max-md:flex-col flex items-center justify-start md:w-fit md:h-full max-md:h-fit',
         children: [
           /* =========================================================================
              PANEL 0: HERO (عکس سمت راست، متن‌ها سمت چپ)
              ========================================================================= */
-          v.jsx("div", {
+          v.jsx('div', {
             ref: d => { t.current[0] = d; },
-            className: "w-screen max-md:w-screen h-screen max-md:h-auto max-md:min-h-screen flex items-center justify-center flex-shrink-0 relative overflow-hidden",
-            children: v.jsxs("div", {
-              className: "w-full h-full relative flex flex-col justify-between items-start px-16 max-md:px-6 pb-16 max-md:pb-12 text-right",
-              style: { paddingTop: u ? "96px" : "120px" },
-              dir: "rtl",
+            className: 'w-screen max-md:w-screen h-screen max-md:h-auto max-md:min-h-screen flex items-center justify-center flex-shrink-0 relative overflow-hidden',
+            children: v.jsxs('div', {
+              className: 'w-full h-full relative flex flex-col justify-between items-start px-16 max-md:px-6 pb-16 max-md:pb-12 text-right',
+              style: { paddingTop: u ? '96px' : '120px' },
+              dir: 'rtl',
               children: [
                 /* Background Subtle Accent Circle */
-                v.jsx("div", {
-                  className: "absolute top-1/2 -translate-y-1/2 -left-20 pointer-events-none opacity-15 max-md:hidden",
-                  style: { width: "420px", height: "420px", borderRadius: "50%", background: "radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%)" }
+                v.jsx('div', {
+                  className: 'absolute top-1/2 -translate-y-1/2 -left-20 pointer-events-none opacity-15 max-md:hidden',
+                  style: { width: '420px', height: '420px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%)' }
                 }),
 
                 /* Top row */
-                v.jsxs("div", {
-                  className: "relative z-10 w-full flex justify-between items-center max-md:hidden gap-4",
-                  style: { maxWidth: "1240px", margin: "0 auto" },
+                v.jsxs('div', {
+                  className: 'relative z-10 w-full flex justify-between items-center max-md:hidden gap-4',
+                  style: { maxWidth: '1240px', margin: '0 auto' },
                   children: [
-                    v.jsx("div", {
-                      className: "flex items-center gap-2",
-                      children: v.jsx("p", {
-                        className: "text-xs opacity-50",
-                        children: "عسل عرب — طراح وب و هویت بصری • مشهد"
+                    v.jsx('div', {
+                      className: 'flex items-center gap-2',
+                      children: v.jsx('p', {
+                        className: 'text-xs opacity-50',
+                        children: 'عسل عرب — طراح وب و هویت بصری • مشهد'
                       })
                     }),
-                    v.jsx("div", {
-                      children: v.jsx("p", {
-                        className: "text-xs uppercase font-mono opacity-40 tracking-wider",
-                        children: "من کی‌ام؟ ⁂ ABOUT"
+                    v.jsx('div', {
+                      children: v.jsx('p', {
+                        className: 'text-xs uppercase font-mono opacity-40 tracking-wider',
+                        children: 'درباره من ⁂ ABOUT'
                       })
                     })
                   ]
                 }),
 
                 /* Middle Content Row: Photo on the Right, Texts on the Left */
-                v.jsxs("div", {
-                  className: "relative z-10 w-full flex max-md:flex-col items-center justify-between gap-12 max-md:gap-8 my-auto",
-                  style: { maxWidth: "1240px", margin: "auto" },
+                v.jsxs('div', {
+                  className: 'relative z-10 w-full flex max-md:flex-col items-center justify-between gap-12 max-md:gap-8 my-auto',
+                  style: { maxWidth: '1240px', margin: 'auto' },
                   children: [
                     /* RIGHT: Photo of person */
-                    v.jsxs("div", {
-                      className: "flex-shrink-0 flex flex-col items-start max-md:items-center max-md:w-full",
-                      style: { width: u ? "100%" : "300px" },
+                    v.jsxs('div', {
+                      className: 'flex-shrink-0 flex flex-col items-start max-md:items-center max-md:w-full',
+                      style: { width: u ? '100%' : '300px' },
                       children: [
-                        v.jsx("div", {
+                        v.jsx('div', {
                           style: {
-                            width: u ? "220px" : "290px",
-                            height: u ? "280px" : "380px",
-                            overflow: "hidden",
-                            borderRadius: "12px",
-                            boxShadow: "0 20px 40px -15px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.1)",
-                            background: "#141414"
+                            width: u ? '220px' : '290px',
+                            height: u ? '280px' : '380px',
+                            overflow: 'hidden',
+                            borderRadius: '12px',
+                            boxShadow: '0 20px 40px -15px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.1)',
+                            background: '#141414'
                           },
-                          children: v.jsx("img", {
-                            src: "/img/about/me.jpg",
-                            alt: "عسل عرب",
-                            style: { width: "100%", height: "100%", objectFit: "cover", display: "block" }
+                          children: v.jsx('img', {
+                            src: '/img/about/me.jpg',
+                            alt: 'عسل عرب',
+                            style: { width: '100%', height: '100%', objectFit: 'cover', display: 'block' }
                           })
                         }),
-                        v.jsxs("div", {
-                          className: "mt-3 text-right max-md:text-center w-full",
+                        v.jsxs('div', {
+                          className: 'mt-3 text-right max-md:text-center w-full',
                           children: [
-                            v.jsx("p", { className: "text-sm font-bold text-white", children: "عسل عرب" }),
-                            v.jsx("p", { className: "text-xs opacity-50 mt-0.5", children: "طراح وب و هویت بصری — مشهد" })
+                            v.jsx('p', { className: 'text-sm font-bold text-white', children: 'عسل عرب' }),
+                            v.jsx('p', { className: 'text-xs opacity-50 mt-0.5', children: 'طراح وب و هویت بصری — مشهد' })
                           ]
                         })
                       ]
                     }),
 
                     /* LEFT: Headline, Bio & Highlights */
-                    v.jsxs("div", {
-                      className: "flex-1 flex flex-col items-start text-right max-md:w-full",
-                      style: { maxWidth: "700px" },
+                    v.jsxs('div', {
+                      className: 'flex-1 flex flex-col items-start text-right max-md:w-full',
+                      style: { maxWidth: '700px' },
                       children: [
                         /* Slogan / Headline */
-                        v.jsxs("h1", {
-                          className: "text-4xl max-md:text-2xl font-bold leading-tight text-white mb-6",
-                          style: { lineHeight: "1.3" },
+                        v.jsxs('h1', {
+                          className: 'text-4xl max-md:text-2xl font-bold leading-tight text-white mb-6',
+                          style: { lineHeight: '1.3' },
                           children: [
-                            "خلق تجربیات وب تعاملی،",
-                            v.jsx("br", {}),
-                            v.jsx("span", { style: { color: "rgba(255,255,255,0.75)" }, children: "فراتر از کدهای معمولی." })
+                            'خلق تجربیات وب تعاملی،',
+                            v.jsx('br', {}),
+                            v.jsx('span', { style: { color: 'rgba(255,255,255,0.75)' }, children: 'فراتر از کدهای معمولی.' })
                           ]
                         }),
 
                         /* Short Bio */
-                        v.jsx("p", {
-                          className: "text-sm max-md:text-xs opacity-70 leading-relaxed mb-6",
-                          style: { lineHeight: "1.8", maxWidth: "620px" },
-                          children: "دانش‌آموز رشته کامپیوترم و طراحی سایت رو از طریق کلاس‌های فوق‌برنامه شروع کردم. به خاطر علاقه زیادم به طراحی سایت برای خودم سایت‌هایی طراحی کردم و برای افراد دور و بر لوگو طراحی کردم توسط AIها."
+                        v.jsx('p', {
+                          className: 'text-sm max-md:text-xs opacity-70 leading-relaxed mb-6',
+                          style: { lineHeight: '1.8', maxWidth: '620px' },
+                          children: 'دانش‌آموز رشته کامپیوترم و طراحی سایت رو از طریق کلاس‌های فوق‌برنامه شروع کردم. به خاطر علاقه زیادم به طراحی سایت برای خودم سایت‌هایی طراحی کردم و برای افراد دور و بر لوگو طراحی کردم توسط AIها.'
                         }),
 
-                        /* Info Badges & Tools */
-                        v.jsxs("div", {
-                          className: "flex flex-wrap items-center gap-3 pt-4 max-md:flex-col max-md:items-stretch",
-                          style: { borderTop: "1px solid rgba(255,255,255,0.1)", width: "100%" },
+                        /* 2. Info Badges & Tools (generous padding, spacious layout) */
+                        v.jsxs('div', {
+                          style: {
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            alignItems: 'center',
+                            gap: '16px',
+                            paddingTop: '24px',
+                            marginTop: '20px',
+                            borderTop: '1px solid rgba(255,255,255,0.1)',
+                            width: '100%'
+                          },
                           children: [
-                            v.jsxs("div", {
-                              className: "flex items-center gap-2 px-3.5 py-2",
-                              style: { background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "8px" },
+                            /* Badge 1: Location & Rokad */
+                            v.jsxs('div', {
+                              style: {
+                                background: 'rgba(255,255,255,0.06)',
+                                border: '1px solid rgba(255,255,255,0.14)',
+                                borderRadius: '14px',
+                                padding: '14px 24px',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '12px',
+                                lineHeight: '1.5'
+                              },
                               children: [
-                                v.jsx("span", { style: { width: "6px", height: "6px", borderRadius: "50%", background: "#10b981", display: "inline-block" } }),
-                                v.jsx("span", { className: "text-xs opacity-80", children: "مشهد • فریلنسر و باشگاه کسب و کار رکاد" })
+                                v.jsx('span', { style: { width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', display: 'inline-block', flexShrink: 0 } }),
+                                v.jsx('span', { style: { fontSize: '13px', opacity: 0.9, fontWeight: '500' }, children: 'مشهد • فریلنسر و باشگاه کسب و کار رکاد' })
                               ]
                             }),
-                            v.jsxs("div", {
-                              className: "flex items-center gap-2 px-3.5 py-2",
-                              style: { background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "8px" },
+
+                            /* Badge 2: Tech Stack Tools */
+                            v.jsxs('div', {
+                              style: {
+                                background: 'rgba(255,255,255,0.06)',
+                                border: '1px solid rgba(255,255,255,0.14)',
+                                borderRadius: '14px',
+                                padding: '14px 24px',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '12px',
+                                lineHeight: '1.5'
+                              },
                               children: [
-                                v.jsx("span", { className: "text-xs font-mono text-white opacity-90", children: "HTML5" }),
-                                v.jsx("span", { className: "text-xs opacity-30", children: "•" }),
-                                v.jsx("span", { className: "text-xs font-mono text-white opacity-90", children: "CSS3" }),
-                                v.jsx("span", { className: "text-xs opacity-30", children: "•" }),
-                                v.jsx("span", { className: "text-xs font-mono text-white opacity-90", children: "JavaScript" }),
-                                v.jsx("span", { className: "text-xs opacity-30", children: "•" }),
-                                v.jsx("span", { className: "text-xs font-mono text-white opacity-90", children: "AI Branding" })
+                                v.jsx('span', { style: { fontSize: '13px', fontFamily: "'Poppins', sans-serif", color: '#fff', fontWeight: '600' }, children: 'HTML5' }),
+                                v.jsx('span', { style: { opacity: 0.35, fontSize: '12px' }, children: '•' }),
+                                v.jsx('span', { style: { fontSize: '13px', fontFamily: "'Poppins', sans-serif", color: '#fff', fontWeight: '600' }, children: 'CSS3' }),
+                                v.jsx('span', { style: { opacity: 0.35, fontSize: '12px' }, children: '•' }),
+                                v.jsx('span', { style: { fontSize: '13px', fontFamily: "'Poppins', sans-serif", color: '#fff', fontWeight: '600' }, children: 'JavaScript' }),
+                                v.jsx('span', { style: { opacity: 0.35, fontSize: '12px' }, children: '•' }),
+                                v.jsx('span', { style: { fontSize: '13px', fontFamily: "'Poppins', sans-serif", color: '#fff', fontWeight: '600' }, children: 'AI Branding' })
                               ]
                             })
                           ]
@@ -1866,18 +1927,46 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
                   ]
                 }),
 
-                /* Bottom row */
-                v.jsxs("div", {
-                  className: "relative z-10 w-full flex justify-between items-end max-md:flex-col gap-2",
-                  style: { maxWidth: "1240px", margin: "0 auto" },
+                /* 3. Bottom row with SCROLL TO EXPLORE and right arrow on the right of text */
+                v.jsxs('div', {
+                  className: 'relative z-10 w-full flex justify-between items-end max-md:flex-col gap-2',
+                  style: { maxWidth: '1240px', margin: '0 auto' },
                   children: [
-                    v.jsx("p", {
-                      className: "text-xs opacity-40 font-mono",
-                      children: "SCROLL TO EXPLORE ↓"
+                    v.jsxs('div', {
+                      style: {
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '10px',
+                        direction: 'ltr',
+                        fontFamily: "'Poppins', monospace, sans-serif",
+                        fontSize: '12px',
+                        letterSpacing: '1.5px',
+                        opacity: 0.6,
+                        color: '#fff',
+                        fontWeight: '500'
+                      },
+                      children: [
+                        v.jsx('span', { children: 'SCROLL TO EXPLORE' }),
+                        v.jsxs('svg', {
+                          width: '16',
+                          height: '16',
+                          viewBox: '0 0 24 24',
+                          fill: 'none',
+                          stroke: 'currentColor',
+                          strokeWidth: '2',
+                          strokeLinecap: 'round',
+                          strokeLinejoin: 'round',
+                          style: { display: 'inline-block' },
+                          children: [
+                            v.jsx('line', { x1: '5', y1: '12', x2: '19', y2: '12' }),
+                            v.jsx('polyline', { points: '12 5 19 12 12 19' })
+                          ]
+                        })
+                      ]
                     }),
-                    v.jsx("p", {
-                      className: "text-xs opacity-40",
-                      children: "برای مشاهده مهارت‌ها و فرآیند طراحی اسکرول کنید"
+                    v.jsx('p', {
+                      className: 'text-xs opacity-40',
+                      children: 'برای مشاهده مهارت‌ها و فرآیند طراحی اسکرول کنید'
                     })
                   ]
                 })
@@ -1886,405 +1975,516 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
           }),
 
           /* =========================================================================
-             PANEL 1: WHAT WE DO (مهارت‌ها در ۲ ردیف ۳ تایی با آیکون‌های SVG تمیز)
+             PANEL 1: WHAT WE DO (4. Header brought down with generous spacing)
              ========================================================================= */
-          v.jsx("div", {
+          v.jsx('div', {
             ref: d => { t.current[1] = d; },
-            className: "w-screen max-md:w-screen h-screen max-md:h-auto max-md:min-h-screen flex items-center justify-center flex-shrink-0 relative overflow-hidden",
-            style: { width: "100vw" },
-            children: v.jsxs("div", {
-              className: "w-full h-full relative flex flex-col justify-between items-start px-16 max-md:px-6 pt-28 pb-16 max-md:pt-24 max-md:pb-12 text-right",
-              dir: "rtl",
+            className: 'w-screen max-md:w-screen h-screen max-md:h-auto max-md:min-h-screen flex items-center justify-center flex-shrink-0 relative overflow-hidden',
+            style: { width: '100vw' },
+            children: v.jsxs('div', {
+              className: 'w-full h-full relative flex flex-col justify-between items-start px-16 max-md:px-6 pb-16 max-md:pb-12 text-right',
+              style: { paddingTop: u ? '96px' : '135px' },
+              dir: 'rtl',
               children: [
                 /* Section Header */
-                v.jsxs("div", {
-                  className: "relative z-10 w-full flex justify-between items-end max-md:flex-col max-md:items-start gap-4 mb-4",
-                  style: { maxWidth: "1240px", margin: "0 auto 12px auto" },
+                v.jsxs('div', {
+                  className: 'relative z-10 w-full flex justify-between items-end max-md:flex-col max-md:items-start gap-4',
+                  style: { maxWidth: '1240px', margin: '20px auto 36px auto' },
                   children: [
-                    v.jsxs("div", {
+                    v.jsxs('div', {
                       children: [
-                        v.jsx("p", { className: "text-xs uppercase font-mono opacity-50 mb-1 tracking-wider", children: "WHAT WE DO" }),
-                        v.jsx("h2", { className: "text-3xl max-md:text-xl font-bold text-white", children: "کاری که انجام می‌دهیم" })
+                        v.jsx('p', { className: 'text-xs uppercase font-mono opacity-50 mb-2 tracking-wider', children: 'WHAT WE DO' }),
+                        v.jsx('h2', { className: 'text-3xl max-md:text-xl font-bold text-white', children: 'کاری که انجام می‌دهیم' })
                       ]
                     }),
-                    v.jsx("p", {
-                      className: "text-xs opacity-50 max-w-md",
-                      children: "ترکیب مهارت‌های کدنویسی فرانت‌اند، طراحی تعاملی و ابزارهای هوش مصنوعی برای خلق آثار ماندگار"
+                    v.jsx('p', {
+                      className: 'text-xs opacity-60 max-w-md',
+                      style: { lineHeight: '1.8' },
+                      children: 'ترکیب مهارت‌های کدنویسی فرانت‌اند، طراحی تعاملی و ابزارهای هوش مصنوعی برای خلق آثار ماندگار'
                     })
                   ]
                 }),
 
                 /* 2 Rows x 3 Columns Grid */
-                v.jsx("div", {
-                  className: "relative z-10 w-full my-auto",
+                v.jsx('div', {
+                  className: 'relative z-10 w-full my-auto',
                   style: {
-                    display: "grid",
-                    gridTemplateColumns: u ? "1fr" : "repeat(3, 1fr)",
-                    gridTemplateRows: u ? "auto" : "repeat(2, 1fr)",
-                    gap: "20px",
-                    maxWidth: "1240px",
-                    margin: "auto"
+                    display: 'grid',
+                    gridTemplateColumns: u ? '1fr' : 'repeat(3, 1fr)',
+                    gridTemplateRows: u ? 'auto' : 'repeat(2, 1fr)',
+                    gap: '20px',
+                    maxWidth: '1240px',
+                    margin: 'auto'
                   },
                   children: [
                     /* Skill 1 */
-                    v.jsxs("div", {
-                      style: { background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "20px" },
+                    v.jsxs('div', {
+                      style: { background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '22px' },
                       children: [
-                        v.jsxs("div", {
-                          className: "flex items-center justify-between mb-3",
+                        v.jsxs('div', {
+                          className: 'flex items-center justify-between mb-3',
                           children: [
-                            v.jsx("div", {
-                              style: { width: "36px", height: "36px", borderRadius: "8px", background: "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", justifyContent: "center" },
-                              children: v.jsxs("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", className: "text-white opacity-90", children: [v.jsx("polyline", { points: "16 18 22 12 16 6" }), v.jsx("polyline", { points: "8 6 2 12 8 18" })] })
+                            v.jsx('div', {
+                              style: { width: '38px', height: '38px', borderRadius: '10px', background: 'rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', justifyContent: 'center' },
+                              children: v.jsxs('svg', { width: '18', height: '18', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '1.5', strokeLinecap: 'round', strokeLinejoin: 'round', className: 'text-white opacity-90', children: [v.jsx('polyline', { points: '16 18 22 12 16 6' }), v.jsx('polyline', { points: '8 6 2 12 8 18' })] })
                             }),
-                            v.jsx("span", { className: "text-xs font-mono opacity-30", children: "01" })
+                            v.jsx('span', { style: { fontFamily: "'Poppins', sans-serif", fontSize: '13px', opacity: 0.4, fontWeight: '600', direction: 'ltr', unicodeBidi: 'isolate' }, children: '01' })
                           ]
                         }),
-                        v.jsx("h3", { className: "text-base font-bold text-white mb-2", children: "توسعه فرانت‌اند تعاملی" }),
-                        v.jsx("p", { className: "text-xs opacity-60 leading-relaxed", children: "پیاده‌سازی دقیق رابط‌های کاربری با HTML5، CSS3 و جاوااسکریپت، با تمرکز بر تعامل زنده و سرعت بارگذاری بالا." })
+                        v.jsx('h3', { className: 'text-base font-bold text-white mb-2', children: 'توسعه فرانت‌اند و وب' }),
+                        v.jsx('p', { className: 'text-xs opacity-60 leading-relaxed', children: 'طراحی و توسعه رابط‌های کاربری تمیز و سریع با استفاده از مدرن‌ترین استانداردهای HTML5، CSS3 و JS.' })
                       ]
                     }),
 
                     /* Skill 2 */
-                    v.jsxs("div", {
-                      style: { background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "20px" },
+                    v.jsxs('div', {
+                      style: { background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '22px' },
                       children: [
-                        v.jsxs("div", {
-                          className: "flex items-center justify-between mb-3",
+                        v.jsxs('div', {
+                          className: 'flex items-center justify-between mb-3',
                           children: [
-                            v.jsx("div", {
-                              style: { width: "36px", height: "36px", borderRadius: "8px", background: "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", justifyContent: "center" },
-                              children: v.jsxs("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", className: "text-white opacity-90", children: [v.jsx("rect", { x: "2", y: "3", width: "20", height: "14", rx: "2" }), v.jsx("line", { x1: "8", y1: "21", x2: "16", y2: "21" }), v.jsx("line", { x1: "12", y1: "17", x2: "12", y2: "21" })] })
+                            v.jsx('div', {
+                              style: { width: '38px', height: '38px', borderRadius: '10px', background: 'rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', justifyContent: 'center' },
+                              children: v.jsxs('svg', { width: '18', height: '18', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '1.5', strokeLinecap: 'round', strokeLinejoin: 'round', className: 'text-white opacity-90', children: [v.jsx('rect', { x: '2', y: '3', width: '20', height: '14', rx: '2' }), v.jsx('line', { x1: '8', y1: '21', x2: '16', y2: '21' }), v.jsx('line', { x1: '12', y1: '17', x2: '12', y2: '21' })] })
                             }),
-                            v.jsx("span", { className: "text-xs font-mono opacity-30", children: "02" })
+                            v.jsx('span', { style: { fontFamily: "'Poppins', sans-serif", fontSize: '13px', opacity: 0.4, fontWeight: '600', direction: 'ltr', unicodeBidi: 'isolate' }, children: '02' })
                           ]
                         }),
-                        v.jsx("h3", { className: "text-base font-bold text-white mb-2", children: "طراحی ریسپانسیو و واکنش‌گرا" }),
-                        v.jsx("p", { className: "text-xs opacity-60 leading-relaxed", children: "سازگاری کامل و نمایش بی‌نقص صفحات در تمامی نمایشگرها از تلفن همراه تا دسکتاپ‌های عریض." })
+                        v.jsx('h3', { className: 'text-base font-bold text-white mb-2', children: 'طراحی ریسپانسیو و واکنش‌گرا' }),
+                        v.jsx('p', { className: 'text-xs opacity-60 leading-relaxed', children: 'سازگاری کامل و نمایش بی‌نقص صفحات در تمامی نمایشگرها از تلفن همراه تا دسکتاپ‌های عریض.' })
                       ]
                     }),
 
                     /* Skill 3 */
-                    v.jsxs("div", {
-                      style: { background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "20px" },
+                    v.jsxs('div', {
+                      style: { background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '22px' },
                       children: [
-                        v.jsxs("div", {
-                          className: "flex items-center justify-between mb-3",
+                        v.jsxs('div', {
+                          className: 'flex items-center justify-between mb-3',
                           children: [
-                            v.jsx("div", {
-                              style: { width: "36px", height: "36px", borderRadius: "8px", background: "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", justifyContent: "center" },
-                              children: v.jsxs("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", className: "text-white opacity-90", children: [v.jsx("path", { d: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" })] })
+                            v.jsx('div', {
+                              style: { width: '38px', height: '38px', borderRadius: '10px', background: 'rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', justifyContent: 'center' },
+                              children: v.jsxs('svg', { width: '18', height: '18', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '1.5', strokeLinecap: 'round', strokeLinejoin: 'round', className: 'text-white opacity-90', children: [v.jsx('path', { d: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z' })] })
                             }),
-                            v.jsx("span", { className: "text-xs font-mono opacity-30", children: "03" })
+                            v.jsx('span', { style: { fontFamily: "'Poppins', sans-serif", fontSize: '13px', opacity: 0.4, fontWeight: '600', direction: 'ltr', unicodeBidi: 'isolate' }, children: '03' })
                           ]
                         }),
-                        v.jsx("h3", { className: "text-base font-bold text-white mb-2", children: "طراحی هویت بصری با AI" }),
-                        v.jsx("p", { className: "text-xs opacity-60 leading-relaxed", children: "خلق لوگوهای مفهومی و هویت دیداری منحصربه‌فرد با بهره‌گیری تخصصی از ابزارهای هوش مصنوعی." })
+                        v.jsx('h3', { className: 'text-base font-bold text-white mb-2', children: 'طراحی هویت بصری با AI' }),
+                        v.jsx('p', { className: 'text-xs opacity-60 leading-relaxed', children: 'خلق لوگوهای مفهومی و هویت دیداری منحصربه‌فرد با بهره‌گیری تخصصی از ابزارهای هوش مصنوعی.' })
                       ]
                     }),
 
                     /* Skill 4 */
-                    v.jsxs("div", {
-                      style: { background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "20px" },
+                    v.jsxs('div', {
+                      style: { background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '22px' },
                       children: [
-                        v.jsxs("div", {
-                          className: "flex items-center justify-between mb-3",
+                        v.jsxs('div', {
+                          className: 'flex items-center justify-between mb-3',
                           children: [
-                            v.jsx("div", {
-                              style: { width: "36px", height: "36px", borderRadius: "8px", background: "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", justifyContent: "center" },
-                              children: v.jsxs("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", className: "text-white opacity-90", children: [v.jsx("polygon", { points: "13 2 3 14 12 14 11 22 21 10 12 10 13 2" })] })
+                            v.jsx('div', {
+                              style: { width: '38px', height: '38px', borderRadius: '10px', background: 'rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', justifyContent: 'center' },
+                              children: v.jsxs('svg', { width: '18', height: '18', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '1.5', strokeLinecap: 'round', strokeLinejoin: 'round', className: 'text-white opacity-90', children: [v.jsx('polygon', { points: '13 2 3 14 12 14 11 22 21 10 12 10 13 2' })] })
                             }),
-                            v.jsx("span", { className: "text-xs font-mono opacity-30", children: "04" })
+                            v.jsx('span', { style: { fontFamily: "'Poppins', sans-serif", fontSize: '13px', opacity: 0.4, fontWeight: '600', direction: 'ltr', unicodeBidi: 'isolate' }, children: '04' })
                           ]
                         }),
-                        v.jsx("h3", { className: "text-base font-bold text-white mb-2", children: "تعاملات حرکتی و انیمیشن" }),
-                        v.jsx("p", { className: "text-xs opacity-60 leading-relaxed", children: "به کارگیری ترنزیشن‌های نرم و افکت‌های هوشمندانه برای بخشیدن احساس پویایی و زندگی به صفحه وب." })
+                        v.jsx('h3', { className: 'text-base font-bold text-white mb-2', children: 'تعاملات حرکتی و انیمیشن' }),
+                        v.jsx('p', { className: 'text-xs opacity-60 leading-relaxed', children: 'به کارگیری ترنزیشن‌های نرم و افکت‌های هوشمندانه برای بخشیدن احساس پویایی و زندگی به صفحه وب.' })
                       ]
                     }),
 
                     /* Skill 5 */
-                    v.jsxs("div", {
-                      style: { background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "20px" },
+                    v.jsxs('div', {
+                      style: { background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '22px' },
                       children: [
-                        v.jsxs("div", {
-                          className: "flex items-center justify-between mb-3",
+                        v.jsxs('div', {
+                          className: 'flex items-center justify-between mb-3',
                           children: [
-                            v.jsx("div", {
-                              style: { width: "36px", height: "36px", borderRadius: "8px", background: "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", justifyContent: "center" },
-                              children: v.jsxs("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", className: "text-white opacity-90", children: [v.jsx("circle", { cx: "12", cy: "12", r: "3" }), v.jsx("path", { d: "M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" })] })
+                            v.jsx('div', {
+                              style: { width: '38px', height: '38px', borderRadius: '10px', background: 'rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', justifyContent: 'center' },
+                              children: v.jsxs('svg', { width: '18', height: '18', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '1.5', strokeLinecap: 'round', strokeLinejoin: 'round', className: 'text-white opacity-90', children: [v.jsx('circle', { cx: '12', cy: '12', r: '3' }), v.jsx('path', { d: 'M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z' })] })
                             }),
-                            v.jsx("span", { className: "text-xs font-mono opacity-30", children: "05" })
+                            v.jsx('span', { style: { fontFamily: "'Poppins', sans-serif", fontSize: '13px', opacity: 0.4, fontWeight: '600', direction: 'ltr', unicodeBidi: 'isolate' }, children: '05' })
                           ]
                         }),
-                        v.jsx("h3", { className: "text-base font-bold text-white mb-2", children: "شخصی‌سازی و بازطراحی وب" }),
-                        v.jsx("p", { className: "text-xs opacity-60 leading-relaxed", children: "بهینه‌سازی کدهای موجود، بازطراحی رابط‌های کاربری و ارتقای حس تجربه کاربری به بالاترین کیفیت ممکن." })
+                        v.jsx('h3', { className: 'text-base font-bold text-white mb-2', children: 'شخصی‌سازی و بازطراحی وب' }),
+                        v.jsx('p', { className: 'text-xs opacity-60 leading-relaxed', children: 'بهینه‌سازی کدهای موجود، بازطراحی رابط‌های کاربری و ارتقای حس تجربه کاربری به بالاترین کیفیت ممکن.' })
                       ]
                     }),
 
                     /* Skill 6 */
-                    v.jsxs("div", {
-                      style: { background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "20px" },
+                    v.jsxs('div', {
+                      style: { background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '22px' },
                       children: [
-                        v.jsxs("div", {
-                          className: "flex items-center justify-between mb-3",
+                        v.jsxs('div', {
+                          className: 'flex items-center justify-between mb-3',
                           children: [
-                            v.jsx("div", {
-                              style: { width: "36px", height: "36px", borderRadius: "8px", background: "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", justifyContent: "center" },
-                              children: v.jsxs("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", className: "text-white opacity-90", children: [v.jsx("path", { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" })] })
+                            v.jsx('div', {
+                              style: { width: '38px', height: '38px', borderRadius: '10px', background: 'rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', justifyContent: 'center' },
+                              children: v.jsxs('svg', { width: '18', height: '18', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '1.5', strokeLinecap: 'round', strokeLinejoin: 'round', className: 'text-white opacity-90', children: [v.jsx('path', { d: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z' })] })
                             }),
-                            v.jsx("span", { className: "text-xs font-mono opacity-30", children: "06" })
+                            v.jsx('span', { style: { fontFamily: "'Poppins', sans-serif", fontSize: '13px', opacity: 0.4, fontWeight: '600', direction: 'ltr', unicodeBidi: 'isolate' }, children: '06' })
                           ]
                         }),
-                        v.jsx("h3", { className: "text-base font-bold text-white mb-2", children: "کدنویسی تمیز و استاندارد" }),
-                        v.jsx("p", { className: "text-xs opacity-60 leading-relaxed", children: "توسعه ساختار یافته، رعایت کامل اصول معنایی HTML و حفظ خوانایی و پایداری بلندمدت کدها." })
+                        v.jsx('h3', { className: 'text-base font-bold text-white mb-2', children: 'کدنویسی تمیز و استاندارد' }),
+                        v.jsx('p', { className: 'text-xs opacity-60 leading-relaxed', children: 'توسعه ساختار یافته، رعایت کامل اصول معنایی HTML و حفظ خوانایی و پایداری بلندمدت کدها.' })
                       ]
                     })
                   ]
                 }),
 
                 /* Bottom Indicator */
-                v.jsx("div", {
-                  className: "relative z-10 w-full text-left",
-                  style: { maxWidth: "1240px", margin: "0 auto" },
-                  children: v.jsx("p", { className: "text-xs opacity-40 font-mono", children: "SKILLS & EXPERTISE ⁂ 2026" })
+                v.jsx('div', {
+                  className: 'relative z-10 w-full text-left',
+                  style: { maxWidth: '1240px', margin: '0 auto' },
+                  children: v.jsx('p', { className: 'text-xs opacity-40 font-mono', children: 'SKILLS & EXPERTISE ⁂ 2026' })
                 })
               ]
             })
           }),
 
           /* =========================================================================
-             PANEL 2: FOUR PHASES (از ایده تا دمو، چهار فاز با طراحی تایم‌لاین مدرن)
+             PANEL 2: FOUR PHASES (5. Header brought down, 6. Poppins English digits)
              ========================================================================= */
-          v.jsx("div", {
+          v.jsx('div', {
             ref: d => { t.current[2] = d; },
-            className: "w-screen max-md:w-screen h-screen max-md:h-auto max-md:min-h-screen flex items-center justify-center flex-shrink-0 relative overflow-hidden",
-            style: { width: "100vw" },
-            children: v.jsxs("div", {
-              className: "w-full h-full relative flex flex-col justify-between items-start px-16 max-md:px-6 pt-28 pb-16 max-md:pt-24 max-md:pb-12 text-right",
-              dir: "rtl",
+            className: 'w-screen max-md:w-screen h-screen max-md:h-auto max-md:min-h-screen flex items-center justify-center flex-shrink-0 relative overflow-hidden',
+            style: { width: '100vw' },
+            children: v.jsxs('div', {
+              className: 'w-full h-full relative flex flex-col justify-between items-start px-16 max-md:px-6 pb-16 max-md:pb-12 text-right',
+              style: { paddingTop: u ? '96px' : '135px' },
+              dir: 'rtl',
               children: [
                 /* Section Header */
-                v.jsxs("div", {
-                  className: "relative z-10 w-full flex justify-between items-end max-md:flex-col max-md:items-start gap-4 mb-4",
-                  style: { maxWidth: "1240px", margin: "0 auto 12px auto" },
+                v.jsxs('div', {
+                  className: 'relative z-10 w-full flex justify-between items-end max-md:flex-col max-md:items-start gap-4',
+                  style: { maxWidth: '1240px', margin: '20px auto 36px auto' },
                   children: [
-                    v.jsxs("div", {
+                    v.jsxs('div', {
                       children: [
-                        v.jsx("p", { className: "text-xs uppercase font-mono opacity-50 mb-1 tracking-wider", children: "WORKFLOW & PHASES" }),
-                        v.jsx("h2", { className: "text-3xl max-md:text-xl font-bold text-white", children: "از ایده تا دمو، چهار فاز" })
+                        v.jsx('p', { className: 'text-xs uppercase font-mono opacity-50 mb-2 tracking-wider', children: 'WORKFLOW & PHASES' }),
+                        v.jsx('h2', { className: 'text-3xl max-md:text-xl font-bold text-white', children: 'از ایده تا دمو، چهار فاز' })
                       ]
                     }),
-                    v.jsx("p", {
-                      className: "text-xs opacity-50 max-w-md",
-                      children: "مسیری شفاف و گام‌به‌گام برای تحقق ایده‌های دیجیتال شما از نخستین جرقه تا محصول نهایی"
+                    v.jsx('p', {
+                      className: 'text-xs opacity-60 max-w-md',
+                      style: { lineHeight: '1.8' },
+                      children: 'مسیری شفاف و گام‌به‌گام برای تحقق ایده‌های دیجیتال شما از نخستین جرقه تا محصول نهایی'
                     })
                   ]
                 }),
 
                 /* 4 Phases Row */
-                v.jsx("div", {
-                  className: "relative z-10 w-full my-auto",
+                v.jsx('div', {
+                  className: 'relative z-10 w-full my-auto',
                   style: {
-                    display: "grid",
-                    gridTemplateColumns: u ? "1fr" : "repeat(4, 1fr)",
-                    gap: "24px",
-                    maxWidth: "1240px",
-                    margin: "auto"
+                    display: 'grid',
+                    gridTemplateColumns: u ? '1fr' : 'repeat(4, 1fr)',
+                    gap: '24px',
+                    maxWidth: '1240px',
+                    margin: 'auto'
                   },
                   children: [
                     /* Phase 1 */
-                    v.jsxs("div", {
+                    v.jsxs('div', {
                       style: {
-                        background: "linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)",
-                        border: "1px solid rgba(255,255,255,0.08)",
-                        borderRadius: "12px",
-                        padding: "24px",
-                        position: "relative"
+                        background: 'linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)',
+                        border: '1px solid rgba(255,255,255,0.08)',
+                        borderRadius: '14px',
+                        padding: '28px 24px',
+                        position: 'relative'
                       },
                       children: [
-                        v.jsx("div", { className: "text-4xl font-mono font-bold opacity-20 mb-4", children: "۰۱" }),
-                        v.jsxs("div", {
-                          className: "flex items-center gap-3 mb-3",
+                        /* Phase Number: English digits with Poppins 700 */
+                        v.jsx('div', {
+                          style: {
+                            fontFamily: "'Poppins', sans-serif",
+                            fontSize: '44px',
+                            fontWeight: '700',
+                            lineHeight: '1',
+                            color: 'rgba(255, 255, 255, 0.25)',
+                            marginBottom: '18px',
+                            direction: 'ltr',
+                            textAlign: 'left',
+                            unicodeBidi: 'isolate',
+                            fontVariantNumeric: 'normal'
+                          },
+                          children: '01'
+                        }),
+                        v.jsxs('div', {
+                          className: 'flex items-center gap-3 mb-3',
                           children: [
-                            v.jsxs("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", className: "text-white opacity-90", children: [v.jsx("circle", { cx: "11", cy: "11", r: "8" }), v.jsx("line", { x1: "21", y1: "21", x2: "16.65", y2: "16.65" })] }),
-                            v.jsx("h3", { className: "text-base font-bold text-white", children: "کشف و نیازسنجی" })
+                            v.jsxs('svg', { width: '18', height: '18', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '1.5', strokeLinecap: 'round', strokeLinejoin: 'round', className: 'text-white opacity-90', children: [v.jsx('circle', { cx: '11', cy: '11', r: '8' }), v.jsx('line', { x1: '21', y1: '21', x2: '16.65', y2: '16.65' })] }),
+                            v.jsx('h3', { className: 'text-base font-bold text-white', children: 'کشف و نیازسنجی' })
                           ]
                         }),
-                        v.jsx("p", { className: "text-xs opacity-60 leading-relaxed", children: "شنیدن دقیق نیازها، شناخت هدف پروژه، تحلیل رقبا و مشخص‌کردن ویژگی‌های کلیدی مورد نظر." })
+                        v.jsx('p', { className: 'text-xs opacity-60 leading-relaxed', children: 'شنیدن دقیق نیازها، شناخت هدف پروژه، تحلیل رقبا و مشخص‌کردن ویژگی‌های کلیدی مورد نظر.' })
                       ]
                     }),
 
                     /* Phase 2 */
-                    v.jsxs("div", {
+                    v.jsxs('div', {
                       style: {
-                        background: "linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)",
-                        border: "1px solid rgba(255,255,255,0.08)",
-                        borderRadius: "12px",
-                        padding: "24px",
-                        position: "relative"
+                        background: 'linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)',
+                        border: '1px solid rgba(255,255,255,0.08)',
+                        borderRadius: '14px',
+                        padding: '28px 24px',
+                        position: 'relative'
                       },
                       children: [
-                        v.jsx("div", { className: "text-4xl font-mono font-bold opacity-20 mb-4", children: "۰۲" }),
-                        v.jsxs("div", {
-                          className: "flex items-center gap-3 mb-3",
+                        v.jsx('div', {
+                          style: {
+                            fontFamily: "'Poppins', sans-serif",
+                            fontSize: '44px',
+                            fontWeight: '700',
+                            lineHeight: '1',
+                            color: 'rgba(255, 255, 255, 0.25)',
+                            marginBottom: '18px',
+                            direction: 'ltr',
+                            textAlign: 'left',
+                            unicodeBidi: 'isolate',
+                            fontVariantNumeric: 'normal'
+                          },
+                          children: '02'
+                        }),
+                        v.jsxs('div', {
+                          className: 'flex items-center gap-3 mb-3',
                           children: [
-                            v.jsxs("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", className: "text-white opacity-90", children: [v.jsx("path", { d: "M12 19l7-7 3 3-7 7-3-3z" }), v.jsx("path", { d: "M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" }), v.jsx("path", { d: "M2 2l7.586 7.586" }), v.jsx("circle", { cx: "11", cy: "11", r: "2" })] }),
-                            v.jsx("h3", { className: "text-base font-bold text-white", children: "طراحی بصری و اتود" })
+                            v.jsxs('svg', { width: '18', height: '18', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '1.5', strokeLinecap: 'round', strokeLinejoin: 'round', className: 'text-white opacity-90', children: [v.jsx('path', { d: 'M12 19l7-7 3 3-7 7-3-3z' }), v.jsx('path', { d: 'M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z' }), v.jsx('path', { d: 'M2 2l7.586 7.586' }), v.jsx('circle', { cx: '11', cy: '11', r: '2' })] }),
+                            v.jsx('h3', { className: 'text-base font-bold text-white', children: 'طراحی بصری و اتود' })
                           ]
                         }),
-                        v.jsx("p", { className: "text-xs opacity-60 leading-relaxed", children: "طراحی وایرفریم‌ها، پروتوتایپ‌های اولیه و هویت بصری با کمک ابزارهای مدرن و تایید اولیه توسط شما." })
+                        v.jsx('p', { className: 'text-xs opacity-60 leading-relaxed', children: 'طراحی وایرفریم‌ها، پروتوتایپ‌های اولیه و هویت بصری با کمک ابزارهای مدرن و تایید اولیه توسط شما.' })
                       ]
                     }),
 
                     /* Phase 3 */
-                    v.jsxs("div", {
+                    v.jsxs('div', {
                       style: {
-                        background: "linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)",
-                        border: "1px solid rgba(255,255,255,0.08)",
-                        borderRadius: "12px",
-                        padding: "24px",
-                        position: "relative"
+                        background: 'linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)',
+                        border: '1px solid rgba(255,255,255,0.08)',
+                        borderRadius: '14px',
+                        padding: '28px 24px',
+                        position: 'relative'
                       },
                       children: [
-                        v.jsx("div", { className: "text-4xl font-mono font-bold opacity-20 mb-4", children: "۰۳" }),
-                        v.jsxs("div", {
-                          className: "flex items-center gap-3 mb-3",
+                        v.jsx('div', {
+                          style: {
+                            fontFamily: "'Poppins', sans-serif",
+                            fontSize: '44px',
+                            fontWeight: '700',
+                            lineHeight: '1',
+                            color: 'rgba(255, 255, 255, 0.25)',
+                            marginBottom: '18px',
+                            direction: 'ltr',
+                            textAlign: 'left',
+                            unicodeBidi: 'isolate',
+                            fontVariantNumeric: 'normal'
+                          },
+                          children: '03'
+                        }),
+                        v.jsxs('div', {
+                          className: 'flex items-center gap-3 mb-3',
                           children: [
-                            v.jsxs("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", className: "text-white opacity-90", children: [v.jsx("rect", { x: "4", y: "4", width: "16", height: "16", rx: "2" }), v.jsx("rect", { x: "9", y: "9", width: "6", height: "6" }), v.jsx("line", { x1: "9", y1: "1", x2: "9", y2: "4" }), v.jsx("line", { x1: "15", y1: "1", x2: "15", y2: "4" }), v.jsx("line", { x1: "9", y1: "20", x2: "9", y2: "23" }), v.jsx("line", { x1: "15", y1: "20", x2: "15", y2: "23" })] }),
-                            v.jsx("h3", { className: "text-base font-bold text-white", children: "پیاده‌سازی و کدنویسی" })
+                            v.jsxs('svg', { width: '18', height: '18', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '1.5', strokeLinecap: 'round', strokeLinejoin: 'round', className: 'text-white opacity-90', children: [v.jsx('rect', { x: '4', y: '4', width: '16', height: '16', rx: '2' }), v.jsx('rect', { x: '9', y: '9', width: '6', height: '6' }), v.jsx('line', { x1: '9', y1: '1', x2: '9', y2: '4' }), v.jsx('line', { x1: '15', y1: '1', x2: '15', y2: '4' }), v.jsx('line', { x1: '9', y1: '20', x2: '9', y2: '23' }), v.jsx('line', { x1: '15', y1: '20', x2: '15', y2: '23' })] }),
+                            v.jsx('h3', { className: 'text-base font-bold text-white', children: 'پیاده‌سازی و کدنویسی' })
                           ]
                         }),
-                        v.jsx("p", { className: "text-xs opacity-60 leading-relaxed", children: "تبدیل اتود به صفحات وب زنده، پیاده‌سازی کدهای فرانت‌اند استاندارد و اعمال افکت‌های تعاملی." })
+                        v.jsx('p', { className: 'text-xs opacity-60 leading-relaxed', children: 'تبدیل اتود به صفحات وب زنده، پیاده‌سازی کدهای فرانت‌اند استاندارد و اعمال افکت‌های تعاملی.' })
                       ]
                     }),
 
                     /* Phase 4 */
-                    v.jsxs("div", {
+                    v.jsxs('div', {
                       style: {
-                        background: "linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)",
-                        border: "1px solid rgba(255,255,255,0.08)",
-                        borderRadius: "12px",
-                        padding: "24px",
-                        position: "relative"
+                        background: 'linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)',
+                        border: '1px solid rgba(255,255,255,0.08)',
+                        borderRadius: '14px',
+                        padding: '28px 24px',
+                        position: 'relative'
                       },
                       children: [
-                        v.jsx("div", { className: "text-4xl font-mono font-bold opacity-20 mb-4", children: "۰۴" }),
-                        v.jsxs("div", {
-                          className: "flex items-center gap-3 mb-3",
+                        v.jsx('div', {
+                          style: {
+                            fontFamily: "'Poppins', sans-serif",
+                            fontSize: '44px',
+                            fontWeight: '700',
+                            lineHeight: '1',
+                            color: 'rgba(255, 255, 255, 0.25)',
+                            marginBottom: '18px',
+                            direction: 'ltr',
+                            textAlign: 'left',
+                            unicodeBidi: 'isolate',
+                            fontVariantNumeric: 'normal'
+                          },
+                          children: '04'
+                        }),
+                        v.jsxs('div', {
+                          className: 'flex items-center gap-3 mb-3',
                           children: [
-                            v.jsxs("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", className: "text-white opacity-90", children: [v.jsx("path", { d: "M22 11.08V12a10 10 0 1 1-5.93-9.14" }), v.jsx("polyline", { points: "22 4 12 14.01 9 11.01" })] }),
-                            v.jsx("h3", { className: "text-base font-bold text-white", children: "تست نهایی و دمو" })
+                            v.jsxs('svg', { width: '18', height: '18', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '1.5', strokeLinecap: 'round', strokeLinejoin: 'round', className: 'text-white opacity-90', children: [v.jsx('path', { d: 'M22 11.08V12a10 10 0 1 1-5.93-9.14' }), v.jsx('polyline', { points: '22 4 12 14.01 9 11.01' })] }),
+                            v.jsx('h3', { className: 'text-base font-bold text-white', children: 'تست نهایی و دمو' })
                           ]
                         }),
-                        v.jsx("p", { className: "text-xs opacity-60 leading-relaxed", children: "آزمون عملکرد روی انواع مرورگرها و ابعاد صفحه‌نمایش، اعمال نظرات تکمیلی و ارائه دموی نهایی." })
+                        v.jsx('p', { className: 'text-xs opacity-60 leading-relaxed', children: 'آزمون عملکرد روی انواع مرورگرها و ابعاد صفحه‌نمایش، اعمال نظرات تکمیلی و ارائه دموی نهایی.' })
                       ]
                     })
                   ]
                 }),
 
                 /* Bottom Indicator */
-                v.jsx("div", {
-                  className: "relative z-10 w-full text-left",
-                  style: { maxWidth: "1240px", margin: "0 auto" },
-                  children: v.jsx("p", { className: "text-xs opacity-40 font-mono", children: "CONTINUOUS DELIVERY & QUALITY" })
+                v.jsx('div', {
+                  className: 'relative z-10 w-full text-left',
+                  style: { maxWidth: '1240px', margin: '0 auto' },
+                  children: v.jsx('p', { className: 'text-xs opacity-40 font-mono', children: 'CONTINUOUS DELIVERY & QUALITY' })
                 })
               ]
             })
           }),
 
           /* =========================================================================
-             PANEL 3: CONTACT & FORM (فرم تماس + شبکه‌های اجتماعی با SVG)
+             PANEL 3: CONTACT & FORM (7 & 8: Form & Icon boxes spaced, generous padding)
              ========================================================================= */
-          v.jsx("div", {
+          v.jsx('div', {
             ref: d => { t.current[3] = d; },
-            className: "w-screen max-md:w-screen h-screen max-md:h-auto max-md:min-h-screen flex items-center justify-center flex-shrink-0 relative overflow-hidden",
-            style: { width: "100vw" },
-            children: v.jsxs("div", {
-              className: "w-full h-full relative flex flex-col justify-between items-start px-16 max-md:px-6 pt-36 pb-16 max-md:pt-24 max-md:pb-12 text-right",
-              style: { paddingTop: "135px" },
-              dir: "rtl",
+            className: 'w-screen max-md:w-screen h-screen max-md:h-auto max-md:min-h-screen flex items-center justify-center flex-shrink-0 relative overflow-hidden',
+            style: { width: '100vw' },
+            children: v.jsxs('div', {
+              className: 'w-full h-full relative flex flex-col justify-between items-start px-16 max-md:px-6 pb-16 max-md:pb-12 text-right',
+              style: { paddingTop: u ? '96px' : '135px' },
+              dir: 'rtl',
               children: [
                 /* Section Header */
-                v.jsxs("div", {
-                  className: "relative z-10 w-full flex justify-between items-end max-md:flex-col max-md:items-start gap-4 mb-4",
-                  style: { maxWidth: "1040px", margin: "0 auto 12px auto" },
+                v.jsxs('div', {
+                  className: 'relative z-10 w-full flex justify-between items-end max-md:flex-col max-md:items-start gap-4',
+                  style: { maxWidth: '1200px', margin: '20px auto 36px auto' },
                   children: [
-                    v.jsxs("div", {
+                    v.jsxs('div', {
                       children: [
-                        v.jsx("p", { className: "text-xs uppercase font-mono opacity-50 mb-1 tracking-wider", children: "LET'S CONNECT" }),
-                        v.jsx("h2", { className: "text-3xl max-md:text-xl font-bold text-white", children: "شروع یک گفتگوی تازه" })
+                        v.jsx('p', { className: 'text-xs uppercase font-mono opacity-50 mb-2 tracking-wider', children: "LET'S CONNECT" }),
+                        v.jsx('h2', { className: 'text-3xl max-md:text-xl font-bold text-white', children: 'شروع یک گفتگوی تازه' })
                       ]
                     }),
-                    v.jsx("p", {
-                      className: "text-xs opacity-50 max-w-md",
-                      children: "برای سفارش پروژه، مشاوره طراحی یا دریافت اطلاعات بیشتر با من در ارتباط باشید."
+                    v.jsx('p', {
+                      className: 'text-xs opacity-60 max-w-md',
+                      style: { lineHeight: '1.8' },
+                      children: 'برای سفارش پروژه، مشاوره طراحی یا دریافت اطلاعات بیشتر با من در ارتباط باشید.'
                     })
                   ]
                 }),
 
                 /* Two-Column Layout: Contact Details & Socials (Right) + Form (Left) */
-                v.jsxs("div", {
-                  className: "relative z-10 w-full flex max-md:flex-col items-start justify-center gap-16 my-auto",
-                  style: { maxWidth: "1040px", margin: "auto" },
+                v.jsxs('div', {
+                  className: 'relative z-10 w-full my-auto',
+                  style: {
+                    display: 'flex',
+                    flexDirection: u ? 'column' : 'row',
+                    alignItems: 'flex-start',
+                    justifyContent: 'center',
+                    gap: u ? '36px' : '80px',
+                    maxWidth: '1200px',
+                    margin: 'auto'
+                  },
                   children: [
-                    /* Column 1: Info & Social Links */
-                    v.jsxs("div", {
-                      className: "flex flex-col items-start gap-5",
-                      style: { width: u ? "100%" : "380px" },
+                    /* Column 1: Info & Social Links (8. Spaced from text & walls) */
+                    v.jsxs('div', {
+                      className: 'flex flex-col items-start',
+                      style: { width: u ? '100%' : '440px' },
                       children: [
-                        v.jsx("p", {
-                          className: "text-sm opacity-70 leading-relaxed",
-                          children: "همیشه مشتاق همکاری در پروژه‌های خلاقانه و نوآورانه وب هستم. از طریق راه‌های زیر می‌توانید مستقیماً با من در تماس باشید:"
+                        v.jsx('p', {
+                          style: {
+                            fontSize: '14px',
+                            opacity: 0.75,
+                            lineHeight: '1.9',
+                            marginBottom: '32px'
+                          },
+                          children: 'همیشه مشتاق همکاری در پروژه‌های خلاقانه و نوآورانه وب هستم. از طریق راه‌های زیر می‌توانید مستقیماً با من در تماس باشید:'
                         }),
 
-                        /* Social Links List with clean SVGs */
-                        v.jsxs("div", {
-                          className: "flex flex-col gap-3 w-full",
+                        /* Social Links List with clean SVGs & generous padding */
+                        v.jsxs('div', {
+                          style: { display: 'flex', flexDirection: 'column', gap: '18px', width: '100%' },
                           children: [
                             /* Telegram */
-                            v.jsxs("a", {
-                              href: "https://t.me/asall_arab",
-                              target: "_blank",
-                              rel: "noopener noreferrer",
-                              className: "flex items-center gap-3 px-4 py-3 rounded-lg transition-colors",
-                              style: { background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", color: "#fff" },
+                            v.jsxs('a', {
+                              href: 'https://t.me/asall_arab',
+                              target: '_blank',
+                              rel: 'noopener noreferrer',
+                              className: 'transition-all',
+                              style: {
+                                background: 'rgba(255,255,255,0.04)',
+                                border: '1px solid rgba(255,255,255,0.1)',
+                                borderRadius: '16px',
+                                padding: '22px 26px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '20px',
+                                color: '#fff',
+                                textDecoration: 'none'
+                              },
                               children: [
-                                v.jsx("svg", { width: "20", height: "20", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", className: "text-blue-400", children: [v.jsx("path", { d: "M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-17.5 7.5a2.25 2.25 0 0 0 .14 4.17l4.47 1.39 1.72 5.51a1.5 1.5 0 0 0 2.46.55l2.67-2.67 4.77 3.51a2.25 2.25 0 0 0 3.54-1.37l3-16.5a2.25 2.25 0 0 0-2.25-2.3z" }), v.jsx("path", { d: "M8.5 15l8.5-8.5" })] }),
-                                v.jsxs("div", {
+                                v.jsx('div', {
+                                  style: { width: '44px', height: '44px', borderRadius: '12px', background: 'rgba(96,165,250,0.14)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
+                                  children: v.jsx('svg', { width: '22', height: '22', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '1.6', strokeLinecap: 'round', strokeLinejoin: 'round', className: 'text-blue-400', children: [v.jsx('path', { d: 'M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-17.5 7.5a2.25 2.25 0 0 0 .14 4.17l4.47 1.39 1.72 5.51a1.5 1.5 0 0 0 2.46.55l2.67-2.67 4.77 3.51a2.25 2.25 0 0 0 3.54-1.37l3-16.5a2.25 2.25 0 0 0-2.25-2.3z' }), v.jsx('path', { d: 'M8.5 15l8.5-8.5' })] })
+                                }),
+                                v.jsxs('div', {
                                   children: [
-                                    v.jsx("p", { className: "text-xs font-bold text-white", children: "تلگرام" }),
-                                    v.jsx("p", { className: "text-xs opacity-50 font-mono", style: { unicodeBidi: "plaintext", direction: "ltr", textAlign: "left" }, children: "@asall_arab" })
+                                    v.jsx('p', { className: 'text-xs font-bold text-white mb-1', children: 'تلگرام' }),
+                                    v.jsx('p', { className: 'text-xs opacity-50 font-mono', style: { unicodeBidi: 'plaintext', direction: 'ltr', textAlign: 'left' }, children: '@asall_arab' })
                                   ]
                                 })
                               ]
                             }),
 
                             /* Email */
-                            v.jsxs("a", {
-                              href: "mailto:arabasal606@gmail.com",
-                              className: "flex items-center gap-3 px-4 py-3 rounded-lg transition-colors",
-                              style: { background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", color: "#fff" },
+                            v.jsxs('a', {
+                              href: 'mailto:arabasal606@gmail.com',
+                              className: 'transition-all',
+                              style: {
+                                background: 'rgba(255,255,255,0.04)',
+                                border: '1px solid rgba(255,255,255,0.1)',
+                                borderRadius: '16px',
+                                padding: '22px 26px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '20px',
+                                color: '#fff',
+                                textDecoration: 'none'
+                              },
                               children: [
-                                v.jsxs("svg", { width: "20", height: "20", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", className: "text-emerald-400", children: [v.jsx("path", { d: "M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" }), v.jsx("polyline", { points: "22,6 12,13 2,6" })] }),
-                                v.jsxs("div", {
+                                v.jsx('div', {
+                                  style: { width: '44px', height: '44px', borderRadius: '12px', background: 'rgba(52,211,153,0.14)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
+                                  children: v.jsxs('svg', { width: '22', height: '22', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '1.6', strokeLinecap: 'round', strokeLinejoin: 'round', className: 'text-emerald-400', children: [v.jsx('path', { d: 'M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z' }), v.jsx('polyline', { points: '22,6 12,13 2,6' })] })
+                                }),
+                                v.jsxs('div', {
                                   children: [
-                                    v.jsx("p", { className: "text-xs font-bold text-white", children: "ایمیل مستقیم" }),
-                                    v.jsx("p", { className: "text-xs opacity-50 font-mono", style: { unicodeBidi: "plaintext", direction: "ltr", textAlign: "left" }, children: "arabasal606@gmail.com" })
+                                    v.jsx('p', { className: 'text-xs font-bold text-white mb-1', children: 'ایمیل مستقیم' }),
+                                    v.jsx('p', { className: 'text-xs opacity-50 font-mono', style: { unicodeBidi: 'plaintext', direction: 'ltr', textAlign: 'left' }, children: 'arabasal606@gmail.com' })
                                   ]
                                 })
                               ]
                             }),
 
                             /* Location */
-                            v.jsxs("div", {
-                              className: "flex items-center gap-3 px-4 py-3 rounded-lg",
-                              style: { background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)" },
+                            v.jsxs('div', {
+                              style: {
+                                background: 'rgba(255,255,255,0.04)',
+                                border: '1px solid rgba(255,255,255,0.1)',
+                                borderRadius: '16px',
+                                padding: '22px 26px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '20px'
+                              },
                               children: [
-                                v.jsxs("svg", { width: "20", height: "20", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", className: "text-amber-400", children: [v.jsx("path", { d: "M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" }), v.jsx("circle", { cx: "12", cy: "10", r: "3" })] }),
-                                v.jsxs("div", {
+                                v.jsx('div', {
+                                  style: { width: '44px', height: '44px', borderRadius: '12px', background: 'rgba(251,191,36,0.14)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
+                                  children: v.jsxs('svg', { width: '22', height: '22', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '1.6', strokeLinecap: 'round', strokeLinejoin: 'round', className: 'text-amber-400', children: [v.jsx('path', { d: 'M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z' }), v.jsx('circle', { cx: '12', cy: '10', r: '3' })] })
+                                }),
+                                v.jsxs('div', {
                                   children: [
-                                    v.jsx("p", { className: "text-xs font-bold text-white", children: "محل سکونت و همکاری" }),
-                                    v.jsx("p", { className: "text-xs opacity-50", children: "مشهد • فریلنسر و باشگاه کسب و کار رکاد" })
+                                    v.jsx('p', { className: 'text-xs font-bold text-white mb-1', children: 'محل سکونت و همکاری' }),
+                                    v.jsx('p', { className: 'text-xs opacity-60 leading-relaxed', children: 'مشهد • فریلنسر و باشگاه کسب و کار رکاد' })
                                   ]
                                 })
                               ]
@@ -2294,103 +2494,127 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
                       ]
                     }),
 
-                    /* Column 2: Sleek Contact Form */
-                    v.jsx("div", {
-                      className: "flex-1",
-                      style: { width: u ? "100%" : "480px" },
-                      children: v.jsxs("form", {
+                    /* Column 2: Sleek Contact Form (7.1: Spacious padding, submit button spacing) */
+                    v.jsx('div', {
+                      className: 'flex-1',
+                      style: { width: u ? '100%' : '520px' },
+                      children: v.jsxs('form', {
                         onSubmit: handleFormSubmit,
                         style: {
-                          background: "rgba(255,255,255,0.02)",
-                          border: "1px solid rgba(255,255,255,0.08)",
-                          borderRadius: "12px",
-                          padding: "26px"
+                          background: 'rgba(255,255,255,0.03)',
+                          border: '1px solid rgba(255,255,255,0.09)',
+                          borderRadius: '18px',
+                          padding: '36px 36px'
                         },
                         children: [
-                          v.jsx("h3", { className: "text-base font-bold text-white mb-4", children: "ارسال سریع پیام" }),
-                          v.jsxs("div", {
-                            className: "grid grid-cols-2 max-md:grid-cols-1 gap-4 mb-4",
+                          v.jsx('h3', { style: { fontSize: '16px', fontWeight: '700', color: '#fff', marginBottom: '24px' }, children: 'ارسال سریع پیام' }),
+                          v.jsxs('div', {
+                            style: {
+                              display: 'grid',
+                              gridTemplateColumns: u ? '1fr' : '1fr 1fr',
+                              gap: '18px',
+                              marginBottom: '18px'
+                            },
                             children: [
-                              v.jsxs("div", {
+                              v.jsxs('div', {
                                 children: [
-                                  v.jsx("label", { className: "block text-xs opacity-50 mb-1.5", children: "نام و نام خانوادگی" }),
-                                  v.jsx("input", {
-                                    type: "text",
+                                  v.jsx('label', { style: { display: 'block', fontSize: '12px', opacity: 0.6, marginBottom: '8px' }, children: 'نام و نام خانوادگی' }),
+                                  v.jsx('input', {
+                                    type: 'text',
                                     required: true,
                                     value: formState.name,
                                     onChange: ev => setFormState({ ...formState, name: ev.target.value }),
-                                    placeholder: "مثلاً علی رضایی",
+                                    placeholder: 'مثلاً علی رضایی',
                                     style: {
-                                      width: "100%",
-                                      background: "rgba(255,255,255,0.05)",
-                                      border: "1px solid rgba(255,255,255,0.1)",
-                                      borderRadius: "6px",
-                                      padding: "10px 14px",
-                                      color: "#fff",
-                                      fontSize: "13px",
-                                      outline: "none"
+                                      width: '100%',
+                                      background: 'rgba(255,255,255,0.05)',
+                                      border: '1px solid rgba(255,255,255,0.12)',
+                                      borderRadius: '10px',
+                                      padding: '14px 18px',
+                                      color: '#fff',
+                                      fontSize: '13px',
+                                      outline: 'none',
+                                      boxSizing: 'border-box'
                                     }
                                   })
                                 ]
                               }),
-                              v.jsxs("div", {
+                              v.jsxs('div', {
                                 children: [
-                                  v.jsx("label", { className: "block text-xs opacity-50 mb-1.5", children: "ایمیل یا آیدی تلگرام" }),
-                                  v.jsx("input", {
-                                    type: "text",
+                                  v.jsx('label', { style: { display: 'block', fontSize: '12px', opacity: 0.6, marginBottom: '8px' }, children: 'ایمیل یا آیدی تلگرام' }),
+                                  v.jsx('input', {
+                                    type: 'text',
                                     required: true,
                                     value: formState.contact,
                                     onChange: ev => setFormState({ ...formState, contact: ev.target.value }),
-                                    placeholder: "example@gmail.com یا @username",
+                                    placeholder: 'example@gmail.com یا @username',
                                     style: {
-                                      width: "100%",
-                                      background: "rgba(255,255,255,0.05)",
-                                      border: "1px solid rgba(255,255,255,0.1)",
-                                      borderRadius: "6px",
-                                      padding: "10px 14px",
-                                      color: "#fff",
-                                      fontSize: "13px",
-                                      outline: "none",
-                                      unicodeBidi: "plaintext",
-                                      direction: "ltr",
-                                      textAlign: "left"
+                                      width: '100%',
+                                      background: 'rgba(255,255,255,0.05)',
+                                      border: '1px solid rgba(255,255,255,0.12)',
+                                      borderRadius: '10px',
+                                      padding: '14px 18px',
+                                      color: '#fff',
+                                      fontSize: '13px',
+                                      outline: 'none',
+                                      unicodeBidi: 'plaintext',
+                                      direction: 'ltr',
+                                      textAlign: 'left',
+                                      boxSizing: 'border-box'
                                     }
                                   })
                                 ]
                               })
                             ]
                           }),
-                          v.jsxs("div", {
-                            className: "mb-5",
+                          v.jsxs('div', {
+                            style: { marginBottom: '8px' },
                             children: [
-                              v.jsx("label", { className: "block text-xs opacity-50 mb-1.5", children: "متن پیام یا شرح پروژه" }),
-                              v.jsx("textarea", {
+                              v.jsx('label', { style: { display: 'block', fontSize: '12px', opacity: 0.6, marginBottom: '8px' }, children: 'متن پیام یا شرح پروژه' }),
+                              v.jsx('textarea', {
                                 rows: 4,
                                 required: true,
                                 value: formState.message,
                                 onChange: ev => setFormState({ ...formState, message: ev.target.value }),
-                                placeholder: "خلاصه‌ای از درخواست خود را بنویسید...",
+                                placeholder: 'خلاصه‌ای از درخواست خود را بنویسید...',
                                 style: {
-                                  width: "100%",
-                                  background: "rgba(255,255,255,0.05)",
-                                  border: "1px solid rgba(255,255,255,0.1)",
-                                  borderRadius: "6px",
-                                  padding: "10px 14px",
-                                  color: "#fff",
-                                  fontSize: "13px",
-                                  outline: "none",
-                                  resize: "none"
+                                  width: '100%',
+                                  background: 'rgba(255,255,255,0.05)',
+                                  border: '1px solid rgba(255,255,255,0.12)',
+                                  borderRadius: '10px',
+                                  padding: '14px 18px',
+                                  color: '#fff',
+                                  fontSize: '13px',
+                                  outline: 'none',
+                                  resize: 'none',
+                                  boxSizing: 'border-box'
                                 }
                               })
                             ]
                           }),
-                          v.jsxs("button", {
-                            type: "submit",
-                            className: "flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-bold text-sm transition-all",
-                            style: { background: "#fff", color: "#000", cursor: "pointer", border: "none" },
-                            children: [
-                              v.jsx("span", { children: formState.sent ? "پیام ثبت شد ✓" : "ارسال پیام ↗" })
-                            ]
+                          /* Submit Button: generous padding & clear top margin */
+                          v.jsx('div', {
+                            style: { marginTop: '24px' },
+                            children: v.jsx('button', {
+                              type: 'submit',
+                              className: 'transition-all hover:opacity-90 active:scale-95',
+                              style: {
+                                background: '#ffffff',
+                                color: '#000000',
+                                cursor: 'pointer',
+                                border: 'none',
+                                borderRadius: '10px',
+                                padding: '16px 48px',
+                                fontSize: '14px',
+                                fontWeight: '700',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '10px',
+                                boxSizing: 'border-box'
+                              },
+                              children: formState.sent ? 'پیام ثبت شد ✓' : 'ارسال پیام ↗'
+                            })
                           })
                         ]
                       })
@@ -2398,14 +2622,11 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
                   ]
                 }),
 
-                /* Bottom copyright note */
-                v.jsxs("div", {
-                  className: "relative z-10 w-full flex justify-between items-end max-md:flex-col gap-2",
-                  style: { maxWidth: "1040px", margin: "0 auto" },
-                  children: [
-                    v.jsx("p", { className: "text-xs opacity-40 font-mono", children: "© 2026 ASAL ARAB. ALL RIGHTS RESERVED." }),
-                    v.jsx("p", { className: "text-xs opacity-40", children: "طراحی و پیاده‌سازی شده با عشق و تعهد" })
-                  ]
+                /* Bottom Indicator */
+                v.jsx('div', {
+                  className: 'relative z-10 w-full text-left',
+                  style: { maxWidth: '1200px', margin: '0 auto' },
+                  children: v.jsx('p', { className: 'text-xs opacity-40 font-mono', children: 'AVAILABLE FOR FREELANCE & COLLABORATION' })
                 })
               ]
             })
@@ -2415,8 +2636,9 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
     ]
   });
 }
+
 kt.registerPlugin(Ae);const $6={initial:{opacity:0},animate:()=>({opacity:1,transition:{duration:.8,ease:[.25,.46,.45,.94],delay:.5}})};
-function W6(){const{pathname:i}=oi();return C.useEffect(()=>{if(document.querySelector("title").textContent="عسل عرب ⁂ من کی‌ام؟",i==="/about"){document.body.style.overflow="visible";const e=document.querySelector("html");e&&(e.style.overflow="visible")}},[i]),v.jsx(v.Fragment,{children:v.jsxs("section",{className:"w-full h-full relative",id:"section-projects",children:[v.jsx(le.div,{className:"w-full h-full relative",variants:$6,initial:"initial",animate:"animate",custom:0,children:v.jsx("div",{className:"w-screen min-h-screen max-md:min-h-dvh",children:v.jsx(q6,{})})}),v.jsx(Oc,{isModalOpen:!1,currentSection:0})]})})}const gf={initial:{opacity:0},animate:()=>({opacity:1,transition:{duration:.8,ease:[.25,.46,.45,.94],delay:1}})};function Z6(){return v.jsxs(v.Fragment,{children:[v.jsx(le.div,{variants:gf,initial:"initial",animate:"animate",custom:0,className:"fixed top-2 left-2 w-2 h-2 border-t-2 border-l-2 border-white/50 z-50"}),v.jsx(le.div,{variants:gf,initial:"initial",animate:"animate",custom:0,className:"fixed top-2 right-2 w-2 h-2 border-t-2 border-r-2 border-white/50 z-50"}),v.jsx(le.div,{variants:gf,initial:"initial",animate:"animate",custom:0,className:"fixed bottom-2 left-2 w-2 h-2 border-b-2 border-l-2 border-white/50 z-50"}),v.jsx(le.div,{variants:gf,initial:"initial",animate:"animate",custom:0,className:"fixed bottom-2 right-2 w-2 h-2 border-b-2 border-r-2 border-white/50 z-50"})]})}const K6=({children:i})=>{const e=oi(),[t,s]=C.useState(!1),[a,o]=C.useState(!1);C.useEffect(()=>{const c=()=>{s(!0),o(!0)},f=()=>{s(!1),setTimeout(()=>{o(!1)},100)};return window.addEventListener("page-exit-start",c),window.addEventListener("page-enter-start",f),()=>{window.removeEventListener("page-exit-start",c),window.removeEventListener("page-enter-start",f)}},[]);const u={hidden:{opacity:0},visible:{opacity:1,transition:{duration:.4,ease:[.55,.06,.68,.19],onComplete:()=>{const c=new CustomEvent("page-exit-complete");window.dispatchEvent(c)}}},exit:{opacity:0,transition:{duration:.4,ease:[.25,.46,.45,.94]}}};return v.jsxs(v.Fragment,{children:[v.jsx("div",{children:i},e.pathname),v.jsx(Z6,{}),v.jsx(us,{children:a&&v.jsx(le.div,{className:"fixed inset-0 bg-[#0a0a0a] pointer-events-none z-[9999999]",variants:u,initial:"hidden",animate:t?"visible":"exit",exit:"exit"})})]})};var Q6=Object.create,{getPrototypeOf:J6,defineProperty:k_,getOwnPropertyNames:e8}=Object,t8=Object.prototype.hasOwnProperty,i8=(i,e,t)=>{t=i!=null?Q6(J6(i)):{};let s=k_(t,"default",{value:i,enumerable:!0});for(let a of e8(i))t8.call(s,a)||k_(s,a,{get:()=>i[a],enumerable:!0});return s},n8=(i,e)=>()=>(e||i((e={exports:{}}).exports,e),e.exports),s8=n8((i,e)=>{(function(t,s){typeof i=="object"&&typeof e<"u"?e.exports=s():typeof define=="function"&&define.amd?define(s):(t||self).virtualScroll=s()})(i,function(){var t=0;function s(b){return"__private_"+t+++"_"+b}function a(b,S){if(!Object.prototype.hasOwnProperty.call(b,S))throw new TypeError("attempted to use private field on non-instance");return b}function o(){}o.prototype={on:function(b,S,T){var j=this.e||(this.e={});return(j[b]||(j[b]=[])).push({fn:S,ctx:T}),this},once:function(b,S,T){var j=this;function A(){j.off(b,A),S.apply(T,arguments)}return A._=S,this.on(b,A,T)},emit:function(b){for(var S=[].slice.call(arguments,1),T=((this.e||(this.e={}))[b]||[]).slice(),j=0,A=T.length;j<A;j++)T[j].fn.apply(T[j].ctx,S);return this},off:function(b,S){var T=this.e||(this.e={}),j=T[b],A=[];if(j&&S)for(var R=0,N=j.length;R<N;R++)j[R].fn!==S&&j[R].fn._!==S&&A.push(j[R]);return A.length?T[b]=A:delete T[b],this}};var u=o;u.TinyEmitter=o;var c,f="virtualscroll",d=s("options"),m=s("el"),y=s("emitter"),w=s("event"),x=s("touchStart"),_=s("bodyTouchAction");return function(){function b(T){var j=this;Object.defineProperty(this,d,{writable:!0,value:void 0}),Object.defineProperty(this,m,{writable:!0,value:void 0}),Object.defineProperty(this,y,{writable:!0,value:void 0}),Object.defineProperty(this,w,{writable:!0,value:void 0}),Object.defineProperty(this,x,{writable:!0,value:void 0}),Object.defineProperty(this,_,{writable:!0,value:void 0}),this._onWheel=function(A){var R=a(j,d)[d],N=a(j,w)[w];N.deltaX=A.wheelDeltaX||-1*A.deltaX,N.deltaY=A.wheelDeltaY||-1*A.deltaY,c.isFirefox&&A.deltaMode===1&&(N.deltaX*=R.firefoxMultiplier,N.deltaY*=R.firefoxMultiplier),N.deltaX*=R.mouseMultiplier,N.deltaY*=R.mouseMultiplier,j._notify(A)},this._onMouseWheel=function(A){var R=a(j,w)[w];R.deltaX=A.wheelDeltaX?A.wheelDeltaX:0,R.deltaY=A.wheelDeltaY?A.wheelDeltaY:A.wheelDelta,j._notify(A)},this._onTouchStart=function(A){var R=A.targetTouches?A.targetTouches[0]:A;a(j,x)[x].x=R.pageX,a(j,x)[x].y=R.pageY},this._onTouchMove=function(A){var R=a(j,d)[d];R.preventTouch&&!A.target.classList.contains(R.unpreventTouchClass)&&A.preventDefault();var N=a(j,w)[w],O=A.targetTouches?A.targetTouches[0]:A;N.deltaX=(O.pageX-a(j,x)[x].x)*R.touchMultiplier,N.deltaY=(O.pageY-a(j,x)[x].y)*R.touchMultiplier,a(j,x)[x].x=O.pageX,a(j,x)[x].y=O.pageY,j._notify(A)},this._onKeyDown=function(A){var R=a(j,w)[w];R.deltaX=R.deltaY=0;var N=window.innerHeight-40;switch(A.keyCode){case 37:case 38:R.deltaY=a(j,d)[d].keyStep;break;case 39:case 40:R.deltaY=-a(j,d)[d].keyStep;break;case 32:R.deltaY=N*(A.shiftKey?1:-1);break;default:return}j._notify(A)},a(this,m)[m]=window,T&&T.el&&(a(this,m)[m]=T.el,delete T.el),c||(c={hasWheelEvent:"onwheel"in document,hasMouseWheelEvent:"onmousewheel"in document,hasTouch:"ontouchstart"in document,hasTouchWin:navigator.msMaxTouchPoints&&navigator.msMaxTouchPoints>1,hasPointer:!!window.navigator.msPointerEnabled,hasKeyDown:"onkeydown"in document,isFirefox:navigator.userAgent.indexOf("Firefox")>-1}),a(this,d)[d]=Object.assign({mouseMultiplier:1,touchMultiplier:2,firefoxMultiplier:15,keyStep:120,preventTouch:!1,unpreventTouchClass:"vs-touchmove-allowed",useKeyboard:!0,useTouch:!0},T),a(this,y)[y]=new u,a(this,w)[w]={y:0,x:0,deltaX:0,deltaY:0},a(this,x)[x]={x:null,y:null},a(this,_)[_]=null,a(this,d)[d].passive!==void 0&&(this.listenerOptions={passive:a(this,d)[d].passive})}var S=b.prototype;return S._notify=function(T){var j=a(this,w)[w];j.x+=j.deltaX,j.y+=j.deltaY,a(this,y)[y].emit(f,{x:j.x,y:j.y,deltaX:j.deltaX,deltaY:j.deltaY,originalEvent:T})},S._bind=function(){c.hasWheelEvent&&a(this,m)[m].addEventListener("wheel",this._onWheel,this.listenerOptions),c.hasMouseWheelEvent&&a(this,m)[m].addEventListener("mousewheel",this._onMouseWheel,this.listenerOptions),c.hasTouch&&a(this,d)[d].useTouch&&(a(this,m)[m].addEventListener("touchstart",this._onTouchStart,this.listenerOptions),a(this,m)[m].addEventListener("touchmove",this._onTouchMove,this.listenerOptions)),c.hasPointer&&c.hasTouchWin&&(a(this,_)[_]=document.body.style.msTouchAction,document.body.style.msTouchAction="none",a(this,m)[m].addEventListener("MSPointerDown",this._onTouchStart,!0),a(this,m)[m].addEventListener("MSPointerMove",this._onTouchMove,!0)),c.hasKeyDown&&a(this,d)[d].useKeyboard&&document.addEventListener("keydown",this._onKeyDown)},S._unbind=function(){c.hasWheelEvent&&a(this,m)[m].removeEventListener("wheel",this._onWheel),c.hasMouseWheelEvent&&a(this,m)[m].removeEventListener("mousewheel",this._onMouseWheel),c.hasTouch&&(a(this,m)[m].removeEventListener("touchstart",this._onTouchStart),a(this,m)[m].removeEventListener("touchmove",this._onTouchMove)),c.hasPointer&&c.hasTouchWin&&(document.body.style.msTouchAction=a(this,_)[_],a(this,m)[m].removeEventListener("MSPointerDown",this._onTouchStart,!0),a(this,m)[m].removeEventListener("MSPointerMove",this._onTouchMove,!0)),c.hasKeyDown&&a(this,d)[d].useKeyboard&&document.removeEventListener("keydown",this._onKeyDown)},S.on=function(T,j){a(this,y)[y].on(f,T,j);var A=a(this,y)[y].e;A&&A[f]&&A[f].length===1&&this._bind()},S.off=function(T,j){a(this,y)[y].off(f,T,j);var A=a(this,y)[y].e;(!A[f]||A[f].length<=0)&&this._unbind()},S.destroy=function(){a(this,y)[y].off(),this._unbind()},b}()})}),r8=i8(s8());function z_(i,e,t,s){let a=1-Math.exp(-t*s);return i+(e-i)*a}function P_(i,e){let t=i%e;return Math.abs(t)>e/2&&(t=t>0?t-e:t+e),t}var a8={infinite:!0,snap:!0,dragSensitivity:.005,lerpFactor:.3,scrollSensitivity:1,snapStrength:.1,speedDecay:.85,bounceLimit:1,virtualScroll:{mouseMultiplier:.5,touchMultiplier:2,firefoxMultiplier:30,useKeyboard:!1,passive:!0},setOffset:({itemWidth:i,wrapperWidth:e})=>i,scrollInput:!1},ro,Sc,ao,nr,Gr,sr,lo,Ne,Cj,Nf,Dj,w0,Rj,ku,zu,Pu,Nj,Oj,Lj,b0;class l8{constructor(e,t={}){er(this,Ne);Fe(this,"speed",0);er(this,ro,0);er(this,Sc,0);er(this,ao,0);Fe(this,"deltaTime",0);er(this,nr,!0);er(this,Gr,!1);er(this,sr,0);er(this,lo,0);Fe(this,"config");Fe(this,"wrapper");Fe(this,"items");Fe(this,"viewport");Fe(this,"isDragging",!1);Fe(this,"dragStart",0);Fe(this,"dragStartTarget",0);Fe(this,"isVisible",!1);Fe(this,"current",0);Fe(this,"target",0);Fe(this,"maxScroll",0);Fe(this,"resizeTimeout");Fe(this,"virtualScroll");Fe(this,"observer");Fe(this,"touchStartY");Fe(this,"touchStartX");Fe(this,"scrollDirection");Fe(this,"parallaxValues");Fe(this,"webglValue",0);Fe(this,"onSlideChange");Fe(this,"onResize");Fe(this,"onUpdate");this.config={...a8,...t},t.onSlideChange&&(this.onSlideChange=t.onSlideChange),t.onResize&&(this.onResize=t.onResize),t.onUpdate&&(this.onUpdate=t.onUpdate),delete this.config.onSlideChange,delete this.config.onResize,delete this.config.onUpdate,this.wrapper=e,this.items=[...e.children],this.current=0,this.target=0,this.isDragging=!1,this.dragStart=0,this.dragStartTarget=0,this.isVisible=!1,Li(this,sr,0),Li(this,lo,0),ct(this,Ne,Nf).call(this),ct(this,Ne,Cj).call(this),ct(this,Ne,Dj).call(this),this.wrapper.style.cursor="grab",ct(this,Ne,Nf).call(this),ct(this,Ne,Rj).call(this)}update(){var t;if(!this.isVisible||!Oi(this,nr))return;let e=performance.now();if(this.deltaTime=(e-Oi(this,ao))/1e3,Li(this,ao,e),this.config.snap&&!this.isDragging){let s=Math.round(this.target)-this.target;this.target+=s*this.config.snapStrength}if(this.current=z_(this.current,this.target,1/this.config.lerpFactor,this.deltaTime),this.config.infinite){let s=Math.round(-this.current),a=this.items.length,o=(s%a+a)%a;ct(this,Ne,b0).call(this,o),ct(this,Ne,Oj).call(this)}else ct(this,Ne,b0).call(this,Math.round(Math.abs(this.current))),ct(this,Ne,Nj).call(this);ct(this,Ne,Lj).call(this),(t=this.onUpdate)==null||t.call(this,this)}goToNext(){this.config.infinite?this.target=Math.round(this.target-1):this.target=Math.max(this.maxScroll,Math.round(this.target-1))}goToPrev(){this.config.infinite?this.target=Math.round(this.target+1):this.target=Math.min(0,Math.round(this.target+1))}goToIndex(e){this.target=-e}set snap(e){this.config.snap=e}getProgress(){let e=this.items.length;return Math.abs(this.current)%e/e}destroy(){this.kill(),window.removeEventListener("mousemove",e=>ct(this,Ne,zu).call(this,e)),window.removeEventListener("mouseup",()=>ct(this,Ne,Pu).call(this)),window.removeEventListener("touchmove",e=>{let t=e.touches[0];ct(this,Ne,zu).call(this,t)}),window.removeEventListener("touchend",()=>ct(this,Ne,Pu).call(this)),this.wrapper.removeEventListener("mousedown",e=>ct(this,Ne,ku).call(this,e)),this.wrapper.removeEventListener("touchstart",e=>{let t=e.touches[0];ct(this,Ne,ku).call(this,t)}),this.resizeTimeout&&clearTimeout(this.resizeTimeout),this.virtualScroll&&this.config.scrollInput&&this.virtualScroll.destroy(),this.observer&&this.observer.disconnect()}get currentSlide(){return Oi(this,sr)}kill(){Li(this,nr,!1),this.items.forEach(e=>{e.style.transform=""}),this.current=0,this.target=0,this.speed=0,Li(this,ro,0)}init(){Li(this,nr,!0),Li(this,ao,performance.now())}set paused(e){Li(this,Gr,e)}get paused(){return Oi(this,Gr)}get progress(){if(this.config.infinite){let e=-this.target,t=this.items.length;return(e%t+t)%t/(t-1)}else{let e=Math.abs(this.current),t=Math.abs(this.maxScroll);return Math.max(0,Math.min(1,e/t))}}resize(){ct(this,Ne,Nf).call(this);let e=Oi(this,nr),t=this.isVisible;Li(this,nr,!0),this.isVisible=!0,this.update(),Li(this,nr,e),this.isVisible=t}}ro=new WeakMap,Sc=new WeakMap,ao=new WeakMap,nr=new WeakMap,Gr=new WeakMap,sr=new WeakMap,lo=new WeakMap,Ne=new WeakSet,Cj=function(){let e={root:null,rootMargin:"50px",threshold:0};this.observer=new IntersectionObserver(t=>{t.forEach(s=>{this.isVisible=s.isIntersecting})},e),this.observer.observe(this.wrapper)},Nf=function(){this.viewport={itemWidth:this.items[0].getBoundingClientRect().width,wrapperWidth:this.wrapper.clientWidth,totalWidth:this.items.reduce((e,t)=>e+t.clientWidth,0)},Li(this,Sc,this.config.setOffset(this.viewport)),this.maxScroll=-(this.viewport.totalWidth-Oi(this,Sc))/this.viewport.itemWidth,queueMicrotask(()=>{var e;(e=this.onResize)==null||e.call(this,this)})},Dj=function(){let e=f=>ct(this,Ne,ku).call(this,f),t=f=>ct(this,Ne,zu).call(this,f),s=()=>ct(this,Ne,Pu).call(this);this.wrapper.addEventListener("mousedown",e),window.addEventListener("mousemove",t),window.addEventListener("mouseup",s);let a=5,o=f=>{let d=f.touches[0];this.touchStartY=d.clientY,this.touchStartX=d.clientX,this.scrollDirection=void 0,ct(this,Ne,ku).call(this,d)},u=f=>{let d=f.touches[0],m=Math.abs(d.clientY-this.touchStartY),y=Math.abs(d.clientX-this.touchStartX);!this.scrollDirection&&(y>a||m>a)&&(this.scrollDirection=y>m?"horizontal":"vertical"),this.scrollDirection==="horizontal"&&(f.preventDefault(),ct(this,Ne,zu).call(this,d))},c=()=>{this.scrollDirection=void 0,ct(this,Ne,Pu).call(this)};this.wrapper.addEventListener("touchstart",o),window.addEventListener("touchmove",u,{passive:!1}),window.addEventListener("touchend",c),new ResizeObserver(()=>{this.resizeTimeout&&clearTimeout(this.resizeTimeout),this.resizeTimeout=setTimeout(()=>this.resize(),10)}).observe(this.wrapper)},w0=function(e){if(!this.config.infinite){if(e>this.config.bounceLimit)return this.config.bounceLimit;if(e<this.maxScroll-this.config.bounceLimit)return this.maxScroll-this.config.bounceLimit}return e},Rj=function(){this.virtualScroll=new r8.default({...this.config.virtualScroll,el:this.wrapper});let e=5;this.virtualScroll.on(t=>{if(!this.isDragging&&!Oi(this,Gr)){if(t.touchDevice){let o=Math.abs(t.deltaY),u=Math.abs(t.deltaX);if(o<e&&u<e||o>u)return}let s=(this.config.scrollInput?Math.abs(t.deltaX)>Math.abs(t.deltaY)?t.deltaX:t.deltaY:t.deltaX)*this.config.scrollSensitivity*.001,a=this.target+s;this.config.infinite||(a>0?a=0:a<this.maxScroll&&(a=this.maxScroll)),this.target=ct(this,Ne,w0).call(this,a),this.speed=-s*10}})},ku=function(e){Oi(this,Gr)||(this.isDragging=!0,this.dragStart=e.clientX,this.dragStartTarget=this.target,this.wrapper.style.cursor="grabbing")},zu=function(e){if(!this.isDragging||Oi(this,Gr))return;let t=e.clientX-this.dragStart,s=this.dragStartTarget+t*this.config.dragSensitivity;this.target=ct(this,Ne,w0).call(this,s),"movementX"in e&&(this.speed+=e.movementX*.01)},Pu=function(){if(this.isDragging=!1,this.wrapper.style.cursor="grab",!this.config.infinite){if(this.target>0)this.target=0;else if(this.target<this.maxScroll)this.target=this.maxScroll;else if(this.config.snap){let e=Math.round(this.target);this.target=Math.min(0,Math.max(this.maxScroll,e))}}else this.config.snap&&(this.target=Math.round(this.target))},Nj=function(){this.parallaxValues=this.items.map((e,t)=>{let s=this.current*this.viewport.itemWidth;return e.style.transform=`translateX(${s}px)`,s})},Oj=function(){this.parallaxValues=this.items.map((e,t)=>{let s=this.current+t,a=(P_(s,this.items.length)-t)*this.viewport.itemWidth;return e.style.transform=`translateX(${a}px)`,P_(s,this.items.length)})},Lj=function(){Li(this,ro,z_(Oi(this,ro),this.speed,1/this.config.lerpFactor,this.deltaTime)),this.speed*=this.config.speedDecay},b0=function(e){var t;Oi(this,sr)!==e&&(Li(this,lo,Oi(this,sr)),Li(this,sr,e),(t=this.onSlideChange)==null||t.call(this,Oi(this,sr),Oi(this,lo)))};var o8=l8;class u8 extends o8{constructor(t,s={}){super(t,s);Fe(this,"dots",[]);Fe(this,"arrows",[]);Fe(this,"onSlideChangeCallback");Fe(this,"parallaxy",[]);Fe(this,"onSlideChange",(t,s)=>{var a,o,u,c,f,d,m;(o=(a=this.items[s])==null?void 0:a.children[0])!=null&&o.children[0]&&this.items[s].children[0].children[0].classList.remove("active"),(c=(u=this.items[t])==null?void 0:u.children[0])!=null&&c.children[0]&&this.items[t].children[0].children[0].classList.add("active"),(f=this.dots[s])!=null&&f.children[0]&&this.dots[s].children[0].classList.remove("active-dot"),(d=this.dots[t])!=null&&d.children[0]&&this.dots[t].children[0].classList.add("active-dot"),(m=this.onSlideChangeCallback)==null||m.call(this,t,s)})}createInterface(t){const s=t.querySelector("[data-dots]"),a=t.querySelector("[data-arrows]");s&&(this.dots=[...s.children]),a&&(this.arrows=[...a.children])}setOnSlideChange(t){this.onSlideChangeCallback=t}goToNext(){const t=this.current;super.goToNext(),setTimeout(()=>{this.current!==t&&this.onSlideChange(this.current,t)},0)}goToPrev(){const t=this.current;super.goToPrev(),setTimeout(()=>{this.current!==t&&this.onSlideChange(this.current,t)},0)}goToIndex(t){const s=this.current;super.goToIndex(t),setTimeout(()=>{this.current!==s&&this.onSlideChange(this.current,s)},0)}setParallaxElements(t){this.parallaxy=t}}function c8(i={}){const e=C.useRef(null),t=C.useRef(null),[s,a]=C.useState(null),[o,u]=C.useState(0),c=C.useRef(0),f=450,d=C.useCallback(b=>{if(b&&!s){const S=new u8(b,i);S.setOnSlideChange(T=>{u(T)}),S.onSlideChange(0,0),kt.ticker.add(S.update.bind(S)),a(S)}e.current=b},[i,s]),m=C.useCallback(b=>{b&&s&&s.createInterface(b),t.current=b},[s]),y=C.useCallback(b=>{s&&s.setParallaxElements(b)},[s]),w=C.useCallback(()=>{s&&s.goToNext()},[s]),x=C.useCallback(()=>{s&&s.goToPrev()},[s]),_=C.useCallback(b=>{s&&s.goToIndex(b)},[s]);return C.useEffect(()=>{if(!s)return;const b=T=>{T.preventDefault(),c.current+=Math.abs(T.deltaY),c.current>=f&&(T.deltaY>0?s.goToNext():s.goToPrev(),c.current=0)},S=e.current;if(S)return S.addEventListener("wheel",b,{passive:!1}),()=>{S.removeEventListener("wheel",b)}},[s]),C.useEffect(()=>()=>{s&&(kt.ticker.remove(s.update.bind(s)),s.destroy())},[s]),{ref:d,interfaceRef:m,slider:s,currentSlide:o,goToNext:w,goToPrev:x,goToIndex:_,setParallaxElements:y}}const h8=[
+function W6(){const{pathname:i}=oi();return C.useEffect(()=>{if(document.querySelector("title").textContent="عسل عرب ⁂ درباره من",i==="/about"){document.body.style.overflow="visible";const e=document.querySelector("html");e&&(e.style.overflow="visible")}},[i]),v.jsx(v.Fragment,{children:v.jsxs("section",{className:"w-full h-full relative",id:"section-projects",children:[v.jsx(le.div,{className:"w-full h-full relative",variants:$6,initial:"initial",animate:"animate",custom:0,children:v.jsx("div",{className:"w-screen min-h-screen max-md:min-h-dvh",children:v.jsx(q6,{})})}),v.jsx(Oc,{isModalOpen:!1,currentSection:0})]})})}const gf={initial:{opacity:0},animate:()=>({opacity:1,transition:{duration:.8,ease:[.25,.46,.45,.94],delay:1}})};function Z6(){return v.jsxs(v.Fragment,{children:[v.jsx(le.div,{variants:gf,initial:"initial",animate:"animate",custom:0,className:"fixed top-2 left-2 w-2 h-2 border-t-2 border-l-2 border-white/50 z-50"}),v.jsx(le.div,{variants:gf,initial:"initial",animate:"animate",custom:0,className:"fixed top-2 right-2 w-2 h-2 border-t-2 border-r-2 border-white/50 z-50"}),v.jsx(le.div,{variants:gf,initial:"initial",animate:"animate",custom:0,className:"fixed bottom-2 left-2 w-2 h-2 border-b-2 border-l-2 border-white/50 z-50"}),v.jsx(le.div,{variants:gf,initial:"initial",animate:"animate",custom:0,className:"fixed bottom-2 right-2 w-2 h-2 border-b-2 border-r-2 border-white/50 z-50"})]})}const K6=({children:i})=>{const e=oi(),[t,s]=C.useState(!1),[a,o]=C.useState(!1);C.useEffect(()=>{const c=()=>{s(!0),o(!0)},f=()=>{s(!1),setTimeout(()=>{o(!1)},100)};return window.addEventListener("page-exit-start",c),window.addEventListener("page-enter-start",f),()=>{window.removeEventListener("page-exit-start",c),window.removeEventListener("page-enter-start",f)}},[]);const u={hidden:{opacity:0},visible:{opacity:1,transition:{duration:.4,ease:[.55,.06,.68,.19],onComplete:()=>{const c=new CustomEvent("page-exit-complete");window.dispatchEvent(c)}}},exit:{opacity:0,transition:{duration:.4,ease:[.25,.46,.45,.94]}}};return v.jsxs(v.Fragment,{children:[v.jsx("div",{children:i},e.pathname),v.jsx(Z6,{}),v.jsx(us,{children:a&&v.jsx(le.div,{className:"fixed inset-0 bg-[#0a0a0a] pointer-events-none z-[9999999]",variants:u,initial:"hidden",animate:t?"visible":"exit",exit:"exit"})})]})};var Q6=Object.create,{getPrototypeOf:J6,defineProperty:k_,getOwnPropertyNames:e8}=Object,t8=Object.prototype.hasOwnProperty,i8=(i,e,t)=>{t=i!=null?Q6(J6(i)):{};let s=k_(t,"default",{value:i,enumerable:!0});for(let a of e8(i))t8.call(s,a)||k_(s,a,{get:()=>i[a],enumerable:!0});return s},n8=(i,e)=>()=>(e||i((e={exports:{}}).exports,e),e.exports),s8=n8((i,e)=>{(function(t,s){typeof i=="object"&&typeof e<"u"?e.exports=s():typeof define=="function"&&define.amd?define(s):(t||self).virtualScroll=s()})(i,function(){var t=0;function s(b){return"__private_"+t+++"_"+b}function a(b,S){if(!Object.prototype.hasOwnProperty.call(b,S))throw new TypeError("attempted to use private field on non-instance");return b}function o(){}o.prototype={on:function(b,S,T){var j=this.e||(this.e={});return(j[b]||(j[b]=[])).push({fn:S,ctx:T}),this},once:function(b,S,T){var j=this;function A(){j.off(b,A),S.apply(T,arguments)}return A._=S,this.on(b,A,T)},emit:function(b){for(var S=[].slice.call(arguments,1),T=((this.e||(this.e={}))[b]||[]).slice(),j=0,A=T.length;j<A;j++)T[j].fn.apply(T[j].ctx,S);return this},off:function(b,S){var T=this.e||(this.e={}),j=T[b],A=[];if(j&&S)for(var R=0,N=j.length;R<N;R++)j[R].fn!==S&&j[R].fn._!==S&&A.push(j[R]);return A.length?T[b]=A:delete T[b],this}};var u=o;u.TinyEmitter=o;var c,f="virtualscroll",d=s("options"),m=s("el"),y=s("emitter"),w=s("event"),x=s("touchStart"),_=s("bodyTouchAction");return function(){function b(T){var j=this;Object.defineProperty(this,d,{writable:!0,value:void 0}),Object.defineProperty(this,m,{writable:!0,value:void 0}),Object.defineProperty(this,y,{writable:!0,value:void 0}),Object.defineProperty(this,w,{writable:!0,value:void 0}),Object.defineProperty(this,x,{writable:!0,value:void 0}),Object.defineProperty(this,_,{writable:!0,value:void 0}),this._onWheel=function(A){var R=a(j,d)[d],N=a(j,w)[w];N.deltaX=A.wheelDeltaX||-1*A.deltaX,N.deltaY=A.wheelDeltaY||-1*A.deltaY,c.isFirefox&&A.deltaMode===1&&(N.deltaX*=R.firefoxMultiplier,N.deltaY*=R.firefoxMultiplier),N.deltaX*=R.mouseMultiplier,N.deltaY*=R.mouseMultiplier,j._notify(A)},this._onMouseWheel=function(A){var R=a(j,w)[w];R.deltaX=A.wheelDeltaX?A.wheelDeltaX:0,R.deltaY=A.wheelDeltaY?A.wheelDeltaY:A.wheelDelta,j._notify(A)},this._onTouchStart=function(A){var R=A.targetTouches?A.targetTouches[0]:A;a(j,x)[x].x=R.pageX,a(j,x)[x].y=R.pageY},this._onTouchMove=function(A){var R=a(j,d)[d];R.preventTouch&&!A.target.classList.contains(R.unpreventTouchClass)&&A.preventDefault();var N=a(j,w)[w],O=A.targetTouches?A.targetTouches[0]:A;N.deltaX=(O.pageX-a(j,x)[x].x)*R.touchMultiplier,N.deltaY=(O.pageY-a(j,x)[x].y)*R.touchMultiplier,a(j,x)[x].x=O.pageX,a(j,x)[x].y=O.pageY,j._notify(A)},this._onKeyDown=function(A){var R=a(j,w)[w];R.deltaX=R.deltaY=0;var N=window.innerHeight-40;switch(A.keyCode){case 37:case 38:R.deltaY=a(j,d)[d].keyStep;break;case 39:case 40:R.deltaY=-a(j,d)[d].keyStep;break;case 32:R.deltaY=N*(A.shiftKey?1:-1);break;default:return}j._notify(A)},a(this,m)[m]=window,T&&T.el&&(a(this,m)[m]=T.el,delete T.el),c||(c={hasWheelEvent:"onwheel"in document,hasMouseWheelEvent:"onmousewheel"in document,hasTouch:"ontouchstart"in document,hasTouchWin:navigator.msMaxTouchPoints&&navigator.msMaxTouchPoints>1,hasPointer:!!window.navigator.msPointerEnabled,hasKeyDown:"onkeydown"in document,isFirefox:navigator.userAgent.indexOf("Firefox")>-1}),a(this,d)[d]=Object.assign({mouseMultiplier:1,touchMultiplier:2,firefoxMultiplier:15,keyStep:120,preventTouch:!1,unpreventTouchClass:"vs-touchmove-allowed",useKeyboard:!0,useTouch:!0},T),a(this,y)[y]=new u,a(this,w)[w]={y:0,x:0,deltaX:0,deltaY:0},a(this,x)[x]={x:null,y:null},a(this,_)[_]=null,a(this,d)[d].passive!==void 0&&(this.listenerOptions={passive:a(this,d)[d].passive})}var S=b.prototype;return S._notify=function(T){var j=a(this,w)[w];j.x+=j.deltaX,j.y+=j.deltaY,a(this,y)[y].emit(f,{x:j.x,y:j.y,deltaX:j.deltaX,deltaY:j.deltaY,originalEvent:T})},S._bind=function(){c.hasWheelEvent&&a(this,m)[m].addEventListener("wheel",this._onWheel,this.listenerOptions),c.hasMouseWheelEvent&&a(this,m)[m].addEventListener("mousewheel",this._onMouseWheel,this.listenerOptions),c.hasTouch&&a(this,d)[d].useTouch&&(a(this,m)[m].addEventListener("touchstart",this._onTouchStart,this.listenerOptions),a(this,m)[m].addEventListener("touchmove",this._onTouchMove,this.listenerOptions)),c.hasPointer&&c.hasTouchWin&&(a(this,_)[_]=document.body.style.msTouchAction,document.body.style.msTouchAction="none",a(this,m)[m].addEventListener("MSPointerDown",this._onTouchStart,!0),a(this,m)[m].addEventListener("MSPointerMove",this._onTouchMove,!0)),c.hasKeyDown&&a(this,d)[d].useKeyboard&&document.addEventListener("keydown",this._onKeyDown)},S._unbind=function(){c.hasWheelEvent&&a(this,m)[m].removeEventListener("wheel",this._onWheel),c.hasMouseWheelEvent&&a(this,m)[m].removeEventListener("mousewheel",this._onMouseWheel),c.hasTouch&&(a(this,m)[m].removeEventListener("touchstart",this._onTouchStart),a(this,m)[m].removeEventListener("touchmove",this._onTouchMove)),c.hasPointer&&c.hasTouchWin&&(document.body.style.msTouchAction=a(this,_)[_],a(this,m)[m].removeEventListener("MSPointerDown",this._onTouchStart,!0),a(this,m)[m].removeEventListener("MSPointerMove",this._onTouchMove,!0)),c.hasKeyDown&&a(this,d)[d].useKeyboard&&document.removeEventListener("keydown",this._onKeyDown)},S.on=function(T,j){a(this,y)[y].on(f,T,j);var A=a(this,y)[y].e;A&&A[f]&&A[f].length===1&&this._bind()},S.off=function(T,j){a(this,y)[y].off(f,T,j);var A=a(this,y)[y].e;(!A[f]||A[f].length<=0)&&this._unbind()},S.destroy=function(){a(this,y)[y].off(),this._unbind()},b}()})}),r8=i8(s8());function z_(i,e,t,s){let a=1-Math.exp(-t*s);return i+(e-i)*a}function P_(i,e){let t=i%e;return Math.abs(t)>e/2&&(t=t>0?t-e:t+e),t}var a8={infinite:!0,snap:!0,dragSensitivity:.005,lerpFactor:.3,scrollSensitivity:1,snapStrength:.1,speedDecay:.85,bounceLimit:1,virtualScroll:{mouseMultiplier:.5,touchMultiplier:2,firefoxMultiplier:30,useKeyboard:!1,passive:!0},setOffset:({itemWidth:i,wrapperWidth:e})=>i,scrollInput:!1},ro,Sc,ao,nr,Gr,sr,lo,Ne,Cj,Nf,Dj,w0,Rj,ku,zu,Pu,Nj,Oj,Lj,b0;class l8{constructor(e,t={}){er(this,Ne);Fe(this,"speed",0);er(this,ro,0);er(this,Sc,0);er(this,ao,0);Fe(this,"deltaTime",0);er(this,nr,!0);er(this,Gr,!1);er(this,sr,0);er(this,lo,0);Fe(this,"config");Fe(this,"wrapper");Fe(this,"items");Fe(this,"viewport");Fe(this,"isDragging",!1);Fe(this,"dragStart",0);Fe(this,"dragStartTarget",0);Fe(this,"isVisible",!1);Fe(this,"current",0);Fe(this,"target",0);Fe(this,"maxScroll",0);Fe(this,"resizeTimeout");Fe(this,"virtualScroll");Fe(this,"observer");Fe(this,"touchStartY");Fe(this,"touchStartX");Fe(this,"scrollDirection");Fe(this,"parallaxValues");Fe(this,"webglValue",0);Fe(this,"onSlideChange");Fe(this,"onResize");Fe(this,"onUpdate");this.config={...a8,...t},t.onSlideChange&&(this.onSlideChange=t.onSlideChange),t.onResize&&(this.onResize=t.onResize),t.onUpdate&&(this.onUpdate=t.onUpdate),delete this.config.onSlideChange,delete this.config.onResize,delete this.config.onUpdate,this.wrapper=e,this.items=[...e.children],this.current=0,this.target=0,this.isDragging=!1,this.dragStart=0,this.dragStartTarget=0,this.isVisible=!1,Li(this,sr,0),Li(this,lo,0),ct(this,Ne,Nf).call(this),ct(this,Ne,Cj).call(this),ct(this,Ne,Dj).call(this),this.wrapper.style.cursor="grab",ct(this,Ne,Nf).call(this),ct(this,Ne,Rj).call(this)}update(){var t;if(!this.isVisible||!Oi(this,nr))return;let e=performance.now();if(this.deltaTime=(e-Oi(this,ao))/1e3,Li(this,ao,e),this.config.snap&&!this.isDragging){let s=Math.round(this.target)-this.target;this.target+=s*this.config.snapStrength}if(this.current=z_(this.current,this.target,1/this.config.lerpFactor,this.deltaTime),this.config.infinite){let s=Math.round(-this.current),a=this.items.length,o=(s%a+a)%a;ct(this,Ne,b0).call(this,o),ct(this,Ne,Oj).call(this)}else ct(this,Ne,b0).call(this,Math.round(Math.abs(this.current))),ct(this,Ne,Nj).call(this);ct(this,Ne,Lj).call(this),(t=this.onUpdate)==null||t.call(this,this)}goToNext(){this.config.infinite?this.target=Math.round(this.target-1):this.target=Math.max(this.maxScroll,Math.round(this.target-1))}goToPrev(){this.config.infinite?this.target=Math.round(this.target+1):this.target=Math.min(0,Math.round(this.target+1))}goToIndex(e){this.target=-e}set snap(e){this.config.snap=e}getProgress(){let e=this.items.length;return Math.abs(this.current)%e/e}destroy(){this.kill(),window.removeEventListener("mousemove",e=>ct(this,Ne,zu).call(this,e)),window.removeEventListener("mouseup",()=>ct(this,Ne,Pu).call(this)),window.removeEventListener("touchmove",e=>{let t=e.touches[0];ct(this,Ne,zu).call(this,t)}),window.removeEventListener("touchend",()=>ct(this,Ne,Pu).call(this)),this.wrapper.removeEventListener("mousedown",e=>ct(this,Ne,ku).call(this,e)),this.wrapper.removeEventListener("touchstart",e=>{let t=e.touches[0];ct(this,Ne,ku).call(this,t)}),this.resizeTimeout&&clearTimeout(this.resizeTimeout),this.virtualScroll&&this.config.scrollInput&&this.virtualScroll.destroy(),this.observer&&this.observer.disconnect()}get currentSlide(){return Oi(this,sr)}kill(){Li(this,nr,!1),this.items.forEach(e=>{e.style.transform=""}),this.current=0,this.target=0,this.speed=0,Li(this,ro,0)}init(){Li(this,nr,!0),Li(this,ao,performance.now())}set paused(e){Li(this,Gr,e)}get paused(){return Oi(this,Gr)}get progress(){if(this.config.infinite){let e=-this.target,t=this.items.length;return(e%t+t)%t/(t-1)}else{let e=Math.abs(this.current),t=Math.abs(this.maxScroll);return Math.max(0,Math.min(1,e/t))}}resize(){ct(this,Ne,Nf).call(this);let e=Oi(this,nr),t=this.isVisible;Li(this,nr,!0),this.isVisible=!0,this.update(),Li(this,nr,e),this.isVisible=t}}ro=new WeakMap,Sc=new WeakMap,ao=new WeakMap,nr=new WeakMap,Gr=new WeakMap,sr=new WeakMap,lo=new WeakMap,Ne=new WeakSet,Cj=function(){let e={root:null,rootMargin:"50px",threshold:0};this.observer=new IntersectionObserver(t=>{t.forEach(s=>{this.isVisible=s.isIntersecting})},e),this.observer.observe(this.wrapper)},Nf=function(){this.viewport={itemWidth:this.items[0].getBoundingClientRect().width,wrapperWidth:this.wrapper.clientWidth,totalWidth:this.items.reduce((e,t)=>e+t.clientWidth,0)},Li(this,Sc,this.config.setOffset(this.viewport)),this.maxScroll=-(this.viewport.totalWidth-Oi(this,Sc))/this.viewport.itemWidth,queueMicrotask(()=>{var e;(e=this.onResize)==null||e.call(this,this)})},Dj=function(){let e=f=>ct(this,Ne,ku).call(this,f),t=f=>ct(this,Ne,zu).call(this,f),s=()=>ct(this,Ne,Pu).call(this);this.wrapper.addEventListener("mousedown",e),window.addEventListener("mousemove",t),window.addEventListener("mouseup",s);let a=5,o=f=>{let d=f.touches[0];this.touchStartY=d.clientY,this.touchStartX=d.clientX,this.scrollDirection=void 0,ct(this,Ne,ku).call(this,d)},u=f=>{let d=f.touches[0],m=Math.abs(d.clientY-this.touchStartY),y=Math.abs(d.clientX-this.touchStartX);!this.scrollDirection&&(y>a||m>a)&&(this.scrollDirection=y>m?"horizontal":"vertical"),this.scrollDirection==="horizontal"&&(f.preventDefault(),ct(this,Ne,zu).call(this,d))},c=()=>{this.scrollDirection=void 0,ct(this,Ne,Pu).call(this)};this.wrapper.addEventListener("touchstart",o),window.addEventListener("touchmove",u,{passive:!1}),window.addEventListener("touchend",c),new ResizeObserver(()=>{this.resizeTimeout&&clearTimeout(this.resizeTimeout),this.resizeTimeout=setTimeout(()=>this.resize(),10)}).observe(this.wrapper)},w0=function(e){if(!this.config.infinite){if(e>this.config.bounceLimit)return this.config.bounceLimit;if(e<this.maxScroll-this.config.bounceLimit)return this.maxScroll-this.config.bounceLimit}return e},Rj=function(){this.virtualScroll=new r8.default({...this.config.virtualScroll,el:this.wrapper});let e=5;this.virtualScroll.on(t=>{if(!this.isDragging&&!Oi(this,Gr)){if(t.touchDevice){let o=Math.abs(t.deltaY),u=Math.abs(t.deltaX);if(o<e&&u<e||o>u)return}let s=(this.config.scrollInput?Math.abs(t.deltaX)>Math.abs(t.deltaY)?t.deltaX:t.deltaY:t.deltaX)*this.config.scrollSensitivity*.001,a=this.target+s;this.config.infinite||(a>0?a=0:a<this.maxScroll&&(a=this.maxScroll)),this.target=ct(this,Ne,w0).call(this,a),this.speed=-s*10}})},ku=function(e){Oi(this,Gr)||(this.isDragging=!0,this.dragStart=e.clientX,this.dragStartTarget=this.target,this.wrapper.style.cursor="grabbing")},zu=function(e){if(!this.isDragging||Oi(this,Gr))return;let t=e.clientX-this.dragStart,s=this.dragStartTarget+t*this.config.dragSensitivity;this.target=ct(this,Ne,w0).call(this,s),"movementX"in e&&(this.speed+=e.movementX*.01)},Pu=function(){if(this.isDragging=!1,this.wrapper.style.cursor="grab",!this.config.infinite){if(this.target>0)this.target=0;else if(this.target<this.maxScroll)this.target=this.maxScroll;else if(this.config.snap){let e=Math.round(this.target);this.target=Math.min(0,Math.max(this.maxScroll,e))}}else this.config.snap&&(this.target=Math.round(this.target))},Nj=function(){this.parallaxValues=this.items.map((e,t)=>{let s=this.current*this.viewport.itemWidth;return e.style.transform=`translateX(${s}px)`,s})},Oj=function(){this.parallaxValues=this.items.map((e,t)=>{let s=this.current+t,a=(P_(s,this.items.length)-t)*this.viewport.itemWidth;return e.style.transform=`translateX(${a}px)`,P_(s,this.items.length)})},Lj=function(){Li(this,ro,z_(Oi(this,ro),this.speed,1/this.config.lerpFactor,this.deltaTime)),this.speed*=this.config.speedDecay},b0=function(e){var t;Oi(this,sr)!==e&&(Li(this,lo,Oi(this,sr)),Li(this,sr,e),(t=this.onSlideChange)==null||t.call(this,Oi(this,sr),Oi(this,lo)))};var o8=l8;class u8 extends o8{constructor(t,s={}){super(t,s);Fe(this,"dots",[]);Fe(this,"arrows",[]);Fe(this,"onSlideChangeCallback");Fe(this,"parallaxy",[]);Fe(this,"onSlideChange",(t,s)=>{var a,o,u,c,f,d,m;(o=(a=this.items[s])==null?void 0:a.children[0])!=null&&o.children[0]&&this.items[s].children[0].children[0].classList.remove("active"),(c=(u=this.items[t])==null?void 0:u.children[0])!=null&&c.children[0]&&this.items[t].children[0].children[0].classList.add("active"),(f=this.dots[s])!=null&&f.children[0]&&this.dots[s].children[0].classList.remove("active-dot"),(d=this.dots[t])!=null&&d.children[0]&&this.dots[t].children[0].classList.add("active-dot"),(m=this.onSlideChangeCallback)==null||m.call(this,t,s)})}createInterface(t){const s=t.querySelector("[data-dots]"),a=t.querySelector("[data-arrows]");s&&(this.dots=[...s.children]),a&&(this.arrows=[...a.children])}setOnSlideChange(t){this.onSlideChangeCallback=t}goToNext(){const t=this.current;super.goToNext(),setTimeout(()=>{this.current!==t&&this.onSlideChange(this.current,t)},0)}goToPrev(){const t=this.current;super.goToPrev(),setTimeout(()=>{this.current!==t&&this.onSlideChange(this.current,t)},0)}goToIndex(t){const s=this.current;super.goToIndex(t),setTimeout(()=>{this.current!==s&&this.onSlideChange(this.current,s)},0)}setParallaxElements(t){this.parallaxy=t}}function c8(i={}){const e=C.useRef(null),t=C.useRef(null),[s,a]=C.useState(null),[o,u]=C.useState(0),c=C.useRef(0),f=450,d=C.useCallback(b=>{if(b&&!s){const S=new u8(b,i);S.setOnSlideChange(T=>{u(T)}),S.onSlideChange(0,0),kt.ticker.add(S.update.bind(S)),a(S)}e.current=b},[i,s]),m=C.useCallback(b=>{b&&s&&s.createInterface(b),t.current=b},[s]),y=C.useCallback(b=>{s&&s.setParallaxElements(b)},[s]),w=C.useCallback(()=>{s&&s.goToNext()},[s]),x=C.useCallback(()=>{s&&s.goToPrev()},[s]),_=C.useCallback(b=>{s&&s.goToIndex(b)},[s]);return C.useEffect(()=>{if(!s)return;const b=T=>{T.preventDefault(),c.current+=Math.abs(T.deltaY),c.current>=f&&(T.deltaY>0?s.goToNext():s.goToPrev(),c.current=0)},S=e.current;if(S)return S.addEventListener("wheel",b,{passive:!1}),()=>{S.removeEventListener("wheel",b)}},[s]),C.useEffect(()=>()=>{s&&(kt.ticker.remove(s.update.bind(s)),s.destroy())},[s]),{ref:d,interfaceRef:m,slider:s,currentSlide:o,goToNext:w,goToPrev:x,goToIndex:_,setParallaxElements:y}}const h8=[
   {
     "title": "Lumiera",
     "content": {
