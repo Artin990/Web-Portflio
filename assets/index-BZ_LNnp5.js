@@ -1649,7 +1649,8 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
     t = C.useRef([]),
     [s, a] = C.useState(0),
     o = C.useRef(null),
-    [u, c] = C.useState(!1);
+    [u, c] = C.useState(!1),
+    [formState, setFormState] = C.useState({ name: "", contact: "", message: "", sent: !1 });
 
   C.useEffect(() => {
     const d = () => {
@@ -1726,6 +1727,13 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
     });
   };
 
+  const handleFormSubmit = e => {
+    e.preventDefault();
+    const mailto = `mailto:arabasal606@gmail.com?subject=${encodeURIComponent("پیام از سایت — " + formState.name)}&body=${encodeURIComponent("فرستنده: " + formState.name + "\nتماس: " + formState.contact + "\n\nپیام:\n" + formState.message)}`;
+    window.open(mailto, "_blank");
+    setFormState(prev => ({ ...prev, sent: !0 }));
+  };
+
   return v.jsxs("div", {
     ref: i,
     className: "md:fixed md:inset-0 w-screen md:h-screen md:overflow-hidden text-white",
@@ -1736,7 +1744,7 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
         children: v.jsx("div", {
           className: "flex items-center gap-3",
           children: v.jsxs("div", {
-            className: "text-white text-xs font-mono",
+            className: "text-white text-xs font-mono opacity-60",
             children: [Math.round(s), "%"]
           })
         })
@@ -1747,161 +1755,138 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
         ref: e,
         className: "max-md:flex-col flex items-center justify-start md:w-fit md:h-full max-md:h-fit",
         children: [
-          /* ===== PANEL 0: HERO (w-screen) ===== */
+          /* =========================================================================
+             PANEL 0: HERO (عکس سمت راست + اطلاعات و بیو سمت چپ در ساختار اصلی)
+             ========================================================================= */
           v.jsx("div", {
             ref: d => { t.current[0] = d; },
-            className: "w-screen max-md:w-screen h-screen max-md:h-dvh flex items-center justify-center flex-shrink-0 relative overflow-hidden",
+            className: "w-screen max-md:w-screen h-screen max-md:h-auto max-md:min-h-screen flex items-center justify-center flex-shrink-0 relative overflow-hidden",
             children: v.jsxs("div", {
-              className: "w-full h-full relative",
+              className: "w-full h-full relative flex flex-col justify-between items-start px-16 max-md:px-6 py-20 max-md:py-16 text-right",
+              dir: "rtl",
               children: [
-                v.jsx(le.div, {
-                  className: "absolute top-1/2 -translate-y-1/2 -right-48 z-50 w-96 opacity-30 max-md:w-48 max-md:-right-24 pointer-events-none",
-                  variants: {
-                    initial: { rotate: "-180deg" },
-                    animate: { rotate: "0deg", transition: { duration: 1.2, ease: "circOut", delay: 0.6 } }
-                  },
-                  initial: "initial",
-                  animate: "animate",
-                  children: v.jsx(wc, { scrollSensitivity: 5, clickSensitivity: 0.7, dragSensitivity: 10, src: "/img/circle.png", className: "z-50 w-96 max-md:w-48" })
-                }),
+                /* Top row */
                 v.jsxs("div", {
-                  className: "w-full h-full flex flex-col justify-between items-start px-12 max-md:px-6 py-24 max-md:pb-12 text-right",
-                  dir: "rtl",
+                  className: "text-right relative z-10 w-full flex justify-between items-start max-md:flex-col",
                   children: [
-                    v.jsxs("div", {
-                      className: "text-right relative z-10 w-full flex justify-between max-md:flex-col",
-                      children: [
-                        v.jsx("div", {
-                          className: "flex flex-col items-start gap-x-6 md:max-w-90 max-md:w-full overflow-hidden text-right",
-                          children: v.jsx(le.p, {
-                            className: "text-xs text-right opacity-50 leading-relaxed",
-                            variants: { initial: { y: "-100%" }, animate: { y: "0%", transition: { duration: 0.8, ease: "circOut", delay: 0.7 } } },
-                            initial: "initial",
-                            animate: "animate",
-                            children: "عسل عرب — طراح سایت و هویت بصری • مشهد، فریلنسر و باشگاه کسب و کار رکاد"
-                          })
-                        }),
-                        v.jsx("div", {
-                          className: "overflow-hidden flex flex-col gap-x-6 max-md:mt-6 text-right",
-                          children: v.jsxs(le.p, {
-                            className: "text-4xl max-md:text-2xl max-md:leading-[1.2] max-w-4xl max-md:w-full text-right font-bold leading-[1.2]",
-                            variants: { initial: { y: "-100%" }, animate: { y: "0%", transition: { duration: 0.8, ease: "circOut", delay: 0.8 } } },
-                            initial: "initial",
-                            animate: "animate",
+                    v.jsx("div", {
+                      className: "flex flex-col items-start gap-x-6 md:max-w-90 max-md:w-full overflow-hidden text-right",
+                      children: v.jsx(le.p, {
+                        className: "text-xs text-right opacity-50 leading-relaxed",
+                        variants: { initial: { y: "-100%" }, animate: { y: "0%", transition: { duration: 0.8, ease: "circOut", delay: 0.7 } } },
+                        initial: "initial",
+                        animate: "animate",
+                        children: "عسل عرب — طراح وب و هویت بصری • مشهد، فریلنسر و باشگاه کسب و کار رکاد"
+                      })
+                    }),
+                    v.jsx("div", {
+                      className: "overflow-hidden flex flex-col gap-x-6 max-md:mt-4 text-right",
+                      children: v.jsx(le.p, {
+                        className: "text-xs uppercase font-mono opacity-40",
+                        children: "ABOUT ⁂ PORTFOLIO"
+                      })
+                    })
+                  ]
+                }),
+
+                /* Middle Grid: Photo on the Right, Content on the Left */
+                v.jsxs("div", {
+                  className: "relative z-10 w-full grid grid-cols-12 gap-12 max-md:gap-6 items-center my-auto",
+                  children: [
+                    /* Photo Column (4 cols) */
+                    v.jsx("div", {
+                      className: "col-span-4 max-md:col-span-12 flex justify-start items-center",
+                      children: v.jsxs("div", {
+                        className: "relative max-w-xs w-full",
+                        children: [
+                          v.jsx("img", {
+                            src: "/img/about/me.jpg",
+                            alt: "عسل عرب",
+                            className: "w-full h-auto max-h-[52vh] object-cover rounded-sm shadow-2xl brightness-95"
+                          }),
+                          v.jsxs("div", {
+                            className: "text-xs leading-[1.3] z-50 text-right mt-3",
                             children: [
-                              "خلق تجربیات وب تعاملی،",
+                              v.jsx("span", { className: "opacity-70 font-bold", children: "Photo: 'عسل عرب'" }),
+                              " ",
                               v.jsx("br", {}),
-                              "فراتر از کدهای معمولی."
+                              v.jsx("span", { className: "opacity-40", children: "طراح وب و هویت بصری — مشهد" })
                             ]
                           })
-                        })
-                      ]
+                        ]
+                      })
                     }),
+
+                    /* Content Column (8 cols) */
                     v.jsxs("div", {
-                      className: "text-right relative z-10 w-full flex justify-between items-end max-md:flex-col max-md:mt-12",
+                      className: "col-span-8 max-md:col-span-12 flex flex-col gap-6 text-right",
                       children: [
-                        v.jsx("div", {
-                          className: "overflow-hidden",
-                          children: v.jsx(le.p, {
-                            className: "text-xs opacity-50 font-mono tracking-wider",
-                            variants: { initial: { y: "100%" }, animate: { y: "0%", transition: { duration: 0.8, ease: "circOut", delay: 0.9 } } },
-                            initial: "initial",
-                            animate: "animate",
-                            children: "HTML5 • CSS3 • JavaScript • AI"
-                          })
+                        v.jsxs(le.h1, {
+                          className: "text-4xl max-md:text-2xl max-md:leading-[1.2] font-bold leading-[1.2] text-white",
+                          variants: { initial: { y: "-100%" }, animate: { y: "0%", transition: { duration: 0.8, ease: "circOut", delay: 0.8 } } },
+                          initial: "initial",
+                          animate: "animate",
+                          children: [
+                            "خلق تجربیات وب تعاملی،",
+                            v.jsx("br", {}),
+                            "فراتر از کدهای معمولی."
+                          ]
                         }),
-                        v.jsx("div", {
-                          className: "overflow-hidden md:max-w-xl max-md:w-full max-md:mt-6",
-                          children: v.jsx(le.p, {
-                            className: "text-xs text-right opacity-50 leading-[1.5]",
-                            variants: { initial: { y: "100%" }, animate: { y: "0%", transition: { duration: 0.8, ease: "circOut", delay: 1 } } },
-                            initial: "initial",
-                            animate: "animate",
-                            children: "دانش‌آموز رشته کامپیوترم و طراحی سایت رو از طریق کلاس‌های فوق‌برنامه شروع کردم. به خاطر علاقه زیادم به طراحی سایت برای خودم سایت‌هایی طراحی کردم و برای افراد دور و بر لوگو طراحی کردم توسط AIها."
-                          })
+                        v.jsx(le.p, {
+                          className: "text-xs text-right opacity-60 leading-relaxed max-w-xl",
+                          variants: { initial: { y: "100%" }, animate: { y: "0%", transition: { duration: 0.8, ease: "circOut", delay: 0.9 } } },
+                          initial: "initial",
+                          animate: "animate",
+                          children: "دانش‌آموز رشته کامپیوترم و طراحی سایت رو از طریق کلاس‌های فوق‌برنامه شروع کردم. به خاطر علاقه زیادم به طراحی سایت برای خودم سایت‌هایی طراحی کردم و برای افراد دور و بر لوگو طراحی کردم توسط AIها."
+                        }),
+                        v.jsxs("div", {
+                          className: "flex items-center gap-3 flex-wrap pt-2",
+                          children: [
+                            v.jsx("span", { className: "text-xs opacity-40 font-mono", children: "TECH STACK:" }),
+                            v.jsx("span", { className: "text-xs px-2.5 py-1 rounded bg-white/5 border border-white/10 text-white/80 font-mono", children: "HTML5" }),
+                            v.jsx("span", { className: "text-xs px-2.5 py-1 rounded bg-white/5 border border-white/10 text-white/80 font-mono", children: "CSS3" }),
+                            v.jsx("span", { className: "text-xs px-2.5 py-1 rounded bg-white/5 border border-white/10 text-white/80 font-mono", children: "JavaScript" }),
+                            v.jsx("span", { className: "text-xs px-2.5 py-1 rounded bg-white/5 border border-white/10 text-white/80 font-mono", children: "AI Design" })
+                          ]
                         })
                       ]
                     })
+                  ]
+                }),
+
+                /* Bottom row */
+                v.jsxs("div", {
+                  className: "text-right relative z-10 w-full flex justify-between items-end max-md:hidden",
+                  children: [
+                    v.jsx("p", { className: "text-xs opacity-40 font-mono", children: "SCROLL TO EXPLORE →" }),
+                    v.jsx("p", { className: "text-xs opacity-40", children: "مشهد • باشگاه کسب و کار رکاد" })
                   ]
                 })
               ]
             })
           }),
 
-          /* ===== PANEL 1: PHOTO ME.JPG (50vw) ===== */
+          /* =========================================================================
+             PANEL 1: کاری که انجام می‌دهیم (۲ ردیف ۳ تایی با آیکون‌های SVG بدون ایموجی)
+             ========================================================================= */
           v.jsx("div", {
             ref: d => { t.current[1] = d; },
-            className: `md:h-screen max-md:min-h-[70vh] flex items-center justify-center flex-shrink-0 relative overflow-hidden ${u ? "w-screen" : ""}`,
-            style: u ? {} : { width: "50vw" },
-            children: v.jsx("div", {
-              className: "w-full h-full relative",
-              children: v.jsxs("div", {
-                className: "w-full h-full flex flex-col justify-between items-start md:pl-24 md:pr-12 max-md:px-6 py-24 max-md:py-12 text-right",
-                dir: "rtl",
-                children: [
-                  v.jsxs("div", {
-                    className: "text-right relative z-10 w-full flex justify-between",
-                    children: [
-                      v.jsxs("div", {
-                        children: [
-                          v.jsxs("div", {
-                            className: "text-xs leading-[1.2] z-50 text-right mb-4",
-                            children: [
-                              v.jsx("span", { className: "opacity-70 font-bold", children: "Photo" }),
-                              " ",
-                              v.jsx("br", {}),
-                              " 'عسل عرب' "
-                            ]
-                          }),
-                          v.jsx("img", {
-                            src: "/img/about/me.jpg",
-                            alt: "عسل عرب",
-                            className: "w-full max-md:w-3/4 md:max-w-xs object-cover rounded-sm shadow-2xl brightness-95"
-                          })
-                        ]
-                      }),
-                      v.jsx("div", { className: "max-md:hidden" })
-                    ]
-                  }),
-                  v.jsxs("div", {
-                    className: "text-right relative z-10 w-full flex justify-between items-end max-md:flex-col max-md:mt-12",
-                    children: [
-                      v.jsx("p", {
-                        className: "text-4xl max-md:text-base max-md:leading-[1.2] max-w-xl text-right font-bold",
-                        children: "طراحی سایت تعاملی، فرانت‌اند و هویت بصری."
-                      }),
-                      v.jsxs("p", {
-                        className: "text-xs text-right opacity-50 max-md:mt-2",
-                        children: [
-                          v.jsx("span", { className: "opacity-50", children: "محل فعالیت: " }),
-                          "مشهد • باشگاه کسب و کار رکاد"
-                        ]
-                      })
-                    ]
-                  })
-                ]
-              })
-            })
-          }),
-
-          /* ===== PANEL 2: کاری که انجام می‌دهیم (120vw) ===== */
-          v.jsx("div", {
-            ref: d => { t.current[2] = d; },
             className: `md:h-screen max-md:min-h-dvh flex items-center justify-center flex-shrink-0 relative overflow-hidden ${u ? "w-screen" : ""}`,
-            style: u ? {} : { width: "120vw" },
+            style: u ? {} : { width: "115vw" },
             children: v.jsx("div", {
               className: "w-full h-full relative",
               children: v.jsxs("div", {
-                className: "w-full h-full flex flex-col justify-between items-start pl-24 pr-12 max-md:px-6 py-24 max-md:py-12 text-right",
+                className: "w-full h-full flex flex-col justify-between items-start pl-24 pr-16 max-md:px-6 py-20 max-md:py-12 text-right",
                 dir: "rtl",
                 children: [
+                  /* Header */
                   v.jsxs("div", {
                     className: "text-right relative z-10 w-full flex justify-between items-start max-md:flex-col",
                     children: [
                       v.jsxs("div", {
                         className: "flex flex-col gap-2",
                         children: [
-                          v.jsx("h3", { className: "opacity-50 text-xs uppercase tracking-wider", children: "What We Do" }),
+                          v.jsx("h3", { className: "opacity-50 text-xs uppercase tracking-wider font-mono", children: "What We Do" }),
                           v.jsx("p", { className: "text-4xl max-md:text-2xl max-md:leading-[1.2] max-w-xl font-bold", children: "کاری که انجام می‌دهیم" })
                         ]
                       }),
@@ -1911,52 +1896,84 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
                       })
                     ]
                   }),
+
+                  /* 2 rows of 3 items (Grid 3 cols x 2 rows) */
                   v.jsxs("div", {
-                    className: "text-right relative z-10 w-full flex justify-between max-md:flex-col max-md:mt-12 gap-x-12",
+                    className: "grid grid-cols-3 max-md:grid-cols-1 gap-x-12 gap-y-10 w-full mt-8 text-right",
                     children: [
+                      /* 1: UI */
                       v.jsxs("div", {
-                        className: "flex flex-col items-start gap-x-6 max-w-md max-md:mb-6",
+                        className: "flex flex-col items-start text-right",
                         children: [
-                          v.jsx("p", { className: "text-base text-right opacity-80 mb-2 font-bold", children: "طراحی رابط کاربری (UI)" }),
+                          v.jsxs("svg", { className: "w-5 h-5 text-white/70 mb-3", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.75", strokeLinecap: "round", strokeLinejoin: "round", children: [v.jsx("rect", { x: "3", y: "3", width: "18", height: "18", rx: "2" }), v.jsx("path", { d: "M3 9h18" }), v.jsx("path", { d: "M9 21V9" })] }),
+                          v.jsx("p", { className: "text-base text-right opacity-90 mb-1.5 font-bold", children: "طراحی رابط کاربری (UI)" }),
                           v.jsx("p", { className: "text-xs text-right opacity-50 leading-relaxed", children: "سیستم رنگ و تایپوگرافی اختصاصی، چیدمان گرید‌محور و نسخه موبایل." })
                         ]
                       }),
+                      /* 2: Frontend */
                       v.jsxs("div", {
-                        className: "flex flex-col items-start gap-x-6 max-w-md max-md:mb-6",
+                        className: "flex flex-col items-start text-right",
                         children: [
-                          v.jsx("p", { className: "text-base text-right opacity-80 mb-2 font-bold", children: "توسعه فرانت‌اند" }),
+                          v.jsxs("svg", { className: "w-5 h-5 text-white/70 mb-3", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.75", strokeLinecap: "round", strokeLinejoin: "round", children: [v.jsx("polyline", { points: "16 18 22 12 16 6" }), v.jsx("polyline", { points: "8 6 2 12 8 18" })] }),
+                          v.jsx("p", { className: "text-base text-right opacity-90 mb-1.5 font-bold", children: "توسعه فرانت‌اند" }),
                           v.jsx("p", { className: "text-xs text-right opacity-50 leading-relaxed", children: "HTML/CSS تمیز، JavaScript مدرن، ساختار استاندارد، سبک و با سرعت اجرای بالا." })
                         ]
                       }),
+                      /* 3: Motion */
                       v.jsxs("div", {
-                        className: "flex flex-col items-start gap-x-6 max-w-md max-md:mb-6",
+                        className: "flex flex-col items-start text-right",
                         children: [
-                          v.jsx("p", { className: "text-base text-right opacity-80 mb-2 font-bold", children: "موشن و GSAP" }),
+                          v.jsx("svg", { className: "w-5 h-5 text-white/70 mb-3", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.75", strokeLinecap: "round", strokeLinejoin: "round", children: v.jsx("polygon", { points: "5 3 19 12 5 21 5 3" }) }),
+                          v.jsx("p", { className: "text-base text-right opacity-90 mb-1.5 font-bold", children: "موشن و تعامل وب" }),
                           v.jsx("p", { className: "text-xs text-right opacity-50 leading-relaxed", children: "انیمیشن اسکرول، ورود پلکانی، پارالاکس و ریزتعامل‌های ۶۰fps." })
                         ]
                       }),
+                      /* 4: RTL */
                       v.jsxs("div", {
-                        className: "flex flex-col items-start gap-x-6 max-w-md max-md:mb-6",
+                        className: "flex flex-col items-start text-right",
                         children: [
-                          v.jsx("p", { className: "text-base text-right opacity-80 mb-2 font-bold", children: "تخصص RTL و لوگو" }),
-                          v.jsx("p", { className: "text-xs text-right opacity-50 leading-relaxed", children: "فونت فارسی استاندارد، نیم‌فاصله، آینه‌سازی آیکون‌ها و طراحی لوگو با AI." })
+                          v.jsxs("svg", { className: "w-5 h-5 text-white/70 mb-3", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.75", strokeLinecap: "round", strokeLinejoin: "round", children: [v.jsx("polyline", { points: "4 7 4 4 20 4 20 7" }), v.jsx("line", { x1: "9", y1: "20", x2: "15", y2: "20" }), v.jsx("line", { x1: "12", y1: "4", x2: "12", y2: "20" })] }),
+                          v.jsx("p", { className: "text-base text-right opacity-90 mb-1.5 font-bold", children: "تخصص RTL فارسی" }),
+                          v.jsx("p", { className: "text-xs text-right opacity-50 leading-relaxed", children: "فونت فارسی استاندارد، نیم‌فاصله، آینه‌سازی آیکون‌ها و ریتم متناسب تایپوگرافی." })
+                        ]
+                      }),
+                      /* 5: Performance */
+                      v.jsxs("div", {
+                        className: "flex flex-col items-start text-right",
+                        children: [
+                          v.jsx("svg", { className: "w-5 h-5 text-white/70 mb-3", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.75", strokeLinecap: "round", strokeLinejoin: "round", children: v.jsx("polygon", { points: "13 2 3 14 12 14 11 22 21 10 12 10 13 2" }) }),
+                          v.jsx("p", { className: "text-base text-right opacity-90 mb-1.5 font-bold", children: "عملکرد و آفلاین" }),
+                          v.jsx("p", { className: "text-xs text-right opacity-50 leading-relaxed", children: "بدون وابستگی به اینترنت خارجی — تمام فونت‌ها و منابع همراه پروژه." })
+                        ]
+                      }),
+                      /* 6: Brand Identity */
+                      v.jsxs("div", {
+                        className: "flex flex-col items-start text-right",
+                        children: [
+                          v.jsxs("svg", { className: "w-5 h-5 text-white/70 mb-3", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.75", strokeLinecap: "round", strokeLinejoin: "round", children: [v.jsx("circle", { cx: "12", cy: "12", r: "10" }), v.jsx("path", { d: "m4.93 4.93 4.24 4.24" }), v.jsx("path", { d: "m14.83 9.17 4.24-4.24" }), v.jsx("circle", { cx: "12", cy: "12", r: "3" })] }),
+                          v.jsx("p", { className: "text-base text-right opacity-90 mb-1.5 font-bold", children: "طراحی هویت و لوگو" }),
+                          v.jsx("p", { className: "text-xs text-right opacity-50 leading-relaxed", children: "طراحی کانسپت‌های نشان تجاری و هویت بصری با بهره‌گیری از ابزارهای هوش مصنوعی و وکتور." })
                         ]
                       })
                     ]
-                  })
+                  }),
+
+                  v.jsx("div", {})
                 ]
               })
             })
           }),
 
-          /* ===== PANEL 3: از ایده تا دمو، چهار فاز (120vw) ===== */
+          /* =========================================================================
+             PANEL 2: از ایده تا دمو، چهار فاز (استایل شکیل در ساختار اصلی)
+             ========================================================================= */
           v.jsxs("div", {
-            ref: d => { t.current[3] = d; },
+            ref: d => { t.current[2] = d; },
             className: `md:h-screen max-md:min-h-[75dvh] flex max-md:flex-col items-center justify-between flex-shrink-0 relative overflow-hidden ${u ? "w-screen" : ""}`,
             style: u ? {} : { width: "120vw" },
             children: [
               v.jsxs("div", {
-                className: "w-full h-full flex flex-col justify-between items-start px-28 max-md:px-6 py-24 max-md:pb-0 max-md:pt-16 text-right",
+                className: "w-full h-full flex flex-col justify-between items-start px-28 max-md:px-6 py-20 max-md:pb-0 max-md:pt-16 text-right",
                 dir: "rtl",
                 children: [
                   v.jsx("div", {}),
@@ -1965,10 +1982,10 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
                     children: [
                       v.jsx("div", {
                         className: "w-full text-right",
-                        children: v.jsx("h3", { className: "opacity-50 text-xs uppercase mb-4 tracking-wider", children: "Our Process" })
+                        children: v.jsx("h3", { className: "opacity-50 text-xs uppercase mb-4 tracking-wider font-mono", children: "Our Process" })
                       }),
                       v.jsxs("p", {
-                        className: "text-4xl max-md:text-2xl font-bold text-right",
+                        className: "text-4xl max-md:text-2xl font-bold text-right leading-[1.2]",
                         children: [
                           "از ایده تا دمو، ",
                           v.jsx("br", {}),
@@ -1984,7 +2001,7 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
                 ]
               }),
               v.jsxs("div", {
-                className: "w-full h-full text-right relative z-10 flex justify-between items-start flex-col py-24 max-md:pt-12 max-md:pb-0 md:pr-28 max-md:px-6",
+                className: "w-full h-full text-right relative z-10 flex justify-between items-start flex-col py-20 max-md:pt-12 max-md:pb-0 md:pl-28 max-md:px-6",
                 dir: "rtl",
                 children: [
                   v.jsxs("div", {
@@ -2007,38 +2024,38 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
                     className: "max-md:mb-12 w-full",
                     children: [
                       v.jsxs("div", {
-                        className: "flex justify-start items-end gap-x-16 max-md:flex-col max-md:items-start max-md:gap-y-4 mb-4",
+                        className: "grid grid-cols-2 max-md:grid-cols-1 gap-x-16 gap-y-8 mb-4",
                         children: [
                           v.jsxs("div", {
-                            className: "text-xs leading-[1.3] z-50 text-right",
+                            className: "text-xs leading-[1.4] z-50 text-right border-t border-white/15 pt-4",
                             children: [
-                              v.jsx("span", { className: "opacity-70 font-mono font-bold text-sm", children: "۰۱ کشف و استراتژی" }),
+                              v.jsx("span", { className: "opacity-80 font-mono font-bold text-sm", children: "۰۱ کشف و استراتژی" }),
                               v.jsx("br", {}),
-                              v.jsx("span", { className: "opacity-50", children: "شناخت کسب‌وکار و نقشه صفحات" })
+                              v.jsx("span", { className: "opacity-50", children: "شناخت کسب‌وکار، مخاطب و نقشه صفحات" })
                             ]
                           }),
                           v.jsxs("div", {
-                            className: "text-xs leading-[1.3] z-50 text-right",
+                            className: "text-xs leading-[1.4] z-50 text-right border-t border-white/15 pt-4",
                             children: [
-                              v.jsx("span", { className: "opacity-70 font-mono font-bold text-sm", children: "۰۲ طراحی و پروتوتایپ" }),
+                              v.jsx("span", { className: "opacity-80 font-mono font-bold text-sm", children: "۰۲ طراحی و پروتوتایپ" }),
                               v.jsx("br", {}),
-                              v.jsx("span", { className: "opacity-50", children: "طرح نهایی با رنگ و تایپوگرافی" })
+                              v.jsx("span", { className: "opacity-50", children: "طرح نهایی با سیستم رنگ و تایپ قبل از کد" })
                             ]
                           }),
                           v.jsxs("div", {
-                            className: "text-xs leading-[1.3] z-50 text-right",
+                            className: "text-xs leading-[1.4] z-50 text-right border-t border-white/15 pt-4",
                             children: [
-                              v.jsx("span", { className: "opacity-70 font-mono font-bold text-sm", children: "۰۳ توسعه و موشن" }),
+                              v.jsx("span", { className: "opacity-80 font-mono font-bold text-sm", children: "۰۳ توسعه و موشن" }),
                               v.jsx("br", {}),
-                              v.jsx("span", { className: "opacity-50", children: "پیاده‌سازی دقیق با انیمیشن تعاملی" })
+                              v.jsx("span", { className: "opacity-50", children: "پیاده‌سازی دقیق همراه با انیمیشن تعاملی" })
                             ]
                           }),
                           v.jsxs("div", {
-                            className: "text-xs leading-[1.3] z-50 text-right",
+                            className: "text-xs leading-[1.4] z-50 text-right border-t border-white/15 pt-4",
                             children: [
-                              v.jsx("span", { className: "opacity-70 font-mono font-bold text-sm", children: "۰۴ آزمون و تحویل" }),
+                              v.jsx("span", { className: "opacity-80 font-mono font-bold text-sm", children: "۰۴ آزمون و تحویل" }),
                               v.jsx("br", {}),
-                              v.jsx("span", { className: "opacity-50", children: "پکیج آفلاین و آنلاین آماده" })
+                              v.jsx("span", { className: "opacity-50", children: "چک موبایل و دسکتاپ + تحویل پکیج آماده" })
                             ]
                           })
                         ]
@@ -2050,80 +2067,143 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
             ]
           }),
 
-          /* ===== PANEL 4: CONTACT & FOOTER (80vw) ===== */
+          /* =========================================================================
+             PANEL 3: ارتباط، فرم تماس مینیمال و آیکون‌های سوشال SVG
+             ========================================================================= */
           v.jsxs("div", {
-            ref: d => { t.current[4] = d; },
-            className: `md:h-screen max-md:min-h-[45dvh] flex max-md:flex-col items-center justify-between flex-shrink-0 relative overflow-hidden ${u ? "w-screen" : ""}`,
-            style: u ? {} : { width: "80vw" },
+            ref: d => { t.current[3] = d; },
+            className: `md:h-screen max-md:min-h-[50dvh] flex max-md:flex-col items-center justify-between flex-shrink-0 relative overflow-hidden ${u ? "w-screen" : ""}`,
+            style: u ? {} : { width: "95vw" },
             children: [
               v.jsxs("div", {
-                className: "w-full h-full max-md:h-auto text-right relative z-10 flex justify-between items-start max-md:justify-start flex-col py-24 max-md:pt-8 max-md:pb-12 md:pr-28 pl-12 max-md:px-6",
+                className: "w-full h-full max-md:h-auto text-right relative z-10 flex justify-between items-start flex-col py-20 max-md:py-12 md:pr-24 md:pl-16 max-md:px-6",
                 dir: "rtl",
                 children: [
-                  v.jsx("div", {}),
+                  /* Top Header */
                   v.jsxs("div", {
-                    className: "flex w-full items-end max-md:items-start justify-between gap-x-6 max-md:flex-col max-md:gap-y-6",
+                    className: "flex flex-col gap-2",
                     children: [
-                      v.jsx("ul", {
-                        className: "flex flex-col items-start justify-center max-md:justify-start max-md:pb-6 gap-y-2",
-                        children: [
-                          v.jsx("li", {
-                            role: "listitem",
-                            children: v.jsxs("a", {
-                              href: "https://t.me/asall_arab",
-                              target: "_blank",
-                              rel: "noopener noreferrer",
-                              className: "text-xs max-md:text-base text-right h-full flex justify-center items-end leading-[1.4] text-white hover:opacity-100 opacity-70",
-                              "aria-label": "ارتباط در تلگرام",
+                      v.jsx("span", { className: "text-xs uppercase opacity-50 font-mono tracking-wider", children: "Get In Touch" }),
+                      v.jsx("h2", { className: "text-4xl max-md:text-2xl font-bold text-white", children: "بگذارید پروژه بعدی را با هم بسازیم" }),
+                      v.jsx("p", { className: "text-xs opacity-50 mt-1", children: "ایده‌تان را بگویید — در قالب دمو زنده تحویلش می‌گیرید." })
+                    ]
+                  }),
+
+                  /* Main Contact Section: Minimalist Form on Right, Socials on Left */
+                  v.jsxs("div", {
+                    className: "grid grid-cols-12 gap-12 max-md:gap-8 w-full my-auto items-start",
+                    children: [
+                      /* Contact Form (col-span-7) with sleek minimalist editorial underline inputs */
+                      v.jsx("div", {
+                        className: "col-span-7 max-md:col-span-12",
+                        children: v.jsxs("form", {
+                          onSubmit: handleFormSubmit,
+                          className: "flex flex-col gap-6 text-right",
+                          children: [
+                            v.jsxs("div", {
+                              className: "grid grid-cols-2 max-md:grid-cols-1 gap-6",
                               children: [
-                                v.jsx("span", { children: "تلگرام: @asall_arab" }),
-                                v.jsx("span", { className: "mr-1 text-[10px]", children: "↗" })
+                                v.jsx("input", {
+                                  type: "text",
+                                  placeholder: "نام و نام خانوادگی",
+                                  required: !0,
+                                  value: formState.name,
+                                  onChange: e => setFormState({ ...formState, name: e.target.value }),
+                                  className: "w-full bg-transparent border-b border-white/20 pb-2 text-xs text-white placeholder-white/40 focus:border-white focus:outline-none transition-colors"
+                                }),
+                                v.jsx("input", {
+                                  type: "text",
+                                  placeholder: "ایمیل یا شماره تماس",
+                                  required: !0,
+                                  value: formState.contact,
+                                  onChange: e => setFormState({ ...formState, contact: e.target.value }),
+                                  className: "w-full bg-transparent border-b border-white/20 pb-2 text-xs text-white placeholder-white/40 focus:border-white focus:outline-none transition-colors"
+                                })
+                              ]
+                            }),
+                            v.jsx("input", {
+                              type: "text",
+                              placeholder: "توضیح کوتاه درباره پروژه یا پیام شما...",
+                              required: !0,
+                              value: formState.message,
+                              onChange: e => setFormState({ ...formState, message: e.target.value }),
+                              className: "w-full bg-transparent border-b border-white/20 pb-2 text-xs text-white placeholder-white/40 focus:border-white focus:outline-none transition-colors"
+                            }),
+                            v.jsxs("button", {
+                              type: "submit",
+                              className: "self-start inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-white/20 text-xs font-semibold hover:bg-white hover:text-black transition-all mt-2 cursor-pointer",
+                              children: [
+                                v.jsx("span", { children: formState.sent ? "پیام ارسال شد ✓" : "ارسال پیام" }),
+                                v.jsx("span", { className: "text-sm", children: "↗" })
                               ]
                             })
-                          }),
-                          v.jsx("li", {
-                            role: "listitem",
-                            children: v.jsxs("a", {
-                              href: "mailto:arabasal606@gmail.com",
-                              className: "text-xs max-md:text-base text-right h-full flex justify-center items-end leading-[1.4] text-white hover:opacity-100 opacity-70",
-                              "aria-label": "ارسال ایمیل",
-                              children: [
-                                v.jsx("span", { children: "ایمیل: arabasal606@gmail.com" }),
-                                v.jsx("span", { className: "mr-1 text-[10px]", children: "↗" })
-                              ]
-                            })
-                          })
-                        ]
+                          ]
+                        })
                       }),
-                      v.jsxs("p", {
-                        className: "text-xs text-right leading-[1.4]",
+
+                      /* Social Links & Info (col-span-5) with authentic SVG icons */
+                      v.jsxs("div", {
+                        className: "col-span-5 max-md:col-span-12 flex flex-col gap-4 text-right",
                         children: [
-                          v.jsxs("span", {
-                            className: "relative",
+                          /* Telegram link with clean SVG */
+                          v.jsxs("a", {
+                            href: "https://t.me/asall_arab",
+                            target: "_blank",
+                            rel: "noopener noreferrer",
+                            className: "flex items-center justify-between py-2 border-b border-white/10 hover:border-white/40 text-white opacity-80 hover:opacity-100 transition-all text-xs",
                             children: [
-                              v.jsx("div", { className: "h-px w-full bg-white absolute top-1/2 translate-y-1/2 right-0" }),
-                              v.jsx("span", { className: "opacity-70", children: "آماده برای پروژه‌های فریلنسری" })
+                              v.jsxs("div", {
+                                className: "flex items-center gap-3",
+                                children: [
+                                  v.jsxs("svg", { className: "w-4 h-4 text-white/60", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.75", strokeLinecap: "round", strokeLinejoin: "round", children: [v.jsx("line", { x1: "22", y1: "2", x2: "11", y2: "13" }), v.jsx("polygon", { points: "22 2 15 22 11 13 2 9 22 2" })] }),
+                                  v.jsx("span", { children: "تلگرام: @asall_arab" })
+                                ]
+                              }),
+                              v.jsx("span", { className: "text-[10px]", children: "↗" })
                             ]
                           }),
-                          " ",
-                          v.jsx("br", {}),
-                          v.jsx("span", { className: "opacity-50", children: "طراح سایت — مشهد" }),
-                          " ",
-                          v.jsx("br", {}),
-                          v.jsx("span", { className: "opacity-50", children: "باشگاه کسب و کار رکاد" })
-                        ]
-                      }),
-                      v.jsxs("p", {
-                        className: "text-right w-72 leading-[1.3] text-xs",
-                        children: [
-                          "© عسل عرب ",
-                          v.jsx("br", {}),
-                          v.jsx("span", { className: "opacity-50", children: "طراحی رابط کاربری و توسعه وب" }),
-                          " ",
-                          v.jsx("br", {}),
-                          v.jsx("span", { className: "opacity-50", children: "خلق تجربیات وب تعاملی" })
+
+                          /* Email link with clean SVG */
+                          v.jsxs("a", {
+                            href: "mailto:arabasal606@gmail.com",
+                            className: "flex items-center justify-between py-2 border-b border-white/10 hover:border-white/40 text-white opacity-80 hover:opacity-100 transition-all text-xs",
+                            children: [
+                              v.jsxs("div", {
+                                className: "flex items-center gap-3",
+                                children: [
+                                  v.jsxs("svg", { className: "w-4 h-4 text-white/60", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.75", strokeLinecap: "round", strokeLinejoin: "round", children: [v.jsx("rect", { x: "2", y: "4", width: "20", height: "16", rx: "2" }), v.jsx("path", { d: "m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" })] }),
+                                  v.jsx("span", { children: "ایمیل: arabasal606@gmail.com" })
+                                ]
+                              }),
+                              v.jsx("span", { className: "text-[10px]", children: "↗" })
+                            ]
+                          }),
+
+                          /* Location with clean SVG */
+                          v.jsxs("div", {
+                            className: "flex items-center justify-between py-2 border-b border-white/10 text-white/70 text-xs",
+                            children: [
+                              v.jsxs("div", {
+                                className: "flex items-center gap-3",
+                                children: [
+                                  v.jsxs("svg", { className: "w-4 h-4 text-white/60", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.75", strokeLinecap: "round", strokeLinejoin: "round", children: [v.jsx("path", { d: "M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" }), v.jsx("circle", { cx: "12", cy: "10", r: "3" })] }),
+                                  v.jsx("span", { children: "مشهد • باشگاه کسب و کار رکاد" })
+                                ]
+                              }),
+                              v.jsx("span", { className: "text-[10px] text-emerald-400 font-mono", children: "AVAILABLE" })
+                            ]
+                          })
                         ]
                       })
+                    ]
+                  }),
+
+                  /* Footer Copyright */
+                  v.jsxs("div", {
+                    className: "flex w-full items-end justify-between text-xs opacity-50 pt-4 max-md:flex-col max-md:items-start max-md:gap-2",
+                    children: [
+                      v.jsx("p", { children: "© عسل عرب — طراح و توسعه‌دهنده فرانت‌اند" }),
+                      v.jsx("p", { className: "font-mono", children: "خلق تجربیات وب تعاملی، فراتر از کدهای معمولی" })
                     ]
                   })
                 ]
