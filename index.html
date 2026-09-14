@@ -77,6 +77,19 @@
       
       iframe.onload = function() {
         injectNoScrollbar(iframe);
+        [100, 300, 600].forEach(delay => {
+          setTimeout(() => {
+            try {
+              const win = iframe.contentWindow;
+              if (win) {
+                win.dispatchEvent(new Event('resize'));
+                win.dispatchEvent(new Event('scroll'));
+                if (win.ScrollTrigger) win.ScrollTrigger.refresh();
+                if (win.gsap && win.gsap.globalTimeline) win.gsap.globalTimeline.play();
+              }
+            } catch(err) {}
+          }, delay);
+        });
       };
       
       iframe.src = url || 'about:blank';
