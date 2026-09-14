@@ -47,6 +47,20 @@
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
+    .modal-sheet-window.is-wide {
+      width: 96vw !important;
+      max-width: 1600px !important;
+      height: 92vh !important;
+      border-radius: 20px !important;
+    }
+
+    .modal-sheet-window.is-fullscreen {
+      width: 100vw !important;
+      max-width: 100vw !important;
+      height: 100vh !important;
+      border-radius: 0px !important;
+    }
+
     #live-preview-modal.active .modal-sheet-window {
       transform: scale(1) translateY(0);
     }
@@ -113,7 +127,7 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 6px 12px;
+      padding: 6px 14px;
       border-radius: 8px;
       background: rgba(255, 255, 255, 0.07);
       border: 1px solid rgba(255, 255, 255, 0.12);
@@ -155,7 +169,7 @@
       <div class="modal-sheet-header">
         <div class="modal-sheet-dots">
           <i style="background:#ff5f56" onclick="closeLiveModal()" title="بستن (ESC)"></i>
-          <i style="background:#ffbd2e" onclick="toggleModalFullscreen()" title="تغییر اندازه"></i>
+          <i style="background:#ffbd2e" onclick="toggleModalWidth()" title="عریض‌تر کردن کادر"></i>
           <i style="background:#27c93f" onclick="toggleModalFullscreen()" title="تمام‌صفحه"></i>
         </div>
 
@@ -165,14 +179,19 @@
         </div>
 
         <div class="modal-sheet-actions">
-          <button class="modal-sheet-btn" onclick="closeLiveModal()">
-            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            <span>بستن (Esc)</span>
+          <!-- Button to Widen / Expand Window Width -->
+          <button class="modal-sheet-btn" id="btnToggleWidth" onclick="toggleModalWidth()" title="عریض‌تر کردن کادر پیش‌نمایش">
+            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg>
+            <span id="txtToggleWidth">کادر عریض</span>
           </button>
           <a class="modal-sheet-btn" id="modalExternalLink" href="#" target="_blank" rel="noopener">
             <span>تب جدید</span>
             <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2" fill="none"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           </a>
+          <button class="modal-sheet-btn" onclick="closeLiveModal()">
+            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <span>بستن (Esc)</span>
+          </button>
         </div>
       </div>
       <div class="modal-sheet-body">
@@ -250,19 +269,44 @@
       }
     };
 
+    window.toggleModalWidth = function() {
+      const w = document.getElementById('modalWindow');
+      const txt = document.getElementById('txtToggleWidth');
+      if (w.classList.contains('is-wide')) {
+        w.classList.remove('is-wide');
+        if (txt) txt.textContent = 'کادر عریض';
+      } else {
+        w.classList.remove('is-fullscreen');
+        w.classList.add('is-wide');
+        if (txt) txt.textContent = 'کادر استاندارد';
+      }
+      setTimeout(() => {
+        const iframe = document.getElementById('liveIframe');
+        if (iframe && iframe.contentWindow) {
+          iframe.contentWindow.dispatchEvent(new Event('resize'));
+          if (iframe.contentWindow.ScrollTrigger) iframe.contentWindow.ScrollTrigger.refresh();
+        }
+      }, 350);
+    };
+
     window.toggleModalFullscreen = function() {
       const w = document.getElementById('modalWindow');
-      if (w.style.maxWidth === '100vw') {
-        w.style.maxWidth = '1100px';
-        w.style.width = '86vw';
-        w.style.height = '82vh';
-        w.style.borderRadius = '18px';
+      const txt = document.getElementById('txtToggleWidth');
+      if (w.classList.contains('is-fullscreen')) {
+        w.classList.remove('is-fullscreen');
+        if (txt) txt.textContent = 'کادر عریض';
       } else {
-        w.style.maxWidth = '100vw';
-        w.style.width = '100vw';
-        w.style.height = '100vh';
-        w.style.borderRadius = '0px';
+        w.classList.remove('is-wide');
+        w.classList.add('is-fullscreen');
+        if (txt) txt.textContent = 'کادر استاندارد';
       }
+      setTimeout(() => {
+        const iframe = document.getElementById('liveIframe');
+        if (iframe && iframe.contentWindow) {
+          iframe.contentWindow.dispatchEvent(new Event('resize'));
+          if (iframe.contentWindow.ScrollTrigger) iframe.contentWindow.ScrollTrigger.refresh();
+        }
+      }, 350);
     };
 
     window.addEventListener('keydown', function(e) {
