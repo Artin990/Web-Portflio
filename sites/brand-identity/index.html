@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوگوها و هویت بصری ⁂ عسل عرب</title>
+  <style>
+    :root {
+      --bg: #070709;
+      --card-bg: rgba(255, 255, 255, 0.03);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --card-hover-border: rgba(255, 255, 255, 0.35);
+      --accent: #d4a373;
+      --text-main: #f3f3f3;
+      --text-muted: rgba(255, 255, 255, 0.6);
+      --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Vazirmatn', Tahoma, sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font-family);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+      padding-bottom: 80px;
+    }
+    .glow-1 {
+      position: fixed; top: -10vw; left: -10vw; width: 40vw; height: 40vw;
+      background: radial-gradient(circle, rgba(212, 163, 115, 0.08) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+    }
+    .glow-2 {
+      position: fixed; bottom: -10vw; right: -10vw; width: 45vw; height: 45vw;
+      background: radial-gradient(circle, rgba(90, 120, 255, 0.06) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 40px 24px; position: relative; z-index: 1; }
+    header { text-align: center; margin-bottom: 48px; padding-top: 20px; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 9999px; padding: 6px 16px; font-size: 12px;
+      color: var(--accent); margin-bottom: 16px; backdrop-filter: blur(8px);
+    }
+    h1 {
+      font-size: clamp(28px, 4vw, 42px); font-weight: 800; letter-spacing: -0.5px; margin-bottom: 12px;
+      background: linear-gradient(135deg, #ffffff 40%, rgba(255, 255, 255, 0.6) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    p.subtitle { font-size: clamp(14px, 1.8vw, 16px); color: var(--text-muted); max-width: 620px; margin: 0 auto; }
+    .filters { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 36px; }
+    .filter-btn {
+      background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted); padding: 8px 18px; border-radius: 9999px; font-size: 13px;
+      cursor: pointer; font-family: inherit; transition: all 0.25s ease;
+    }
+    .filter-btn:hover { background: rgba(255, 255, 255, 0.1); color: #fff; border-color: rgba(255, 255, 255, 0.25); }
+    .filter-btn.active {
+      background: #ffffff; color: #000000; font-weight: 600; border-color: #ffffff;
+      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+    }
+    .logo-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px;
+    }
+    .logo-card {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 20px; padding: 24px; position: relative; cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex; flex-direction: column; overflow: hidden; backdrop-filter: blur(12px);
+    }
+    .logo-card:hover {
+      transform: translateY(-6px); border-color: var(--card-hover-border);
+      background: rgba(255, 255, 255, 0.06);
+      box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 255, 255, 0.05);
+    }
+    .logo-preview {
+      width: 100%; height: 220px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, rgba(0, 0, 0, 0.3) 100%);
+      border-radius: 14px; display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px; padding: 24px; position: relative; overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .logo-preview img {
+      max-width: 100%; max-height: 100%; object-fit: contain;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4));
+    }
+    .logo-card:hover .logo-preview img { transform: scale(1.08); }
+    .card-content { display: flex; flex-direction: column; gap: 6px; text-align: right; }
+    .card-category { font-size: 11px; color: var(--accent); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+    .card-title { font-size: 17px; font-weight: 700; color: #fff; }
+    .card-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-top: 4px; }
+    .card-footer {
+      margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .view-btn { font-size: 12px; color: #fff; display: inline-flex; align-items: center; gap: 6px; font-weight: 500; }
+    .view-btn svg { width: 14px; height: 14px; transform: rotate(180deg); transition: transform 0.2s ease; }
+    .logo-card:hover .view-btn svg { transform: rotate(180deg) translateX(4px); }
+
+    .modal {
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      z-index: 9999; display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 20px;
+    }
+    .modal.active { opacity: 1; pointer-events: auto; }
+    .modal-dialog {
+      background: #101014; border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 24px; width: 100%; max-width: 860px; max-height: 90vh;
+      overflow-y: auto; box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 30px rgba(255, 255, 255, 0.05);
+      position: relative; transform: scale(0.95); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .modal.active .modal-dialog { transform: scale(1); }
+    .modal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .modal-nav { display: flex; align-items: center; gap: 8px; }
+    .nav-btn, .close-btn {
+      background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff; width: 36px; height: 36px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease;
+    }
+    .nav-btn:hover, .close-btn:hover { background: rgba(255, 255, 255, 0.2); transform: scale(1.05); }
+    .modal-body {
+      padding: 32px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 32px; align-items: center;
+    }
+    @media (max-width: 768px) {
+      .modal-body { grid-template-columns: 1fr; padding: 20px; gap: 20px; }
+    }
+    .modal-image-box {
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0.5) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 18px;
+      height: 320px; display: flex; align-items: center; justify-content: center; padding: 32px;
+    }
+    .modal-image-box img { max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.6)); }
+    .modal-info { display: flex; flex-direction: column; gap: 16px; text-align: right; }
+    .modal-tag { font-size: 12px; color: var(--accent); font-weight: 600; }
+    .modal-title { font-size: 24px; font-weight: 800; color: #fff; }
+    .modal-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+    .modal-meta-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px;
+      background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px; padding: 14px;
+    }
+    .meta-item { display: flex; flex-direction: column; gap: 4px; }
+    .meta-label { font-size: 11px; color: rgba(255, 255, 255, 0.4); }
+    .meta-val { font-size: 12.5px; font-weight: 600; color: #ffffff; }
+    .modal-actions { display: flex; gap: 12px; margin-top: 8px; }
+    .action-btn-primary {
+      flex: 1; background: #ffffff; color: #000000; font-weight: 600;
+      padding: 12px 20px; border-radius: 12px; font-size: 13px;
+      text-align: center; text-decoration: none; cursor: pointer;
+      transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: none; font-family: inherit;
+    }
+    .action-btn-primary:hover { background: #e2e2e2; transform: translateY(-2px); }
+  </style>
+</head>
+<body>
+  <div class="glow-1"></div>
+  <div class="glow-2"></div>
+
+  <div class="container">
+    <header>
+      <div class="badge">✦ هویت بصری و لوگو دیزاین</div>
+      <h1>مجموعه لوگوها و هویت بصری</h1>
+      <p class="subtitle">طراحی نشان و نشانه‌های تجاری با ترکیب هوش مصنوعی، طراحی برداری و تایپوگرافی مدرن — خلق ساختار بصری ماندگار برای برندهای متنوع.</p>
+    </header>
+
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">همه پروژه‌ها</button>
+      <button class="filter-btn" data-filter="cultural">فرهنگی و کهن</button>
+      <button class="filter-btn" data-filter="sports">ورزشی و شنا</button>
+      <button class="filter-btn" data-filter="coffee">کافه و برندینگ</button>
+      <button class="filter-btn" data-filter="national">ملی و نمادین</button>
+    </div>
+
+    <div class="logo-grid" id="logoGrid">
+      <!-- Logo 1: Khordo -->
+      <div class="logo-card" data-category="cultural" data-index="0">
+        <div class="logo-preview">
+          <img src="assets/logos/IMG_6895.webp" alt="لوگو خُردو" onerror="this.src='assets/logos/IMG_6895.PNG'">
+        </div>
+        <div class="card-content">
+          <span class="card-category">بافت کهن و معماری</span>
+          <h2 class="card-title">خُردو — بافت کهن مشهد</h2>
+          <p class="card-desc">طراحی مونوگرام و نشان گرافیکی با الهام از معماری آجری و بافت تاریخی مشهد مقدس.</p>
+          <div class="card-footer">
+            <span class="view-btn">مشاهده تک‌صفحه <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            <span style="font-size: 11px; color: rgba(255,255,255,0.4)">AI + Vector</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Logo 2: Pure Bliss Coffee -->
+      <div class="logo-card" data-category="coffee" data-index="1">
+        <div class="logo-preview">
+          <img src="assets/logos/Pure%20bliss%20coffee.svg" alt="Pure Bliss Coffee">
+        </div>
+        <div class="card-content">
+          <span class="card-category">کافه و نوشیدنی تخصصی</span>
+          <h2 class="card-title">Pure Bliss Coffee</h2>
+          <p class="card-desc">لوگوی مدرن و مینیمال کافه با المان‌های فنجان معلق، رایحه گرم قهوه و تایپوگرافی ویژه.</p>
+          <div class="card-footer">
+            <span class="view-btn">مشاهده تک‌صفحه <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            <span style="font-size: 11px; color: rgba(255,255,255,0.4)">SVG برداری</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Logo 3: Swimming Academy 1 -->
+      <div class="logo-card" data-category="sports" data-index="2">
+        <div class="logo-preview">
+          <img src="assets/logos/IMG_3624.webp" alt="لوگوی شنا" onerror="this.src='assets/logos/IMG_3624.PNG'">
+        </div>
+        <div class="card-content">
+          <span class="card-category">آکادمی ورزشی</span>
+          <h2 class="card-title">آکادمی تخصصی شنا</h2>
+          <p class="card-desc">ترکیب سیال امواج آب و حرکت شناگر با خطوط داینامیک و ساختار متقارن انرژی‌بخش.</p>
+          <div class="card-footer">
+            <span class="view-btn">مشاهده تک‌صفحه <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            <span style="font-size: 11px; color: rgba(255,255,255,0.4)">AI Concept</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Logo 4: Swimming Dolphin 2 -->
+      <div class="logo-card" data-category="sports" data-index="3">
+        <div class="logo-preview">
+          <img src="assets/logos/IMG_6133.webp" alt="لوگوی شنا دلفین" onerror="this.src='assets/logos/IMG_6133.PNG'">
+        </div>
+        <div class="card-content">
+          <span class="card-category">ورزش و تفریحات آبی</span>
+          <h2 class="card-title">باشگاه و ورزش‌های آبی</h2>
+          <p class="card-desc">نشانی با فرم دلفین و جریان آب به رنگ آبی اقیانوسی که حس سرعت و آزادی را تداعی می‌کند.</p>
+          <div class="card-footer">
+            <span class="view-btn">مشاهده تک‌صفحه <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            <span style="font-size: 11px; color: rgba(255,255,255,0.4)">AI Creative</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Logo 5: Logo Iran -->
+      <div class="logo-card" data-category="national" data-index="4">
+        <div class="logo-preview">
+          <img src="assets/logos/logoiran.webp" alt="لوگو ایران" onerror="this.src='assets/logos/logoiran.png'" style="filter: brightness(1.2);">
+        </div>
+        <div class="card-content">
+          <span class="card-category">طراحی نشان و نشان تجاری</span>
+          <h2 class="card-title">لوگو ایران</h2>
+          <p class="card-desc">بازآفرینی مدرن و ساختاریافته نماد ملی با فرم‌های هندسی دقیق و استحکام بصری بالا.</p>
+          <div class="card-footer">
+            <span class="view-btn">مشاهده تک‌صفحه <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            <span style="font-size: 11px; color: rgba(255,255,255,0.4)">Geometric Emblem</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Logo 6: Modern Swimming Vector -->
+      <div class="logo-card" data-category="sports" data-index="5">
+        <div class="logo-preview">
+          <img src="assets/logos/%D9%84%D9%88%DA%AF%D9%88%20%D8%B4%D9%86%D8%A7.svg" alt="لوگو شنا مدرن">
+        </div>
+        <div class="card-content">
+          <span class="card-category">ورزشی — وکتور مینیمال</span>
+          <h2 class="card-title">لوگوی شنا (طرح خطی مدرن)</h2>
+          <p class="card-desc">طراحی فلت و مینیمال با وکتور مقیاس‌پذیر برای استفاده در لباس ورزشی، سایت و اپلیکیشن.</p>
+          <div class="card-footer">
+            <span class="view-btn">مشاهده تک‌صفحه <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            <span style="font-size: 11px; color: rgba(255,255,255,0.4)">Pure SVG</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Single View Modal -->
+  <div class="modal" id="singleModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-nav">
+          <button class="nav-btn" id="prevBtn" title="طرح قبلی">←</button>
+          <button class="nav-btn" id="nextBtn" title="طرح بعدی">→</button>
+        </div>
+        <button class="close-btn" id="closeBtn" title="بستن">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-image-box">
+          <img id="modalImg" src="" alt="">
+        </div>
+        <div class="modal-info">
+          <span class="modal-tag" id="modalTag">دسته‌بندی</span>
+          <h2 class="modal-title" id="modalTitle">عنوان لوگو</h2>
+          <p class="modal-desc" id="modalDesc">توضیحات تکمیلی درباره کانسپت و روند طراحی این لوگو.</p>
+          <div class="modal-meta-grid">
+            <div class="meta-item">
+              <span class="meta-label">طراح:</span>
+              <span class="meta-val">عسل عرب</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">ابزارهای استفاده‌شده:</span>
+              <span class="meta-val" id="modalTools">AI + Vector</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">فرمت فایل:</span>
+              <span class="meta-val" id="modalFormat">SVG / High-Res</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">سال اجرا:</span>
+              <span class="meta-val">۱۴۰۳ - ۱۴۰۴</span>
+            </div>
+          </div>
+          <div class="modal-actions">
+            <a class="action-btn-primary" id="downloadBtn" href="#" download>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              مشاهده تصویر اصلی
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const logoData = [
+      {
+        title: "خُردو — بافت کهن مشهد",
+        category: "فرهنگی و بافت کهن",
+        desc: "طراحی کانسپت و نشان هویتی خُردو با تلفیق ساختار هندسی آجرکاری و هویت اصیل ایرانی. این طرح بیانگر پایداری، اصالت و پیوند تاریخ با فضای معاصر است.",
+        src: "assets/logos/IMG_6895.webp",
+        tools: "AI Prompt + Vector",
+        format: "WebP / PNG HD"
+      },
+      {
+        title: "Pure Bliss Coffee",
+        category: "کافه و نوشیدنی تخصصی",
+        desc: "هویت بصری برای کافه Pure Bliss با الهام از خطوط معلق بخار قهوه و شکل مینیمال فنجان. طراحی به گونه‌ای است که روی بسته‌بندی و تابلو جلوه‌ای لوکس دارد.",
+        src: "assets/logos/Pure%20bliss%20coffee.svg",
+        tools: "SVG Vectorization",
+        format: "SVG وکتور نامحدود"
+      },
+      {
+        title: "آکادمی تخصصی شنا",
+        category: "ورزشی و شنا",
+        desc: "لوگوی پویا و باانرژی آکادمی شنا با خطوط مورب و فرم موج‌دار آب. القای حس پیروزی، سرعت، شفافیت آب و شادابی ورزشکاران.",
+        src: "assets/logos/IMG_3624.webp",
+        tools: "AI Concept Art + Graphic",
+        format: "WebP / PNG HD"
+      },
+      {
+        title: "باشگاه و ورزش‌های آبی",
+        category: "ورزشی و شنا",
+        desc: "فرم سیال و صمیمی دلفین و امواج در قالب یک لوگومارک متمایز. مناسب برای کلوب‌های غواصی، آموزش شنای کودکان و مجموعه‌های آبی تفریحی.",
+        src: "assets/logos/IMG_6133.webp",
+        tools: "AI Generation + Fine-tune",
+        format: "WebP / PNG HD"
+      },
+      {
+        title: "لوگو ایران",
+        category: "ملی و نمادین",
+        desc: "طراحی نشان مدرن ایران با تکیه بر فرم‌های خوشنویسی و تقارن هندسی محکم. مناسب برای پلتفرم‌های ملی، همایش‌ها و برندهای صادراتی.",
+        src: "assets/logos/logoiran.webp",
+        tools: "Geometric Design",
+        format: "WebP / PNG HD"
+      },
+      {
+        title: "لوگوی شنا (طرح خطی مدرن)",
+        category: "ورزشی — وکتور مینیمال",
+        desc: "ترسیم برداری تک‌خطی (Monoline) از حرکت دست و بدن شناگر در آب. خوانایی حداکثری در سایزهای کوچک مثل آیکون اپلیکیشن یا کارت ویزیت.",
+        src: "assets/logos/%D9%84%D9%88%DA%AF%D9%88%20%D8%B4%D9%86%D8%A7.svg",
+        tools: "Pure Scalable SVG",
+        format: "Scalable Vector Graphics"
+      }
+    ];
+
+    let currentIndex = 0;
+    const modal = document.getElementById('singleModal');
+    const modalImg = document.getElementById('modalImg');
+    const modalTag = document.getElementById('modalTag');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalTools = document.getElementById('modalTools');
+    const modalFormat = document.getElementById('modalFormat');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    function openModal(index) {
+      currentIndex = index;
+      const item = logoData[currentIndex];
+      if (!item) return;
+
+      modalImg.src = item.src;
+      modalImg.alt = item.title;
+      modalTag.textContent = item.category;
+      modalTitle.textContent = item.title;
+      modalDesc.textContent = item.desc;
+      modalTools.textContent = item.tools;
+      modalFormat.textContent = item.format;
+      downloadBtn.href = item.src;
+      downloadBtn.target = "_blank";
+
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.logo-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const idx = parseInt(card.getAttribute('data-index'), 10);
+        openModal(idx);
+      });
+    });
+
+    document.getElementById('closeBtn').addEventListener('click', closeModal);
+    document.getElementById('prevBtn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      currentIndex = (currentIndex - 1 + logoData.length) % logoData.length;
+      openModal(currentIndex);
+    });
+    document.getElementById('nextBtn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      currentIndex = (currentIndex + 1) % logoData.length;
+      openModal(currentIndex);
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!modal.classList.contains('active')) return;
+      if (e.key === 'Escape') closeModal();
+      if (e.key === 'ArrowRight') document.getElementById('prevBtn').click();
+      if (e.key === 'ArrowLeft') document.getElementById('nextBtn').click();
+    });
+
+    // Filtering
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.logo-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.getAttribute('data-filter');
+        cards.forEach(card => {
+          if (filter === 'all' || card.getAttribute('data-category') === filter) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
