@@ -1729,23 +1729,25 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
   return v.jsxs("div", {
     ref: i,
     className: "md:fixed md:inset-0 w-screen md:h-screen md:overflow-hidden text-white",
-    dir: "rtl",
     children: [
+      /* Progress Indicator */
       v.jsx("div", {
-        className: "fixed bottom-8 left-[15%] z-50 max-md:hidden",
+        className: "fixed bottom-8 left-[15%] z-50 max-md:hidden pointer-events-none",
         children: v.jsx("div", {
           className: "flex items-center gap-3",
           children: v.jsxs("div", {
-            className: "text-white text-xs",
+            className: "text-white text-xs font-mono",
             children: [Math.round(s), "%"]
           })
         })
       }),
+
+      /* Main Horizontal Scroll Track */
       v.jsxs("section", {
         ref: e,
         className: "max-md:flex-col flex items-center justify-start md:w-fit md:h-full max-md:h-fit",
         children: [
-          /* ===== PANEL 0: HERO (Exact structure of original Panel 0) ===== */
+          /* ===== PANEL 0: HERO (w-screen) ===== */
           v.jsx("div", {
             ref: d => { t.current[0] = d; },
             className: "w-screen max-md:w-screen h-screen max-md:h-dvh flex items-center justify-center flex-shrink-0 relative overflow-hidden",
@@ -1753,7 +1755,7 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
               className: "w-full h-full relative",
               children: [
                 v.jsx(le.div, {
-                  className: "absolute top-1/2 -translate-y-1/2 -left-48 z-50 w-96 opacity-30 max-md:w-48 max-md:-left-24 pointer-events-none",
+                  className: "absolute top-1/2 -translate-y-1/2 -right-48 z-50 w-96 opacity-30 max-md:w-48 max-md:-right-24 pointer-events-none",
                   variants: {
                     initial: { rotate: "-180deg" },
                     animate: { rotate: "0deg", transition: { duration: 1.2, ease: "circOut", delay: 0.6 } }
@@ -1764,6 +1766,7 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
                 }),
                 v.jsxs("div", {
                   className: "w-full h-full flex flex-col justify-between items-start px-12 max-md:px-6 py-24 max-md:pb-12 text-right",
+                  dir: "rtl",
                   children: [
                     v.jsxs("div", {
                       className: "text-right relative z-10 w-full flex justify-between max-md:flex-col",
@@ -1771,11 +1774,11 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
                         v.jsx("div", {
                           className: "flex flex-col items-start gap-x-6 md:max-w-90 max-md:w-full overflow-hidden text-right",
                           children: v.jsx(le.p, {
-                            className: "text-xs text-right opacity-50",
+                            className: "text-xs text-right opacity-50 leading-relaxed",
                             variants: { initial: { y: "-100%" }, animate: { y: "0%", transition: { duration: 0.8, ease: "circOut", delay: 0.7 } } },
                             initial: "initial",
                             animate: "animate",
-                            children: "عسل عرب — طراح سایت و هویت بصری از مشهد، فریلنسر و باشگاه کسب و کار رکاد."
+                            children: "عسل عرب — طراح وب و هویت بصری • مشهد، فریلنسر و باشگاه کسب و کار رکاد"
                           })
                         }),
                         v.jsx("div", {
@@ -1786,7 +1789,7 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
                             initial: "initial",
                             animate: "animate",
                             children: [
-                              "خلق تجربیات وب تعاملی، ",
+                              "خلق تجربیات وب تعاملی،",
                               v.jsx("br", {}),
                               "فراتر از کدهای معمولی."
                             ]
@@ -1795,7 +1798,7 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
                       ]
                     }),
                     v.jsxs("div", {
-                      className: "text-right relative z-10 w-full flex justify-between items-end max-md:flex-col",
+                      className: "text-right relative z-10 w-full flex justify-between items-end max-md:flex-col max-md:mt-12",
                       children: [
                         v.jsx("div", {
                           className: "overflow-hidden",
@@ -1810,7 +1813,7 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
                         v.jsx("div", {
                           className: "overflow-hidden md:max-w-xl max-md:w-full max-md:mt-6",
                           children: v.jsx(le.p, {
-                            className: "text-xs text-right opacity-50 leading-[1.4]",
+                            className: "text-xs text-right opacity-50 leading-[1.5]",
                             variants: { initial: { y: "100%" }, animate: { y: "0%", transition: { duration: 0.8, ease: "circOut", delay: 1 } } },
                             initial: "initial",
                             animate: "animate",
@@ -1825,7 +1828,7 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
             })
           }),
 
-          /* ===== PANEL 1: PHOTO ME.JPG (Exact structure of original Panel 2 / 6) ===== */
+          /* ===== PANEL 1: PHOTO ME.JPG (50vw) ===== */
           v.jsx("div", {
             ref: d => { t.current[1] = d; },
             className: `md:h-screen max-md:min-h-[70vh] flex items-center justify-center flex-shrink-0 relative overflow-hidden ${u ? "w-screen" : ""}`,
@@ -1833,7 +1836,8 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
             children: v.jsx("div", {
               className: "w-full h-full relative",
               children: v.jsxs("div", {
-                className: "w-full h-full flex flex-col justify-between items-start md:pr-24 md:pl-12 max-md:px-6 py-24 max-md:py-12 text-right",
+                className: "w-full h-full flex flex-col justify-between items-start md:pl-24 md:pr-12 max-md:px-6 py-24 max-md:py-12 text-right",
+                dir: "rtl",
                 children: [
                   v.jsxs("div", {
                     className: "text-right relative z-10 w-full flex justify-between",
@@ -1843,7 +1847,7 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
                           v.jsxs("div", {
                             className: "text-xs leading-[1.2] z-50 text-right mb-4",
                             children: [
-                              v.jsx("span", { className: "opacity-70", children: "Photo" }),
+                              v.jsx("span", { className: "opacity-70 font-bold", children: "Photo" }),
                               " ",
                               v.jsx("br", {}),
                               " 'عسل عرب' "
@@ -1852,7 +1856,7 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
                           v.jsx("img", {
                             src: "/img/about/me.jpg",
                             alt: "عسل عرب",
-                            className: "w-full max-md:w-3/4 md:max-w-xs object-cover rounded-sm shadow-xl brightness-95"
+                            className: "w-full max-md:w-3/4 md:max-w-xs object-cover rounded-sm shadow-2xl brightness-95"
                           })
                         ]
                       }),
@@ -1880,7 +1884,7 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
             })
           }),
 
-          /* ===== PANEL 2: کاری که انجام می‌دهیم (Exact structure of original Panel 3) ===== */
+          /* ===== PANEL 2: کاری که انجام می‌دهیم (120vw) ===== */
           v.jsx("div", {
             ref: d => { t.current[2] = d; },
             className: `md:h-screen max-md:min-h-dvh flex items-center justify-center flex-shrink-0 relative overflow-hidden ${u ? "w-screen" : ""}`,
@@ -1888,7 +1892,8 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
             children: v.jsx("div", {
               className: "w-full h-full relative",
               children: v.jsxs("div", {
-                className: "w-full h-full flex flex-col justify-between items-start pr-24 pl-12 max-md:px-6 py-24 max-md:py-12 text-right",
+                className: "w-full h-full flex flex-col justify-between items-start pl-24 pr-12 max-md:px-6 py-24 max-md:py-12 text-right",
+                dir: "rtl",
                 children: [
                   v.jsxs("div", {
                     className: "text-right relative z-10 w-full flex justify-between items-start max-md:flex-col",
@@ -1944,7 +1949,7 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
             })
           }),
 
-          /* ===== PANEL 3: از ایده تا دمو، چهار فاز (Exact structure of original Panel 4) ===== */
+          /* ===== PANEL 3: از ایده تا دمو، چهار فاز (120vw) ===== */
           v.jsxs("div", {
             ref: d => { t.current[3] = d; },
             className: `md:h-screen max-md:min-h-[75dvh] flex max-md:flex-col items-center justify-between flex-shrink-0 relative overflow-hidden ${u ? "w-screen" : ""}`,
@@ -1952,6 +1957,7 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
             children: [
               v.jsxs("div", {
                 className: "w-full h-full flex flex-col justify-between items-start px-28 max-md:px-6 py-24 max-md:pb-0 max-md:pt-16 text-right",
+                dir: "rtl",
                 children: [
                   v.jsx("div", {}),
                   v.jsxs("div", {
@@ -1978,7 +1984,8 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
                 ]
               }),
               v.jsxs("div", {
-                className: "w-full h-full text-right relative z-10 flex justify-between items-start flex-col py-24 max-md:pt-12 max-md:pb-0 md:pl-28 max-md:px-6",
+                className: "w-full h-full text-right relative z-10 flex justify-between items-start flex-col py-24 max-md:pt-12 max-md:pb-0 md:pr-28 max-md:px-6",
+                dir: "rtl",
                 children: [
                   v.jsxs("div", {
                     className: "flex justify-between items-start w-full",
@@ -2043,7 +2050,7 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
             ]
           }),
 
-          /* ===== PANEL 4: CONTACT & FOOTER (Exact structure of original Panel 7) ===== */
+          /* ===== PANEL 4: CONTACT & FOOTER (80vw) ===== */
           v.jsxs("div", {
             ref: d => { t.current[4] = d; },
             className: `md:h-screen max-md:min-h-[45dvh] flex max-md:flex-col items-center justify-between flex-shrink-0 relative overflow-hidden ${u ? "w-screen" : ""}`,
@@ -2051,6 +2058,7 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
             children: [
               v.jsxs("div", {
                 className: "w-full h-full max-md:h-auto text-right relative z-10 flex justify-between items-start max-md:justify-start flex-col py-24 max-md:pt-8 max-md:pb-12 md:pr-28 pl-12 max-md:px-6",
+                dir: "rtl",
                 children: [
                   v.jsx("div", {}),
                   v.jsxs("div", {
