@@ -1683,6 +1683,7 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
           infinite: false
         });
         o.current = x;
+        window.__lenis = x;
         x.on("scroll", ({ scroll: _ }) => {
           f(_);
         });
@@ -1704,39 +1705,20 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
       y = u ? e.current.scrollHeight - m : e.current.scrollWidth - m,
       w = Math.max(0, Math.min(100, (d / y) * 100));
     a(w);
-    t.current.forEach(x => {
-      if (!x) return;
-      const _ = x.querySelector(".parallax-image");
-      if (!_) return;
-      const b = x.getBoundingClientRect();
-      if (u) {
-        const S = b.top + d,
-          T = S + b.height,
-          j = S - m,
-          A = T,
-          N = (Math.max(0, Math.min(1, (d - j) / (A - j))) - 0.5) * 40;
-        _.style.transform = `translateY(${N}vh)`;
-      } else {
-        const S = b.left + d,
-          T = S + b.width,
-          j = S - m,
-          A = T,
-          N = (Math.max(0, Math.min(1, (d - j) / (A - j))) - 0.5) * 40;
-        _.style.transform = `translateX(${N}vw)`;
-      }
-    });
   };
 
-  const handleFormSubmit = e => {
-    e.preventDefault();
-    const mailto = `mailto:arabasal606@gmail.com?subject=${encodeURIComponent("پیام از سایت — " + formState.name)}&body=${encodeURIComponent("فرستنده: " + formState.name + "\nتماس: " + formState.contact + "\n\nپیام:\n" + formState.message)}`;
-    window.open(mailto, "_blank");
-    setFormState(prev => ({ ...prev, sent: !0 }));
+  const handleFormSubmit = ev => {
+    ev.preventDefault();
+    const mailto = "mailto:arabasal606@gmail.com?subject=" + encodeURIComponent("پیام همکاری از: " + formState.name) + "&body=" + encodeURIComponent("اطلاعات تماس: " + formState.contact + "\n\n" + formState.message);
+    window.location.href = mailto;
+    setFormState({ name: "", contact: "", message: "", sent: true });
+    setTimeout(() => setFormState(prev => ({ ...prev, sent: false })), 4000);
   };
 
   return v.jsxs("div", {
     ref: i,
     className: "md:fixed md:inset-0 w-screen md:h-screen md:overflow-hidden text-white",
+    style: { background: "#080808", color: "#f3f3f3" },
     children: [
       /* Progress Indicator */
       v.jsx("div", {
@@ -1756,97 +1738,127 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
         className: "max-md:flex-col flex items-center justify-start md:w-fit md:h-full max-md:h-fit",
         children: [
           /* =========================================================================
-             PANEL 0: HERO (عکس سمت راست + اطلاعات و بیو سمت چپ در ساختار اصلی)
+             PANEL 0: HERO (عکس سمت راست، متن‌ها سمت چپ)
              ========================================================================= */
           v.jsx("div", {
             ref: d => { t.current[0] = d; },
             className: "w-screen max-md:w-screen h-screen max-md:h-auto max-md:min-h-screen flex items-center justify-center flex-shrink-0 relative overflow-hidden",
             children: v.jsxs("div", {
-              className: "w-full h-full relative flex flex-col justify-between items-start px-16 max-md:px-6 py-20 max-md:py-16 text-right",
+              className: "w-full h-full relative flex flex-col justify-between items-start px-16 max-md:px-6 pb-16 max-md:pb-12 text-right",
+              style: { paddingTop: u ? "96px" : "120px" },
               dir: "rtl",
               children: [
+                /* Background Subtle Accent Circle */
+                v.jsx("div", {
+                  className: "absolute top-1/2 -translate-y-1/2 -left-20 pointer-events-none opacity-15 max-md:hidden",
+                  style: { width: "420px", height: "420px", borderRadius: "50%", background: "radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%)" }
+                }),
+
                 /* Top row */
                 v.jsxs("div", {
-                  className: "text-right relative z-10 w-full flex justify-between items-start max-md:flex-col",
+                  className: "relative z-10 w-full flex justify-between items-center max-md:hidden gap-4",
+                  style: { maxWidth: "1240px", margin: "0 auto" },
                   children: [
                     v.jsx("div", {
-                      className: "flex flex-col items-start gap-x-6 md:max-w-90 max-md:w-full overflow-hidden text-right",
-                      children: v.jsx(le.p, {
-                        className: "text-xs text-right opacity-50 leading-relaxed",
-                        variants: { initial: { y: "-100%" }, animate: { y: "0%", transition: { duration: 0.8, ease: "circOut", delay: 0.7 } } },
-                        initial: "initial",
-                        animate: "animate",
-                        children: "عسل عرب — طراح وب و هویت بصری • مشهد، فریلنسر و باشگاه کسب و کار رکاد"
+                      className: "flex items-center gap-2",
+                      children: v.jsx("p", {
+                        className: "text-xs opacity-50",
+                        children: "عسل عرب — طراح وب و هویت بصری • مشهد"
                       })
                     }),
                     v.jsx("div", {
-                      className: "overflow-hidden flex flex-col gap-x-6 max-md:mt-4 text-right",
-                      children: v.jsx(le.p, {
-                        className: "text-xs uppercase font-mono opacity-40",
-                        children: "ABOUT ⁂ PORTFOLIO"
+                      children: v.jsx("p", {
+                        className: "text-xs uppercase font-mono opacity-40 tracking-wider",
+                        children: "من کی‌ام؟ ⁂ ABOUT"
                       })
                     })
                   ]
                 }),
 
-                /* Middle Grid: Photo on the Right, Content on the Left */
+                /* Middle Content Row: Photo on the Right, Texts on the Left */
                 v.jsxs("div", {
-                  className: "relative z-10 w-full grid grid-cols-12 gap-12 max-md:gap-6 items-center my-auto",
+                  className: "relative z-10 w-full flex max-md:flex-col items-center justify-between gap-12 max-md:gap-8 my-auto",
+                  style: { maxWidth: "1240px", margin: "auto" },
                   children: [
-                    /* Photo Column (4 cols) */
-                    v.jsx("div", {
-                      className: "col-span-4 max-md:col-span-12 flex justify-start items-center",
-                      children: v.jsxs("div", {
-                        className: "relative max-w-xs w-full",
-                        children: [
-                          v.jsx("img", {
+                    /* RIGHT: Photo of person */
+                    v.jsxs("div", {
+                      className: "flex-shrink-0 flex flex-col items-start max-md:items-center max-md:w-full",
+                      style: { width: u ? "100%" : "300px" },
+                      children: [
+                        v.jsx("div", {
+                          style: {
+                            width: u ? "220px" : "290px",
+                            height: u ? "280px" : "380px",
+                            overflow: "hidden",
+                            borderRadius: "12px",
+                            boxShadow: "0 20px 40px -15px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.1)",
+                            background: "#141414"
+                          },
+                          children: v.jsx("img", {
                             src: "/img/about/me.jpg",
                             alt: "عسل عرب",
-                            className: "w-full h-auto max-h-[52vh] object-cover rounded-sm shadow-2xl brightness-95"
-                          }),
-                          v.jsxs("div", {
-                            className: "text-xs leading-[1.3] z-50 text-right mt-3",
-                            children: [
-                              v.jsx("span", { className: "opacity-70 font-bold", children: "Photo: 'عسل عرب'" }),
-                              " ",
-                              v.jsx("br", {}),
-                              v.jsx("span", { className: "opacity-40", children: "طراح وب و هویت بصری — مشهد" })
-                            ]
+                            style: { width: "100%", height: "100%", objectFit: "cover", display: "block" }
                           })
-                        ]
-                      })
+                        }),
+                        v.jsxs("div", {
+                          className: "mt-3 text-right max-md:text-center w-full",
+                          children: [
+                            v.jsx("p", { className: "text-sm font-bold text-white", children: "عسل عرب" }),
+                            v.jsx("p", { className: "text-xs opacity-50 mt-0.5", children: "طراح وب و هویت بصری — مشهد" })
+                          ]
+                        })
+                      ]
                     }),
 
-                    /* Content Column (8 cols) */
+                    /* LEFT: Headline, Bio & Highlights */
                     v.jsxs("div", {
-                      className: "col-span-8 max-md:col-span-12 flex flex-col gap-6 text-right",
+                      className: "flex-1 flex flex-col items-start text-right max-md:w-full",
+                      style: { maxWidth: "700px" },
                       children: [
-                        v.jsxs(le.h1, {
-                          className: "text-4xl max-md:text-2xl max-md:leading-[1.2] font-bold leading-[1.2] text-white",
-                          variants: { initial: { y: "-100%" }, animate: { y: "0%", transition: { duration: 0.8, ease: "circOut", delay: 0.8 } } },
-                          initial: "initial",
-                          animate: "animate",
+                        /* Slogan / Headline */
+                        v.jsxs("h1", {
+                          className: "text-4xl max-md:text-2xl font-bold leading-tight text-white mb-6",
+                          style: { lineHeight: "1.3" },
                           children: [
                             "خلق تجربیات وب تعاملی،",
                             v.jsx("br", {}),
-                            "فراتر از کدهای معمولی."
+                            v.jsx("span", { style: { color: "rgba(255,255,255,0.75)" }, children: "فراتر از کدهای معمولی." })
                           ]
                         }),
-                        v.jsx(le.p, {
-                          className: "text-xs text-right opacity-60 leading-relaxed max-w-xl",
-                          variants: { initial: { y: "100%" }, animate: { y: "0%", transition: { duration: 0.8, ease: "circOut", delay: 0.9 } } },
-                          initial: "initial",
-                          animate: "animate",
+
+                        /* Short Bio */
+                        v.jsx("p", {
+                          className: "text-sm max-md:text-xs opacity-70 leading-relaxed mb-6",
+                          style: { lineHeight: "1.8", maxWidth: "620px" },
                           children: "دانش‌آموز رشته کامپیوترم و طراحی سایت رو از طریق کلاس‌های فوق‌برنامه شروع کردم. به خاطر علاقه زیادم به طراحی سایت برای خودم سایت‌هایی طراحی کردم و برای افراد دور و بر لوگو طراحی کردم توسط AIها."
                         }),
+
+                        /* Info Badges & Tools */
                         v.jsxs("div", {
-                          className: "flex items-center gap-3 flex-wrap pt-2",
+                          className: "flex flex-wrap items-center gap-3 pt-4 max-md:flex-col max-md:items-stretch",
+                          style: { borderTop: "1px solid rgba(255,255,255,0.1)", width: "100%" },
                           children: [
-                            v.jsx("span", { className: "text-xs opacity-40 font-mono", children: "TECH STACK:" }),
-                            v.jsx("span", { className: "text-xs px-2.5 py-1 rounded bg-white/5 border border-white/10 text-white/80 font-mono", children: "HTML5" }),
-                            v.jsx("span", { className: "text-xs px-2.5 py-1 rounded bg-white/5 border border-white/10 text-white/80 font-mono", children: "CSS3" }),
-                            v.jsx("span", { className: "text-xs px-2.5 py-1 rounded bg-white/5 border border-white/10 text-white/80 font-mono", children: "JavaScript" }),
-                            v.jsx("span", { className: "text-xs px-2.5 py-1 rounded bg-white/5 border border-white/10 text-white/80 font-mono", children: "AI Design" })
+                            v.jsxs("div", {
+                              className: "flex items-center gap-2 px-3.5 py-2",
+                              style: { background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "8px" },
+                              children: [
+                                v.jsx("span", { style: { width: "6px", height: "6px", borderRadius: "50%", background: "#10b981", display: "inline-block" } }),
+                                v.jsx("span", { className: "text-xs opacity-80", children: "مشهد • فریلنسر و باشگاه کسب و کار رکاد" })
+                              ]
+                            }),
+                            v.jsxs("div", {
+                              className: "flex items-center gap-2 px-3.5 py-2",
+                              style: { background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "8px" },
+                              children: [
+                                v.jsx("span", { className: "text-xs font-mono text-white opacity-90", children: "HTML5" }),
+                                v.jsx("span", { className: "text-xs opacity-30", children: "•" }),
+                                v.jsx("span", { className: "text-xs font-mono text-white opacity-90", children: "CSS3" }),
+                                v.jsx("span", { className: "text-xs opacity-30", children: "•" }),
+                                v.jsx("span", { className: "text-xs font-mono text-white opacity-90", children: "JavaScript" }),
+                                v.jsx("span", { className: "text-xs opacity-30", children: "•" }),
+                                v.jsx("span", { className: "text-xs font-mono text-white opacity-90", children: "AI Branding" })
+                              ]
+                            })
                           ]
                         })
                       ]
@@ -1856,10 +1868,17 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
 
                 /* Bottom row */
                 v.jsxs("div", {
-                  className: "text-right relative z-10 w-full flex justify-between items-end max-md:hidden",
+                  className: "relative z-10 w-full flex justify-between items-end max-md:flex-col gap-2",
+                  style: { maxWidth: "1240px", margin: "0 auto" },
                   children: [
-                    v.jsx("p", { className: "text-xs opacity-40 font-mono", children: "SCROLL TO EXPLORE →" }),
-                    v.jsx("p", { className: "text-xs opacity-40", children: "مشهد • باشگاه کسب و کار رکاد" })
+                    v.jsx("p", {
+                      className: "text-xs opacity-40 font-mono",
+                      children: "SCROLL TO EXPLORE ↓"
+                    }),
+                    v.jsx("p", {
+                      className: "text-xs opacity-40",
+                      children: "برای مشاهده مهارت‌ها و فرآیند طراحی اسکرول کنید"
+                    })
                   ]
                 })
               ]
@@ -1867,355 +1886,537 @@ function b6(){const{pathname:i}=oi(),{openModal:e,openMenu:t,setIsTransitioning:
           }),
 
           /* =========================================================================
-             PANEL 1: کاری که انجام می‌دهیم (۲ ردیف ۳ تایی با آیکون‌های SVG بدون ایموجی)
+             PANEL 1: WHAT WE DO (مهارت‌ها در ۲ ردیف ۳ تایی با آیکون‌های SVG تمیز)
              ========================================================================= */
           v.jsx("div", {
             ref: d => { t.current[1] = d; },
-            className: `md:h-screen max-md:min-h-dvh flex items-center justify-center flex-shrink-0 relative overflow-hidden ${u ? "w-screen" : ""}`,
-            style: u ? {} : { width: "115vw" },
-            children: v.jsx("div", {
-              className: "w-full h-full relative",
-              children: v.jsxs("div", {
-                className: "w-full h-full flex flex-col justify-between items-start pl-24 pr-16 max-md:px-6 py-20 max-md:py-12 text-right",
-                dir: "rtl",
-                children: [
-                  /* Header */
-                  v.jsxs("div", {
-                    className: "text-right relative z-10 w-full flex justify-between items-start max-md:flex-col",
-                    children: [
-                      v.jsxs("div", {
-                        className: "flex flex-col gap-2",
-                        children: [
-                          v.jsx("h3", { className: "opacity-50 text-xs uppercase tracking-wider font-mono", children: "What We Do" }),
-                          v.jsx("p", { className: "text-4xl max-md:text-2xl max-md:leading-[1.2] max-w-xl font-bold", children: "کاری که انجام می‌دهیم" })
-                        ]
-                      }),
-                      v.jsx("p", {
-                        className: "text-xs opacity-50 max-w-md max-md:mt-4 leading-relaxed",
-                        children: "ارائه راهکارهای فرانت‌اند، طراحی تعاملی و هویت بصری برای پروژه‌های خلاق وب."
-                      })
-                    ]
-                  }),
+            className: "w-screen max-md:w-screen h-screen max-md:h-auto max-md:min-h-screen flex items-center justify-center flex-shrink-0 relative overflow-hidden",
+            style: { width: "100vw" },
+            children: v.jsxs("div", {
+              className: "w-full h-full relative flex flex-col justify-between items-start px-16 max-md:px-6 pt-28 pb-16 max-md:pt-24 max-md:pb-12 text-right",
+              dir: "rtl",
+              children: [
+                /* Section Header */
+                v.jsxs("div", {
+                  className: "relative z-10 w-full flex justify-between items-end max-md:flex-col max-md:items-start gap-4 mb-4",
+                  style: { maxWidth: "1240px", margin: "0 auto 12px auto" },
+                  children: [
+                    v.jsxs("div", {
+                      children: [
+                        v.jsx("p", { className: "text-xs uppercase font-mono opacity-50 mb-1 tracking-wider", children: "WHAT WE DO" }),
+                        v.jsx("h2", { className: "text-3xl max-md:text-xl font-bold text-white", children: "کاری که انجام می‌دهیم" })
+                      ]
+                    }),
+                    v.jsx("p", {
+                      className: "text-xs opacity-50 max-w-md",
+                      children: "ترکیب مهارت‌های کدنویسی فرانت‌اند، طراحی تعاملی و ابزارهای هوش مصنوعی برای خلق آثار ماندگار"
+                    })
+                  ]
+                }),
 
-                  /* 2 rows of 3 items (Grid 3 cols x 2 rows) */
-                  v.jsxs("div", {
-                    className: "grid grid-cols-3 max-md:grid-cols-1 gap-x-12 gap-y-10 w-full mt-8 text-right",
-                    children: [
-                      /* 1: UI */
-                      v.jsxs("div", {
-                        className: "flex flex-col items-start text-right",
-                        children: [
-                          v.jsxs("svg", { className: "w-5 h-5 text-white/70 mb-3", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.75", strokeLinecap: "round", strokeLinejoin: "round", children: [v.jsx("rect", { x: "3", y: "3", width: "18", height: "18", rx: "2" }), v.jsx("path", { d: "M3 9h18" }), v.jsx("path", { d: "M9 21V9" })] }),
-                          v.jsx("p", { className: "text-base text-right opacity-90 mb-1.5 font-bold", children: "طراحی رابط کاربری (UI)" }),
-                          v.jsx("p", { className: "text-xs text-right opacity-50 leading-relaxed", children: "سیستم رنگ و تایپوگرافی اختصاصی، چیدمان گرید‌محور و نسخه موبایل." })
-                        ]
-                      }),
-                      /* 2: Frontend */
-                      v.jsxs("div", {
-                        className: "flex flex-col items-start text-right",
-                        children: [
-                          v.jsxs("svg", { className: "w-5 h-5 text-white/70 mb-3", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.75", strokeLinecap: "round", strokeLinejoin: "round", children: [v.jsx("polyline", { points: "16 18 22 12 16 6" }), v.jsx("polyline", { points: "8 6 2 12 8 18" })] }),
-                          v.jsx("p", { className: "text-base text-right opacity-90 mb-1.5 font-bold", children: "توسعه فرانت‌اند" }),
-                          v.jsx("p", { className: "text-xs text-right opacity-50 leading-relaxed", children: "HTML/CSS تمیز، JavaScript مدرن، ساختار استاندارد، سبک و با سرعت اجرای بالا." })
-                        ]
-                      }),
-                      /* 3: Motion */
-                      v.jsxs("div", {
-                        className: "flex flex-col items-start text-right",
-                        children: [
-                          v.jsx("svg", { className: "w-5 h-5 text-white/70 mb-3", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.75", strokeLinecap: "round", strokeLinejoin: "round", children: v.jsx("polygon", { points: "5 3 19 12 5 21 5 3" }) }),
-                          v.jsx("p", { className: "text-base text-right opacity-90 mb-1.5 font-bold", children: "موشن و تعامل وب" }),
-                          v.jsx("p", { className: "text-xs text-right opacity-50 leading-relaxed", children: "انیمیشن اسکرول، ورود پلکانی، پارالاکس و ریزتعامل‌های ۶۰fps." })
-                        ]
-                      }),
-                      /* 4: RTL */
-                      v.jsxs("div", {
-                        className: "flex flex-col items-start text-right",
-                        children: [
-                          v.jsxs("svg", { className: "w-5 h-5 text-white/70 mb-3", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.75", strokeLinecap: "round", strokeLinejoin: "round", children: [v.jsx("polyline", { points: "4 7 4 4 20 4 20 7" }), v.jsx("line", { x1: "9", y1: "20", x2: "15", y2: "20" }), v.jsx("line", { x1: "12", y1: "4", x2: "12", y2: "20" })] }),
-                          v.jsx("p", { className: "text-base text-right opacity-90 mb-1.5 font-bold", children: "تخصص RTL فارسی" }),
-                          v.jsx("p", { className: "text-xs text-right opacity-50 leading-relaxed", children: "فونت فارسی استاندارد، نیم‌فاصله، آینه‌سازی آیکون‌ها و ریتم متناسب تایپوگرافی." })
-                        ]
-                      }),
-                      /* 5: Performance */
-                      v.jsxs("div", {
-                        className: "flex flex-col items-start text-right",
-                        children: [
-                          v.jsx("svg", { className: "w-5 h-5 text-white/70 mb-3", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.75", strokeLinecap: "round", strokeLinejoin: "round", children: v.jsx("polygon", { points: "13 2 3 14 12 14 11 22 21 10 12 10 13 2" }) }),
-                          v.jsx("p", { className: "text-base text-right opacity-90 mb-1.5 font-bold", children: "عملکرد و آفلاین" }),
-                          v.jsx("p", { className: "text-xs text-right opacity-50 leading-relaxed", children: "بدون وابستگی به اینترنت خارجی — تمام فونت‌ها و منابع همراه پروژه." })
-                        ]
-                      }),
-                      /* 6: Brand Identity */
-                      v.jsxs("div", {
-                        className: "flex flex-col items-start text-right",
-                        children: [
-                          v.jsxs("svg", { className: "w-5 h-5 text-white/70 mb-3", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.75", strokeLinecap: "round", strokeLinejoin: "round", children: [v.jsx("circle", { cx: "12", cy: "12", r: "10" }), v.jsx("path", { d: "m4.93 4.93 4.24 4.24" }), v.jsx("path", { d: "m14.83 9.17 4.24-4.24" }), v.jsx("circle", { cx: "12", cy: "12", r: "3" })] }),
-                          v.jsx("p", { className: "text-base text-right opacity-90 mb-1.5 font-bold", children: "طراحی هویت و لوگو" }),
-                          v.jsx("p", { className: "text-xs text-right opacity-50 leading-relaxed", children: "طراحی کانسپت‌های نشان تجاری و هویت بصری با بهره‌گیری از ابزارهای هوش مصنوعی و وکتور." })
-                        ]
-                      })
-                    ]
-                  }),
+                /* 2 Rows x 3 Columns Grid */
+                v.jsx("div", {
+                  className: "relative z-10 w-full my-auto",
+                  style: {
+                    display: "grid",
+                    gridTemplateColumns: u ? "1fr" : "repeat(3, 1fr)",
+                    gridTemplateRows: u ? "auto" : "repeat(2, 1fr)",
+                    gap: "20px",
+                    maxWidth: "1240px",
+                    margin: "auto"
+                  },
+                  children: [
+                    /* Skill 1 */
+                    v.jsxs("div", {
+                      style: { background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "20px" },
+                      children: [
+                        v.jsxs("div", {
+                          className: "flex items-center justify-between mb-3",
+                          children: [
+                            v.jsx("div", {
+                              style: { width: "36px", height: "36px", borderRadius: "8px", background: "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", justifyContent: "center" },
+                              children: v.jsxs("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", className: "text-white opacity-90", children: [v.jsx("polyline", { points: "16 18 22 12 16 6" }), v.jsx("polyline", { points: "8 6 2 12 8 18" })] })
+                            }),
+                            v.jsx("span", { className: "text-xs font-mono opacity-30", children: "01" })
+                          ]
+                        }),
+                        v.jsx("h3", { className: "text-base font-bold text-white mb-2", children: "توسعه فرانت‌اند تعاملی" }),
+                        v.jsx("p", { className: "text-xs opacity-60 leading-relaxed", children: "پیاده‌سازی دقیق رابط‌های کاربری با HTML5، CSS3 و جاوااسکریپت، با تمرکز بر تعامل زنده و سرعت بارگذاری بالا." })
+                      ]
+                    }),
 
-                  v.jsx("div", {})
-                ]
-              })
+                    /* Skill 2 */
+                    v.jsxs("div", {
+                      style: { background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "20px" },
+                      children: [
+                        v.jsxs("div", {
+                          className: "flex items-center justify-between mb-3",
+                          children: [
+                            v.jsx("div", {
+                              style: { width: "36px", height: "36px", borderRadius: "8px", background: "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", justifyContent: "center" },
+                              children: v.jsxs("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", className: "text-white opacity-90", children: [v.jsx("rect", { x: "2", y: "3", width: "20", height: "14", rx: "2" }), v.jsx("line", { x1: "8", y1: "21", x2: "16", y2: "21" }), v.jsx("line", { x1: "12", y1: "17", x2: "12", y2: "21" })] })
+                            }),
+                            v.jsx("span", { className: "text-xs font-mono opacity-30", children: "02" })
+                          ]
+                        }),
+                        v.jsx("h3", { className: "text-base font-bold text-white mb-2", children: "طراحی ریسپانسیو و واکنش‌گرا" }),
+                        v.jsx("p", { className: "text-xs opacity-60 leading-relaxed", children: "سازگاری کامل و نمایش بی‌نقص صفحات در تمامی نمایشگرها از تلفن همراه تا دسکتاپ‌های عریض." })
+                      ]
+                    }),
+
+                    /* Skill 3 */
+                    v.jsxs("div", {
+                      style: { background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "20px" },
+                      children: [
+                        v.jsxs("div", {
+                          className: "flex items-center justify-between mb-3",
+                          children: [
+                            v.jsx("div", {
+                              style: { width: "36px", height: "36px", borderRadius: "8px", background: "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", justifyContent: "center" },
+                              children: v.jsxs("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", className: "text-white opacity-90", children: [v.jsx("path", { d: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" })] })
+                            }),
+                            v.jsx("span", { className: "text-xs font-mono opacity-30", children: "03" })
+                          ]
+                        }),
+                        v.jsx("h3", { className: "text-base font-bold text-white mb-2", children: "طراحی هویت بصری با AI" }),
+                        v.jsx("p", { className: "text-xs opacity-60 leading-relaxed", children: "خلق لوگوهای مفهومی و هویت دیداری منحصربه‌فرد با بهره‌گیری تخصصی از ابزارهای هوش مصنوعی." })
+                      ]
+                    }),
+
+                    /* Skill 4 */
+                    v.jsxs("div", {
+                      style: { background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "20px" },
+                      children: [
+                        v.jsxs("div", {
+                          className: "flex items-center justify-between mb-3",
+                          children: [
+                            v.jsx("div", {
+                              style: { width: "36px", height: "36px", borderRadius: "8px", background: "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", justifyContent: "center" },
+                              children: v.jsxs("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", className: "text-white opacity-90", children: [v.jsx("polygon", { points: "13 2 3 14 12 14 11 22 21 10 12 10 13 2" })] })
+                            }),
+                            v.jsx("span", { className: "text-xs font-mono opacity-30", children: "04" })
+                          ]
+                        }),
+                        v.jsx("h3", { className: "text-base font-bold text-white mb-2", children: "تعاملات حرکتی و انیمیشن" }),
+                        v.jsx("p", { className: "text-xs opacity-60 leading-relaxed", children: "به کارگیری ترنزیشن‌های نرم و افکت‌های هوشمندانه برای بخشیدن احساس پویایی و زندگی به صفحه وب." })
+                      ]
+                    }),
+
+                    /* Skill 5 */
+                    v.jsxs("div", {
+                      style: { background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "20px" },
+                      children: [
+                        v.jsxs("div", {
+                          className: "flex items-center justify-between mb-3",
+                          children: [
+                            v.jsx("div", {
+                              style: { width: "36px", height: "36px", borderRadius: "8px", background: "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", justifyContent: "center" },
+                              children: v.jsxs("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", className: "text-white opacity-90", children: [v.jsx("circle", { cx: "12", cy: "12", r: "3" }), v.jsx("path", { d: "M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" })] })
+                            }),
+                            v.jsx("span", { className: "text-xs font-mono opacity-30", children: "05" })
+                          ]
+                        }),
+                        v.jsx("h3", { className: "text-base font-bold text-white mb-2", children: "شخصی‌سازی و بازطراحی وب" }),
+                        v.jsx("p", { className: "text-xs opacity-60 leading-relaxed", children: "بهینه‌سازی کدهای موجود، بازطراحی رابط‌های کاربری و ارتقای حس تجربه کاربری به بالاترین کیفیت ممکن." })
+                      ]
+                    }),
+
+                    /* Skill 6 */
+                    v.jsxs("div", {
+                      style: { background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", padding: "20px" },
+                      children: [
+                        v.jsxs("div", {
+                          className: "flex items-center justify-between mb-3",
+                          children: [
+                            v.jsx("div", {
+                              style: { width: "36px", height: "36px", borderRadius: "8px", background: "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", justifyContent: "center" },
+                              children: v.jsxs("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", className: "text-white opacity-90", children: [v.jsx("path", { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" })] })
+                            }),
+                            v.jsx("span", { className: "text-xs font-mono opacity-30", children: "06" })
+                          ]
+                        }),
+                        v.jsx("h3", { className: "text-base font-bold text-white mb-2", children: "کدنویسی تمیز و استاندارد" }),
+                        v.jsx("p", { className: "text-xs opacity-60 leading-relaxed", children: "توسعه ساختار یافته، رعایت کامل اصول معنایی HTML و حفظ خوانایی و پایداری بلندمدت کدها." })
+                      ]
+                    })
+                  ]
+                }),
+
+                /* Bottom Indicator */
+                v.jsx("div", {
+                  className: "relative z-10 w-full text-left",
+                  style: { maxWidth: "1240px", margin: "0 auto" },
+                  children: v.jsx("p", { className: "text-xs opacity-40 font-mono", children: "SKILLS & EXPERTISE ⁂ 2026" })
+                })
+              ]
             })
           }),
 
           /* =========================================================================
-             PANEL 2: از ایده تا دمو، چهار فاز (استایل شکیل در ساختار اصلی)
+             PANEL 2: FOUR PHASES (از ایده تا دمو، چهار فاز با طراحی تایم‌لاین مدرن)
              ========================================================================= */
-          v.jsxs("div", {
+          v.jsx("div", {
             ref: d => { t.current[2] = d; },
-            className: `md:h-screen max-md:min-h-[75dvh] flex max-md:flex-col items-center justify-between flex-shrink-0 relative overflow-hidden ${u ? "w-screen" : ""}`,
-            style: u ? {} : { width: "120vw" },
-            children: [
-              v.jsxs("div", {
-                className: "w-full h-full flex flex-col justify-between items-start px-28 max-md:px-6 py-20 max-md:pb-0 max-md:pt-16 text-right",
-                dir: "rtl",
-                children: [
-                  v.jsx("div", {}),
-                  v.jsxs("div", {
-                    className: "flex flex-col justify-center items-start w-[90%] max-md:w-full text-right",
-                    children: [
-                      v.jsx("div", {
-                        className: "w-full text-right",
-                        children: v.jsx("h3", { className: "opacity-50 text-xs uppercase mb-4 tracking-wider font-mono", children: "Our Process" })
-                      }),
-                      v.jsxs("p", {
-                        className: "text-4xl max-md:text-2xl font-bold text-right leading-[1.2]",
-                        children: [
-                          "از ایده تا دمو، ",
-                          v.jsx("br", {}),
-                          v.jsx("span", { className: "text-xs uppercase font-mono opacity-60", children: "{ ۴ فاز پیاده‌سازی }" })
-                        ]
-                      })
-                    ]
-                  }),
-                  v.jsx("p", {
-                    className: "text-right w-72 leading-[1.4] text-xs mt-12 opacity-50",
-                    children: "ایده‌تان را مطرح کنید — در قالب دمو زنده و تعاملی تحویلش می‌گیرید."
-                  })
-                ]
-              }),
-              v.jsxs("div", {
-                className: "w-full h-full text-right relative z-10 flex justify-between items-start flex-col py-20 max-md:pt-12 max-md:pb-0 md:pl-28 max-md:px-6",
-                dir: "rtl",
-                children: [
-                  v.jsxs("div", {
-                    className: "flex justify-between items-start w-full",
-                    children: [
-                      v.jsxs("div", {
-                        className: "flex flex-col items-start gap-x-6 md:max-w-90 max-md:w-full text-right",
-                        children: [
-                          v.jsx("p", {
-                            className: "text-xs text-right opacity-50 leading-relaxed",
-                            children: "شناخت کسب‌وکار و مخاطب، پروتوتایپ سریع، توسعه موشن و آزمایش نهایی برای ایجاد بهترین تجربه دیجیتال."
-                          }),
-                          v.jsx("p", { className: "text-xs text-right opacity-50 mt-2 font-mono", children: "— عسل عرب" })
-                        ]
-                      }),
-                      v.jsx("div", { className: "max-md:hidden" })
-                    ]
-                  }),
-                  v.jsxs("div", {
-                    className: "max-md:mb-12 w-full",
-                    children: [
-                      v.jsxs("div", {
-                        className: "grid grid-cols-2 max-md:grid-cols-1 gap-x-16 gap-y-8 mb-4",
-                        children: [
-                          v.jsxs("div", {
-                            className: "text-xs leading-[1.4] z-50 text-right border-t border-white/15 pt-4",
-                            children: [
-                              v.jsx("span", { className: "opacity-80 font-mono font-bold text-sm", children: "۰۱ کشف و استراتژی" }),
-                              v.jsx("br", {}),
-                              v.jsx("span", { className: "opacity-50", children: "شناخت کسب‌وکار، مخاطب و نقشه صفحات" })
-                            ]
-                          }),
-                          v.jsxs("div", {
-                            className: "text-xs leading-[1.4] z-50 text-right border-t border-white/15 pt-4",
-                            children: [
-                              v.jsx("span", { className: "opacity-80 font-mono font-bold text-sm", children: "۰۲ طراحی و پروتوتایپ" }),
-                              v.jsx("br", {}),
-                              v.jsx("span", { className: "opacity-50", children: "طرح نهایی با سیستم رنگ و تایپ قبل از کد" })
-                            ]
-                          }),
-                          v.jsxs("div", {
-                            className: "text-xs leading-[1.4] z-50 text-right border-t border-white/15 pt-4",
-                            children: [
-                              v.jsx("span", { className: "opacity-80 font-mono font-bold text-sm", children: "۰۳ توسعه و موشن" }),
-                              v.jsx("br", {}),
-                              v.jsx("span", { className: "opacity-50", children: "پیاده‌سازی دقیق همراه با انیمیشن تعاملی" })
-                            ]
-                          }),
-                          v.jsxs("div", {
-                            className: "text-xs leading-[1.4] z-50 text-right border-t border-white/15 pt-4",
-                            children: [
-                              v.jsx("span", { className: "opacity-80 font-mono font-bold text-sm", children: "۰۴ آزمون و تحویل" }),
-                              v.jsx("br", {}),
-                              v.jsx("span", { className: "opacity-50", children: "چک موبایل و دسکتاپ + تحویل پکیج آماده" })
-                            ]
-                          })
-                        ]
-                      })
-                    ]
-                  })
-                ]
-              })
-            ]
+            className: "w-screen max-md:w-screen h-screen max-md:h-auto max-md:min-h-screen flex items-center justify-center flex-shrink-0 relative overflow-hidden",
+            style: { width: "100vw" },
+            children: v.jsxs("div", {
+              className: "w-full h-full relative flex flex-col justify-between items-start px-16 max-md:px-6 pt-28 pb-16 max-md:pt-24 max-md:pb-12 text-right",
+              dir: "rtl",
+              children: [
+                /* Section Header */
+                v.jsxs("div", {
+                  className: "relative z-10 w-full flex justify-between items-end max-md:flex-col max-md:items-start gap-4 mb-4",
+                  style: { maxWidth: "1240px", margin: "0 auto 12px auto" },
+                  children: [
+                    v.jsxs("div", {
+                      children: [
+                        v.jsx("p", { className: "text-xs uppercase font-mono opacity-50 mb-1 tracking-wider", children: "WORKFLOW & PHASES" }),
+                        v.jsx("h2", { className: "text-3xl max-md:text-xl font-bold text-white", children: "از ایده تا دمو، چهار فاز" })
+                      ]
+                    }),
+                    v.jsx("p", {
+                      className: "text-xs opacity-50 max-w-md",
+                      children: "مسیری شفاف و گام‌به‌گام برای تحقق ایده‌های دیجیتال شما از نخستین جرقه تا محصول نهایی"
+                    })
+                  ]
+                }),
+
+                /* 4 Phases Row */
+                v.jsx("div", {
+                  className: "relative z-10 w-full my-auto",
+                  style: {
+                    display: "grid",
+                    gridTemplateColumns: u ? "1fr" : "repeat(4, 1fr)",
+                    gap: "24px",
+                    maxWidth: "1240px",
+                    margin: "auto"
+                  },
+                  children: [
+                    /* Phase 1 */
+                    v.jsxs("div", {
+                      style: {
+                        background: "linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)",
+                        border: "1px solid rgba(255,255,255,0.08)",
+                        borderRadius: "12px",
+                        padding: "24px",
+                        position: "relative"
+                      },
+                      children: [
+                        v.jsx("div", { className: "text-4xl font-mono font-bold opacity-20 mb-4", children: "۰۱" }),
+                        v.jsxs("div", {
+                          className: "flex items-center gap-3 mb-3",
+                          children: [
+                            v.jsxs("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", className: "text-white opacity-90", children: [v.jsx("circle", { cx: "11", cy: "11", r: "8" }), v.jsx("line", { x1: "21", y1: "21", x2: "16.65", y2: "16.65" })] }),
+                            v.jsx("h3", { className: "text-base font-bold text-white", children: "کشف و نیازسنجی" })
+                          ]
+                        }),
+                        v.jsx("p", { className: "text-xs opacity-60 leading-relaxed", children: "شنیدن دقیق نیازها، شناخت هدف پروژه، تحلیل رقبا و مشخص‌کردن ویژگی‌های کلیدی مورد نظر." })
+                      ]
+                    }),
+
+                    /* Phase 2 */
+                    v.jsxs("div", {
+                      style: {
+                        background: "linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)",
+                        border: "1px solid rgba(255,255,255,0.08)",
+                        borderRadius: "12px",
+                        padding: "24px",
+                        position: "relative"
+                      },
+                      children: [
+                        v.jsx("div", { className: "text-4xl font-mono font-bold opacity-20 mb-4", children: "۰۲" }),
+                        v.jsxs("div", {
+                          className: "flex items-center gap-3 mb-3",
+                          children: [
+                            v.jsxs("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", className: "text-white opacity-90", children: [v.jsx("path", { d: "M12 19l7-7 3 3-7 7-3-3z" }), v.jsx("path", { d: "M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" }), v.jsx("path", { d: "M2 2l7.586 7.586" }), v.jsx("circle", { cx: "11", cy: "11", r: "2" })] }),
+                            v.jsx("h3", { className: "text-base font-bold text-white", children: "طراحی بصری و اتود" })
+                          ]
+                        }),
+                        v.jsx("p", { className: "text-xs opacity-60 leading-relaxed", children: "طراحی وایرفریم‌ها، پروتوتایپ‌های اولیه و هویت بصری با کمک ابزارهای مدرن و تایید اولیه توسط شما." })
+                      ]
+                    }),
+
+                    /* Phase 3 */
+                    v.jsxs("div", {
+                      style: {
+                        background: "linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)",
+                        border: "1px solid rgba(255,255,255,0.08)",
+                        borderRadius: "12px",
+                        padding: "24px",
+                        position: "relative"
+                      },
+                      children: [
+                        v.jsx("div", { className: "text-4xl font-mono font-bold opacity-20 mb-4", children: "۰۳" }),
+                        v.jsxs("div", {
+                          className: "flex items-center gap-3 mb-3",
+                          children: [
+                            v.jsxs("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", className: "text-white opacity-90", children: [v.jsx("rect", { x: "4", y: "4", width: "16", height: "16", rx: "2" }), v.jsx("rect", { x: "9", y: "9", width: "6", height: "6" }), v.jsx("line", { x1: "9", y1: "1", x2: "9", y2: "4" }), v.jsx("line", { x1: "15", y1: "1", x2: "15", y2: "4" }), v.jsx("line", { x1: "9", y1: "20", x2: "9", y2: "23" }), v.jsx("line", { x1: "15", y1: "20", x2: "15", y2: "23" })] }),
+                            v.jsx("h3", { className: "text-base font-bold text-white", children: "پیاده‌سازی و کدنویسی" })
+                          ]
+                        }),
+                        v.jsx("p", { className: "text-xs opacity-60 leading-relaxed", children: "تبدیل اتود به صفحات وب زنده، پیاده‌سازی کدهای فرانت‌اند استاندارد و اعمال افکت‌های تعاملی." })
+                      ]
+                    }),
+
+                    /* Phase 4 */
+                    v.jsxs("div", {
+                      style: {
+                        background: "linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)",
+                        border: "1px solid rgba(255,255,255,0.08)",
+                        borderRadius: "12px",
+                        padding: "24px",
+                        position: "relative"
+                      },
+                      children: [
+                        v.jsx("div", { className: "text-4xl font-mono font-bold opacity-20 mb-4", children: "۰۴" }),
+                        v.jsxs("div", {
+                          className: "flex items-center gap-3 mb-3",
+                          children: [
+                            v.jsxs("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", className: "text-white opacity-90", children: [v.jsx("path", { d: "M22 11.08V12a10 10 0 1 1-5.93-9.14" }), v.jsx("polyline", { points: "22 4 12 14.01 9 11.01" })] }),
+                            v.jsx("h3", { className: "text-base font-bold text-white", children: "تست نهایی و دمو" })
+                          ]
+                        }),
+                        v.jsx("p", { className: "text-xs opacity-60 leading-relaxed", children: "آزمون عملکرد روی انواع مرورگرها و ابعاد صفحه‌نمایش، اعمال نظرات تکمیلی و ارائه دموی نهایی." })
+                      ]
+                    })
+                  ]
+                }),
+
+                /* Bottom Indicator */
+                v.jsx("div", {
+                  className: "relative z-10 w-full text-left",
+                  style: { maxWidth: "1240px", margin: "0 auto" },
+                  children: v.jsx("p", { className: "text-xs opacity-40 font-mono", children: "CONTINUOUS DELIVERY & QUALITY" })
+                })
+              ]
+            })
           }),
 
           /* =========================================================================
-             PANEL 3: ارتباط، فرم تماس مینیمال و آیکون‌های سوشال SVG
+             PANEL 3: CONTACT & FORM (فرم تماس + شبکه‌های اجتماعی با SVG)
              ========================================================================= */
-          v.jsxs("div", {
+          v.jsx("div", {
             ref: d => { t.current[3] = d; },
-            className: `md:h-screen max-md:min-h-[50dvh] flex max-md:flex-col items-center justify-between flex-shrink-0 relative overflow-hidden ${u ? "w-screen" : ""}`,
-            style: u ? {} : { width: "95vw" },
-            children: [
-              v.jsxs("div", {
-                className: "w-full h-full max-md:h-auto text-right relative z-10 flex justify-between items-start flex-col py-20 max-md:py-12 md:pr-24 md:pl-16 max-md:px-6",
-                dir: "rtl",
-                children: [
-                  /* Top Header */
-                  v.jsxs("div", {
-                    className: "flex flex-col gap-2",
-                    children: [
-                      v.jsx("span", { className: "text-xs uppercase opacity-50 font-mono tracking-wider", children: "Get In Touch" }),
-                      v.jsx("h2", { className: "text-4xl max-md:text-2xl font-bold text-white", children: "بگذارید پروژه بعدی را با هم بسازیم" }),
-                      v.jsx("p", { className: "text-xs opacity-50 mt-1", children: "ایده‌تان را بگویید — در قالب دمو زنده تحویلش می‌گیرید." })
-                    ]
-                  }),
+            className: "w-screen max-md:w-screen h-screen max-md:h-auto max-md:min-h-screen flex items-center justify-center flex-shrink-0 relative overflow-hidden",
+            style: { width: "100vw" },
+            children: v.jsxs("div", {
+              className: "w-full h-full relative flex flex-col justify-between items-start px-16 max-md:px-6 pt-36 pb-16 max-md:pt-24 max-md:pb-12 text-right",
+              style: { paddingTop: "135px" },
+              dir: "rtl",
+              children: [
+                /* Section Header */
+                v.jsxs("div", {
+                  className: "relative z-10 w-full flex justify-between items-end max-md:flex-col max-md:items-start gap-4 mb-4",
+                  style: { maxWidth: "1040px", margin: "0 auto 12px auto" },
+                  children: [
+                    v.jsxs("div", {
+                      children: [
+                        v.jsx("p", { className: "text-xs uppercase font-mono opacity-50 mb-1 tracking-wider", children: "LET'S CONNECT" }),
+                        v.jsx("h2", { className: "text-3xl max-md:text-xl font-bold text-white", children: "شروع یک گفتگوی تازه" })
+                      ]
+                    }),
+                    v.jsx("p", {
+                      className: "text-xs opacity-50 max-w-md",
+                      children: "برای سفارش پروژه، مشاوره طراحی یا دریافت اطلاعات بیشتر با من در ارتباط باشید."
+                    })
+                  ]
+                }),
 
-                  /* Main Contact Section: Minimalist Form on Right, Socials on Left */
-                  v.jsxs("div", {
-                    className: "grid grid-cols-12 gap-12 max-md:gap-8 w-full my-auto items-start",
-                    children: [
-                      /* Contact Form (col-span-7) with sleek minimalist editorial underline inputs */
-                      v.jsx("div", {
-                        className: "col-span-7 max-md:col-span-12",
-                        children: v.jsxs("form", {
-                          onSubmit: handleFormSubmit,
-                          className: "flex flex-col gap-6 text-right",
+                /* Two-Column Layout: Contact Details & Socials (Right) + Form (Left) */
+                v.jsxs("div", {
+                  className: "relative z-10 w-full flex max-md:flex-col items-start justify-center gap-16 my-auto",
+                  style: { maxWidth: "1040px", margin: "auto" },
+                  children: [
+                    /* Column 1: Info & Social Links */
+                    v.jsxs("div", {
+                      className: "flex flex-col items-start gap-5",
+                      style: { width: u ? "100%" : "380px" },
+                      children: [
+                        v.jsx("p", {
+                          className: "text-sm opacity-70 leading-relaxed",
+                          children: "همیشه مشتاق همکاری در پروژه‌های خلاقانه و نوآورانه وب هستم. از طریق راه‌های زیر می‌توانید مستقیماً با من در تماس باشید:"
+                        }),
+
+                        /* Social Links List with clean SVGs */
+                        v.jsxs("div", {
+                          className: "flex flex-col gap-3 w-full",
                           children: [
-                            v.jsxs("div", {
-                              className: "grid grid-cols-2 max-md:grid-cols-1 gap-6",
+                            /* Telegram */
+                            v.jsxs("a", {
+                              href: "https://t.me/asall_arab",
+                              target: "_blank",
+                              rel: "noopener noreferrer",
+                              className: "flex items-center gap-3 px-4 py-3 rounded-lg transition-colors",
+                              style: { background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", color: "#fff" },
                               children: [
-                                v.jsx("input", {
-                                  type: "text",
-                                  placeholder: "نام و نام خانوادگی",
-                                  required: !0,
-                                  value: formState.name,
-                                  onChange: e => setFormState({ ...formState, name: e.target.value }),
-                                  className: "w-full bg-transparent border-b border-white/20 pb-2 text-xs text-white placeholder-white/40 focus:border-white focus:outline-none transition-colors"
-                                }),
-                                v.jsx("input", {
-                                  type: "text",
-                                  placeholder: "ایمیل یا شماره تماس",
-                                  required: !0,
-                                  value: formState.contact,
-                                  onChange: e => setFormState({ ...formState, contact: e.target.value }),
-                                  className: "w-full bg-transparent border-b border-white/20 pb-2 text-xs text-white placeholder-white/40 focus:border-white focus:outline-none transition-colors"
+                                v.jsx("svg", { width: "20", height: "20", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", className: "text-blue-400", children: [v.jsx("path", { d: "M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-17.5 7.5a2.25 2.25 0 0 0 .14 4.17l4.47 1.39 1.72 5.51a1.5 1.5 0 0 0 2.46.55l2.67-2.67 4.77 3.51a2.25 2.25 0 0 0 3.54-1.37l3-16.5a2.25 2.25 0 0 0-2.25-2.3z" }), v.jsx("path", { d: "M8.5 15l8.5-8.5" })] }),
+                                v.jsxs("div", {
+                                  children: [
+                                    v.jsx("p", { className: "text-xs font-bold text-white", children: "تلگرام" }),
+                                    v.jsx("p", { className: "text-xs opacity-50 font-mono", style: { unicodeBidi: "plaintext", direction: "ltr", textAlign: "left" }, children: "@asall_arab" })
+                                  ]
                                 })
                               ]
                             }),
-                            v.jsx("input", {
-                              type: "text",
-                              placeholder: "توضیح کوتاه درباره پروژه یا پیام شما...",
-                              required: !0,
-                              value: formState.message,
-                              onChange: e => setFormState({ ...formState, message: e.target.value }),
-                              className: "w-full bg-transparent border-b border-white/20 pb-2 text-xs text-white placeholder-white/40 focus:border-white focus:outline-none transition-colors"
-                            }),
-                            v.jsxs("button", {
-                              type: "submit",
-                              className: "self-start inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-white/20 text-xs font-semibold hover:bg-white hover:text-black transition-all mt-2 cursor-pointer",
+
+                            /* Email */
+                            v.jsxs("a", {
+                              href: "mailto:arabasal606@gmail.com",
+                              className: "flex items-center gap-3 px-4 py-3 rounded-lg transition-colors",
+                              style: { background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", color: "#fff" },
                               children: [
-                                v.jsx("span", { children: formState.sent ? "پیام ارسال شد ✓" : "ارسال پیام" }),
-                                v.jsx("span", { className: "text-sm", children: "↗" })
+                                v.jsxs("svg", { width: "20", height: "20", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", className: "text-emerald-400", children: [v.jsx("path", { d: "M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" }), v.jsx("polyline", { points: "22,6 12,13 2,6" })] }),
+                                v.jsxs("div", {
+                                  children: [
+                                    v.jsx("p", { className: "text-xs font-bold text-white", children: "ایمیل مستقیم" }),
+                                    v.jsx("p", { className: "text-xs opacity-50 font-mono", style: { unicodeBidi: "plaintext", direction: "ltr", textAlign: "left" }, children: "arabasal606@gmail.com" })
+                                  ]
+                                })
+                              ]
+                            }),
+
+                            /* Location */
+                            v.jsxs("div", {
+                              className: "flex items-center gap-3 px-4 py-3 rounded-lg",
+                              style: { background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)" },
+                              children: [
+                                v.jsxs("svg", { width: "20", height: "20", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round", className: "text-amber-400", children: [v.jsx("path", { d: "M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" }), v.jsx("circle", { cx: "12", cy: "10", r: "3" })] }),
+                                v.jsxs("div", {
+                                  children: [
+                                    v.jsx("p", { className: "text-xs font-bold text-white", children: "محل سکونت و همکاری" }),
+                                    v.jsx("p", { className: "text-xs opacity-50", children: "مشهد • فریلنسر و باشگاه کسب و کار رکاد" })
+                                  ]
+                                })
                               ]
                             })
                           ]
                         })
-                      }),
+                      ]
+                    }),
 
-                      /* Social Links & Info (col-span-5) with authentic SVG icons */
-                      v.jsxs("div", {
-                        className: "col-span-5 max-md:col-span-12 flex flex-col gap-4 text-right",
+                    /* Column 2: Sleek Contact Form */
+                    v.jsx("div", {
+                      className: "flex-1",
+                      style: { width: u ? "100%" : "480px" },
+                      children: v.jsxs("form", {
+                        onSubmit: handleFormSubmit,
+                        style: {
+                          background: "rgba(255,255,255,0.02)",
+                          border: "1px solid rgba(255,255,255,0.08)",
+                          borderRadius: "12px",
+                          padding: "26px"
+                        },
                         children: [
-                          /* Telegram link with clean SVG */
-                          v.jsxs("a", {
-                            href: "https://t.me/asall_arab",
-                            target: "_blank",
-                            rel: "noopener noreferrer",
-                            className: "flex items-center justify-between py-2 border-b border-white/10 hover:border-white/40 text-white opacity-80 hover:opacity-100 transition-all text-xs",
-                            children: [
-                              v.jsxs("div", {
-                                className: "flex items-center gap-3",
-                                children: [
-                                  v.jsxs("svg", { className: "w-4 h-4 text-white/60", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.75", strokeLinecap: "round", strokeLinejoin: "round", children: [v.jsx("line", { x1: "22", y1: "2", x2: "11", y2: "13" }), v.jsx("polygon", { points: "22 2 15 22 11 13 2 9 22 2" })] }),
-                                  v.jsx("span", { children: "تلگرام: @asall_arab" })
-                                ]
-                              }),
-                              v.jsx("span", { className: "text-[10px]", children: "↗" })
-                            ]
-                          }),
-
-                          /* Email link with clean SVG */
-                          v.jsxs("a", {
-                            href: "mailto:arabasal606@gmail.com",
-                            className: "flex items-center justify-between py-2 border-b border-white/10 hover:border-white/40 text-white opacity-80 hover:opacity-100 transition-all text-xs",
-                            children: [
-                              v.jsxs("div", {
-                                className: "flex items-center gap-3",
-                                children: [
-                                  v.jsxs("svg", { className: "w-4 h-4 text-white/60", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.75", strokeLinecap: "round", strokeLinejoin: "round", children: [v.jsx("rect", { x: "2", y: "4", width: "20", height: "16", rx: "2" }), v.jsx("path", { d: "m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" })] }),
-                                  v.jsx("span", { children: "ایمیل: arabasal606@gmail.com" })
-                                ]
-                              }),
-                              v.jsx("span", { className: "text-[10px]", children: "↗" })
-                            ]
-                          }),
-
-                          /* Location with clean SVG */
+                          v.jsx("h3", { className: "text-base font-bold text-white mb-4", children: "ارسال سریع پیام" }),
                           v.jsxs("div", {
-                            className: "flex items-center justify-between py-2 border-b border-white/10 text-white/70 text-xs",
+                            className: "grid grid-cols-2 max-md:grid-cols-1 gap-4 mb-4",
                             children: [
                               v.jsxs("div", {
-                                className: "flex items-center gap-3",
                                 children: [
-                                  v.jsxs("svg", { className: "w-4 h-4 text-white/60", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.75", strokeLinecap: "round", strokeLinejoin: "round", children: [v.jsx("path", { d: "M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" }), v.jsx("circle", { cx: "12", cy: "10", r: "3" })] }),
-                                  v.jsx("span", { children: "مشهد • باشگاه کسب و کار رکاد" })
+                                  v.jsx("label", { className: "block text-xs opacity-50 mb-1.5", children: "نام و نام خانوادگی" }),
+                                  v.jsx("input", {
+                                    type: "text",
+                                    required: true,
+                                    value: formState.name,
+                                    onChange: ev => setFormState({ ...formState, name: ev.target.value }),
+                                    placeholder: "مثلاً علی رضایی",
+                                    style: {
+                                      width: "100%",
+                                      background: "rgba(255,255,255,0.05)",
+                                      border: "1px solid rgba(255,255,255,0.1)",
+                                      borderRadius: "6px",
+                                      padding: "10px 14px",
+                                      color: "#fff",
+                                      fontSize: "13px",
+                                      outline: "none"
+                                    }
+                                  })
                                 ]
                               }),
-                              v.jsx("span", { className: "text-[10px] text-emerald-400 font-mono", children: "AVAILABLE" })
+                              v.jsxs("div", {
+                                children: [
+                                  v.jsx("label", { className: "block text-xs opacity-50 mb-1.5", children: "ایمیل یا آیدی تلگرام" }),
+                                  v.jsx("input", {
+                                    type: "text",
+                                    required: true,
+                                    value: formState.contact,
+                                    onChange: ev => setFormState({ ...formState, contact: ev.target.value }),
+                                    placeholder: "example@gmail.com یا @username",
+                                    style: {
+                                      width: "100%",
+                                      background: "rgba(255,255,255,0.05)",
+                                      border: "1px solid rgba(255,255,255,0.1)",
+                                      borderRadius: "6px",
+                                      padding: "10px 14px",
+                                      color: "#fff",
+                                      fontSize: "13px",
+                                      outline: "none",
+                                      unicodeBidi: "plaintext",
+                                      direction: "ltr",
+                                      textAlign: "left"
+                                    }
+                                  })
+                                ]
+                              })
+                            ]
+                          }),
+                          v.jsxs("div", {
+                            className: "mb-5",
+                            children: [
+                              v.jsx("label", { className: "block text-xs opacity-50 mb-1.5", children: "متن پیام یا شرح پروژه" }),
+                              v.jsx("textarea", {
+                                rows: 4,
+                                required: true,
+                                value: formState.message,
+                                onChange: ev => setFormState({ ...formState, message: ev.target.value }),
+                                placeholder: "خلاصه‌ای از درخواست خود را بنویسید...",
+                                style: {
+                                  width: "100%",
+                                  background: "rgba(255,255,255,0.05)",
+                                  border: "1px solid rgba(255,255,255,0.1)",
+                                  borderRadius: "6px",
+                                  padding: "10px 14px",
+                                  color: "#fff",
+                                  fontSize: "13px",
+                                  outline: "none",
+                                  resize: "none"
+                                }
+                              })
+                            ]
+                          }),
+                          v.jsxs("button", {
+                            type: "submit",
+                            className: "flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-bold text-sm transition-all",
+                            style: { background: "#fff", color: "#000", cursor: "pointer", border: "none" },
+                            children: [
+                              v.jsx("span", { children: formState.sent ? "پیام ثبت شد ✓" : "ارسال پیام ↗" })
                             ]
                           })
                         ]
                       })
-                    ]
-                  }),
+                    })
+                  ]
+                }),
 
-                  /* Footer Copyright */
-                  v.jsxs("div", {
-                    className: "flex w-full items-end justify-between text-xs opacity-50 pt-4 max-md:flex-col max-md:items-start max-md:gap-2",
-                    children: [
-                      v.jsx("p", { children: "© عسل عرب — طراح و توسعه‌دهنده فرانت‌اند" }),
-                      v.jsx("p", { className: "font-mono", children: "خلق تجربیات وب تعاملی، فراتر از کدهای معمولی" })
-                    ]
-                  })
-                ]
-              })
-            ]
+                /* Bottom copyright note */
+                v.jsxs("div", {
+                  className: "relative z-10 w-full flex justify-between items-end max-md:flex-col gap-2",
+                  style: { maxWidth: "1040px", margin: "0 auto" },
+                  children: [
+                    v.jsx("p", { className: "text-xs opacity-40 font-mono", children: "© 2026 ASAL ARAB. ALL RIGHTS RESERVED." }),
+                    v.jsx("p", { className: "text-xs opacity-40", children: "طراحی و پیاده‌سازی شده با عشق و تعهد" })
+                  ]
+                })
+              ]
+            })
           })
         ]
       })
     ]
   });
 }
-kt.registerPlugin(Ae);const $6={initial:{opacity:0},animate:()=>({opacity:1,transition:{duration:.8,ease:[.25,.46,.45,.94],delay:.5}})};function W6(){const{pathname:i}=oi();return C.useEffect(()=>{if(document.querySelector("title").textContent="عسل عرب ⁂ من کی‌ام؟",i==="/about"){document.body.style.overflow="visible";const e=document.querySelector("html");e&&(e.style.overflow="visible")}},[i]),v.jsx(v.Fragment,{children:v.jsxs("section",{className:"w-full h-full relative",id:"section-projects",children:[v.jsx(le.div,{className:"w-full h-full relative",variants:$6,initial:"initial",animate:"animate",custom:0,children:v.jsx("div",{className:"w-screen min-h-screen max-md:min-h-dvh",children:v.jsx(q6,{})})}),v.jsx(Oc,{isModalOpen:!1,currentSection:0})]})})}const gf={initial:{opacity:0},animate:()=>({opacity:1,transition:{duration:.8,ease:[.25,.46,.45,.94],delay:1}})};function Z6(){return v.jsxs(v.Fragment,{children:[v.jsx(le.div,{variants:gf,initial:"initial",animate:"animate",custom:0,className:"fixed top-2 left-2 w-2 h-2 border-t-2 border-l-2 border-white/50 z-50"}),v.jsx(le.div,{variants:gf,initial:"initial",animate:"animate",custom:0,className:"fixed top-2 right-2 w-2 h-2 border-t-2 border-r-2 border-white/50 z-50"}),v.jsx(le.div,{variants:gf,initial:"initial",animate:"animate",custom:0,className:"fixed bottom-2 left-2 w-2 h-2 border-b-2 border-l-2 border-white/50 z-50"}),v.jsx(le.div,{variants:gf,initial:"initial",animate:"animate",custom:0,className:"fixed bottom-2 right-2 w-2 h-2 border-b-2 border-r-2 border-white/50 z-50"})]})}const K6=({children:i})=>{const e=oi(),[t,s]=C.useState(!1),[a,o]=C.useState(!1);C.useEffect(()=>{const c=()=>{s(!0),o(!0)},f=()=>{s(!1),setTimeout(()=>{o(!1)},100)};return window.addEventListener("page-exit-start",c),window.addEventListener("page-enter-start",f),()=>{window.removeEventListener("page-exit-start",c),window.removeEventListener("page-enter-start",f)}},[]);const u={hidden:{opacity:0},visible:{opacity:1,transition:{duration:.4,ease:[.55,.06,.68,.19],onComplete:()=>{const c=new CustomEvent("page-exit-complete");window.dispatchEvent(c)}}},exit:{opacity:0,transition:{duration:.4,ease:[.25,.46,.45,.94]}}};return v.jsxs(v.Fragment,{children:[v.jsx("div",{children:i},e.pathname),v.jsx(Z6,{}),v.jsx(us,{children:a&&v.jsx(le.div,{className:"fixed inset-0 bg-[#0a0a0a] pointer-events-none z-[9999999]",variants:u,initial:"hidden",animate:t?"visible":"exit",exit:"exit"})})]})};var Q6=Object.create,{getPrototypeOf:J6,defineProperty:k_,getOwnPropertyNames:e8}=Object,t8=Object.prototype.hasOwnProperty,i8=(i,e,t)=>{t=i!=null?Q6(J6(i)):{};let s=k_(t,"default",{value:i,enumerable:!0});for(let a of e8(i))t8.call(s,a)||k_(s,a,{get:()=>i[a],enumerable:!0});return s},n8=(i,e)=>()=>(e||i((e={exports:{}}).exports,e),e.exports),s8=n8((i,e)=>{(function(t,s){typeof i=="object"&&typeof e<"u"?e.exports=s():typeof define=="function"&&define.amd?define(s):(t||self).virtualScroll=s()})(i,function(){var t=0;function s(b){return"__private_"+t+++"_"+b}function a(b,S){if(!Object.prototype.hasOwnProperty.call(b,S))throw new TypeError("attempted to use private field on non-instance");return b}function o(){}o.prototype={on:function(b,S,T){var j=this.e||(this.e={});return(j[b]||(j[b]=[])).push({fn:S,ctx:T}),this},once:function(b,S,T){var j=this;function A(){j.off(b,A),S.apply(T,arguments)}return A._=S,this.on(b,A,T)},emit:function(b){for(var S=[].slice.call(arguments,1),T=((this.e||(this.e={}))[b]||[]).slice(),j=0,A=T.length;j<A;j++)T[j].fn.apply(T[j].ctx,S);return this},off:function(b,S){var T=this.e||(this.e={}),j=T[b],A=[];if(j&&S)for(var R=0,N=j.length;R<N;R++)j[R].fn!==S&&j[R].fn._!==S&&A.push(j[R]);return A.length?T[b]=A:delete T[b],this}};var u=o;u.TinyEmitter=o;var c,f="virtualscroll",d=s("options"),m=s("el"),y=s("emitter"),w=s("event"),x=s("touchStart"),_=s("bodyTouchAction");return function(){function b(T){var j=this;Object.defineProperty(this,d,{writable:!0,value:void 0}),Object.defineProperty(this,m,{writable:!0,value:void 0}),Object.defineProperty(this,y,{writable:!0,value:void 0}),Object.defineProperty(this,w,{writable:!0,value:void 0}),Object.defineProperty(this,x,{writable:!0,value:void 0}),Object.defineProperty(this,_,{writable:!0,value:void 0}),this._onWheel=function(A){var R=a(j,d)[d],N=a(j,w)[w];N.deltaX=A.wheelDeltaX||-1*A.deltaX,N.deltaY=A.wheelDeltaY||-1*A.deltaY,c.isFirefox&&A.deltaMode===1&&(N.deltaX*=R.firefoxMultiplier,N.deltaY*=R.firefoxMultiplier),N.deltaX*=R.mouseMultiplier,N.deltaY*=R.mouseMultiplier,j._notify(A)},this._onMouseWheel=function(A){var R=a(j,w)[w];R.deltaX=A.wheelDeltaX?A.wheelDeltaX:0,R.deltaY=A.wheelDeltaY?A.wheelDeltaY:A.wheelDelta,j._notify(A)},this._onTouchStart=function(A){var R=A.targetTouches?A.targetTouches[0]:A;a(j,x)[x].x=R.pageX,a(j,x)[x].y=R.pageY},this._onTouchMove=function(A){var R=a(j,d)[d];R.preventTouch&&!A.target.classList.contains(R.unpreventTouchClass)&&A.preventDefault();var N=a(j,w)[w],O=A.targetTouches?A.targetTouches[0]:A;N.deltaX=(O.pageX-a(j,x)[x].x)*R.touchMultiplier,N.deltaY=(O.pageY-a(j,x)[x].y)*R.touchMultiplier,a(j,x)[x].x=O.pageX,a(j,x)[x].y=O.pageY,j._notify(A)},this._onKeyDown=function(A){var R=a(j,w)[w];R.deltaX=R.deltaY=0;var N=window.innerHeight-40;switch(A.keyCode){case 37:case 38:R.deltaY=a(j,d)[d].keyStep;break;case 39:case 40:R.deltaY=-a(j,d)[d].keyStep;break;case 32:R.deltaY=N*(A.shiftKey?1:-1);break;default:return}j._notify(A)},a(this,m)[m]=window,T&&T.el&&(a(this,m)[m]=T.el,delete T.el),c||(c={hasWheelEvent:"onwheel"in document,hasMouseWheelEvent:"onmousewheel"in document,hasTouch:"ontouchstart"in document,hasTouchWin:navigator.msMaxTouchPoints&&navigator.msMaxTouchPoints>1,hasPointer:!!window.navigator.msPointerEnabled,hasKeyDown:"onkeydown"in document,isFirefox:navigator.userAgent.indexOf("Firefox")>-1}),a(this,d)[d]=Object.assign({mouseMultiplier:1,touchMultiplier:2,firefoxMultiplier:15,keyStep:120,preventTouch:!1,unpreventTouchClass:"vs-touchmove-allowed",useKeyboard:!0,useTouch:!0},T),a(this,y)[y]=new u,a(this,w)[w]={y:0,x:0,deltaX:0,deltaY:0},a(this,x)[x]={x:null,y:null},a(this,_)[_]=null,a(this,d)[d].passive!==void 0&&(this.listenerOptions={passive:a(this,d)[d].passive})}var S=b.prototype;return S._notify=function(T){var j=a(this,w)[w];j.x+=j.deltaX,j.y+=j.deltaY,a(this,y)[y].emit(f,{x:j.x,y:j.y,deltaX:j.deltaX,deltaY:j.deltaY,originalEvent:T})},S._bind=function(){c.hasWheelEvent&&a(this,m)[m].addEventListener("wheel",this._onWheel,this.listenerOptions),c.hasMouseWheelEvent&&a(this,m)[m].addEventListener("mousewheel",this._onMouseWheel,this.listenerOptions),c.hasTouch&&a(this,d)[d].useTouch&&(a(this,m)[m].addEventListener("touchstart",this._onTouchStart,this.listenerOptions),a(this,m)[m].addEventListener("touchmove",this._onTouchMove,this.listenerOptions)),c.hasPointer&&c.hasTouchWin&&(a(this,_)[_]=document.body.style.msTouchAction,document.body.style.msTouchAction="none",a(this,m)[m].addEventListener("MSPointerDown",this._onTouchStart,!0),a(this,m)[m].addEventListener("MSPointerMove",this._onTouchMove,!0)),c.hasKeyDown&&a(this,d)[d].useKeyboard&&document.addEventListener("keydown",this._onKeyDown)},S._unbind=function(){c.hasWheelEvent&&a(this,m)[m].removeEventListener("wheel",this._onWheel),c.hasMouseWheelEvent&&a(this,m)[m].removeEventListener("mousewheel",this._onMouseWheel),c.hasTouch&&(a(this,m)[m].removeEventListener("touchstart",this._onTouchStart),a(this,m)[m].removeEventListener("touchmove",this._onTouchMove)),c.hasPointer&&c.hasTouchWin&&(document.body.style.msTouchAction=a(this,_)[_],a(this,m)[m].removeEventListener("MSPointerDown",this._onTouchStart,!0),a(this,m)[m].removeEventListener("MSPointerMove",this._onTouchMove,!0)),c.hasKeyDown&&a(this,d)[d].useKeyboard&&document.removeEventListener("keydown",this._onKeyDown)},S.on=function(T,j){a(this,y)[y].on(f,T,j);var A=a(this,y)[y].e;A&&A[f]&&A[f].length===1&&this._bind()},S.off=function(T,j){a(this,y)[y].off(f,T,j);var A=a(this,y)[y].e;(!A[f]||A[f].length<=0)&&this._unbind()},S.destroy=function(){a(this,y)[y].off(),this._unbind()},b}()})}),r8=i8(s8());function z_(i,e,t,s){let a=1-Math.exp(-t*s);return i+(e-i)*a}function P_(i,e){let t=i%e;return Math.abs(t)>e/2&&(t=t>0?t-e:t+e),t}var a8={infinite:!0,snap:!0,dragSensitivity:.005,lerpFactor:.3,scrollSensitivity:1,snapStrength:.1,speedDecay:.85,bounceLimit:1,virtualScroll:{mouseMultiplier:.5,touchMultiplier:2,firefoxMultiplier:30,useKeyboard:!1,passive:!0},setOffset:({itemWidth:i,wrapperWidth:e})=>i,scrollInput:!1},ro,Sc,ao,nr,Gr,sr,lo,Ne,Cj,Nf,Dj,w0,Rj,ku,zu,Pu,Nj,Oj,Lj,b0;class l8{constructor(e,t={}){er(this,Ne);Fe(this,"speed",0);er(this,ro,0);er(this,Sc,0);er(this,ao,0);Fe(this,"deltaTime",0);er(this,nr,!0);er(this,Gr,!1);er(this,sr,0);er(this,lo,0);Fe(this,"config");Fe(this,"wrapper");Fe(this,"items");Fe(this,"viewport");Fe(this,"isDragging",!1);Fe(this,"dragStart",0);Fe(this,"dragStartTarget",0);Fe(this,"isVisible",!1);Fe(this,"current",0);Fe(this,"target",0);Fe(this,"maxScroll",0);Fe(this,"resizeTimeout");Fe(this,"virtualScroll");Fe(this,"observer");Fe(this,"touchStartY");Fe(this,"touchStartX");Fe(this,"scrollDirection");Fe(this,"parallaxValues");Fe(this,"webglValue",0);Fe(this,"onSlideChange");Fe(this,"onResize");Fe(this,"onUpdate");this.config={...a8,...t},t.onSlideChange&&(this.onSlideChange=t.onSlideChange),t.onResize&&(this.onResize=t.onResize),t.onUpdate&&(this.onUpdate=t.onUpdate),delete this.config.onSlideChange,delete this.config.onResize,delete this.config.onUpdate,this.wrapper=e,this.items=[...e.children],this.current=0,this.target=0,this.isDragging=!1,this.dragStart=0,this.dragStartTarget=0,this.isVisible=!1,Li(this,sr,0),Li(this,lo,0),ct(this,Ne,Nf).call(this),ct(this,Ne,Cj).call(this),ct(this,Ne,Dj).call(this),this.wrapper.style.cursor="grab",ct(this,Ne,Nf).call(this),ct(this,Ne,Rj).call(this)}update(){var t;if(!this.isVisible||!Oi(this,nr))return;let e=performance.now();if(this.deltaTime=(e-Oi(this,ao))/1e3,Li(this,ao,e),this.config.snap&&!this.isDragging){let s=Math.round(this.target)-this.target;this.target+=s*this.config.snapStrength}if(this.current=z_(this.current,this.target,1/this.config.lerpFactor,this.deltaTime),this.config.infinite){let s=Math.round(-this.current),a=this.items.length,o=(s%a+a)%a;ct(this,Ne,b0).call(this,o),ct(this,Ne,Oj).call(this)}else ct(this,Ne,b0).call(this,Math.round(Math.abs(this.current))),ct(this,Ne,Nj).call(this);ct(this,Ne,Lj).call(this),(t=this.onUpdate)==null||t.call(this,this)}goToNext(){this.config.infinite?this.target=Math.round(this.target-1):this.target=Math.max(this.maxScroll,Math.round(this.target-1))}goToPrev(){this.config.infinite?this.target=Math.round(this.target+1):this.target=Math.min(0,Math.round(this.target+1))}goToIndex(e){this.target=-e}set snap(e){this.config.snap=e}getProgress(){let e=this.items.length;return Math.abs(this.current)%e/e}destroy(){this.kill(),window.removeEventListener("mousemove",e=>ct(this,Ne,zu).call(this,e)),window.removeEventListener("mouseup",()=>ct(this,Ne,Pu).call(this)),window.removeEventListener("touchmove",e=>{let t=e.touches[0];ct(this,Ne,zu).call(this,t)}),window.removeEventListener("touchend",()=>ct(this,Ne,Pu).call(this)),this.wrapper.removeEventListener("mousedown",e=>ct(this,Ne,ku).call(this,e)),this.wrapper.removeEventListener("touchstart",e=>{let t=e.touches[0];ct(this,Ne,ku).call(this,t)}),this.resizeTimeout&&clearTimeout(this.resizeTimeout),this.virtualScroll&&this.config.scrollInput&&this.virtualScroll.destroy(),this.observer&&this.observer.disconnect()}get currentSlide(){return Oi(this,sr)}kill(){Li(this,nr,!1),this.items.forEach(e=>{e.style.transform=""}),this.current=0,this.target=0,this.speed=0,Li(this,ro,0)}init(){Li(this,nr,!0),Li(this,ao,performance.now())}set paused(e){Li(this,Gr,e)}get paused(){return Oi(this,Gr)}get progress(){if(this.config.infinite){let e=-this.target,t=this.items.length;return(e%t+t)%t/(t-1)}else{let e=Math.abs(this.current),t=Math.abs(this.maxScroll);return Math.max(0,Math.min(1,e/t))}}resize(){ct(this,Ne,Nf).call(this);let e=Oi(this,nr),t=this.isVisible;Li(this,nr,!0),this.isVisible=!0,this.update(),Li(this,nr,e),this.isVisible=t}}ro=new WeakMap,Sc=new WeakMap,ao=new WeakMap,nr=new WeakMap,Gr=new WeakMap,sr=new WeakMap,lo=new WeakMap,Ne=new WeakSet,Cj=function(){let e={root:null,rootMargin:"50px",threshold:0};this.observer=new IntersectionObserver(t=>{t.forEach(s=>{this.isVisible=s.isIntersecting})},e),this.observer.observe(this.wrapper)},Nf=function(){this.viewport={itemWidth:this.items[0].getBoundingClientRect().width,wrapperWidth:this.wrapper.clientWidth,totalWidth:this.items.reduce((e,t)=>e+t.clientWidth,0)},Li(this,Sc,this.config.setOffset(this.viewport)),this.maxScroll=-(this.viewport.totalWidth-Oi(this,Sc))/this.viewport.itemWidth,queueMicrotask(()=>{var e;(e=this.onResize)==null||e.call(this,this)})},Dj=function(){let e=f=>ct(this,Ne,ku).call(this,f),t=f=>ct(this,Ne,zu).call(this,f),s=()=>ct(this,Ne,Pu).call(this);this.wrapper.addEventListener("mousedown",e),window.addEventListener("mousemove",t),window.addEventListener("mouseup",s);let a=5,o=f=>{let d=f.touches[0];this.touchStartY=d.clientY,this.touchStartX=d.clientX,this.scrollDirection=void 0,ct(this,Ne,ku).call(this,d)},u=f=>{let d=f.touches[0],m=Math.abs(d.clientY-this.touchStartY),y=Math.abs(d.clientX-this.touchStartX);!this.scrollDirection&&(y>a||m>a)&&(this.scrollDirection=y>m?"horizontal":"vertical"),this.scrollDirection==="horizontal"&&(f.preventDefault(),ct(this,Ne,zu).call(this,d))},c=()=>{this.scrollDirection=void 0,ct(this,Ne,Pu).call(this)};this.wrapper.addEventListener("touchstart",o),window.addEventListener("touchmove",u,{passive:!1}),window.addEventListener("touchend",c),new ResizeObserver(()=>{this.resizeTimeout&&clearTimeout(this.resizeTimeout),this.resizeTimeout=setTimeout(()=>this.resize(),10)}).observe(this.wrapper)},w0=function(e){if(!this.config.infinite){if(e>this.config.bounceLimit)return this.config.bounceLimit;if(e<this.maxScroll-this.config.bounceLimit)return this.maxScroll-this.config.bounceLimit}return e},Rj=function(){this.virtualScroll=new r8.default({...this.config.virtualScroll,el:this.wrapper});let e=5;this.virtualScroll.on(t=>{if(!this.isDragging&&!Oi(this,Gr)){if(t.touchDevice){let o=Math.abs(t.deltaY),u=Math.abs(t.deltaX);if(o<e&&u<e||o>u)return}let s=(this.config.scrollInput?Math.abs(t.deltaX)>Math.abs(t.deltaY)?t.deltaX:t.deltaY:t.deltaX)*this.config.scrollSensitivity*.001,a=this.target+s;this.config.infinite||(a>0?a=0:a<this.maxScroll&&(a=this.maxScroll)),this.target=ct(this,Ne,w0).call(this,a),this.speed=-s*10}})},ku=function(e){Oi(this,Gr)||(this.isDragging=!0,this.dragStart=e.clientX,this.dragStartTarget=this.target,this.wrapper.style.cursor="grabbing")},zu=function(e){if(!this.isDragging||Oi(this,Gr))return;let t=e.clientX-this.dragStart,s=this.dragStartTarget+t*this.config.dragSensitivity;this.target=ct(this,Ne,w0).call(this,s),"movementX"in e&&(this.speed+=e.movementX*.01)},Pu=function(){if(this.isDragging=!1,this.wrapper.style.cursor="grab",!this.config.infinite){if(this.target>0)this.target=0;else if(this.target<this.maxScroll)this.target=this.maxScroll;else if(this.config.snap){let e=Math.round(this.target);this.target=Math.min(0,Math.max(this.maxScroll,e))}}else this.config.snap&&(this.target=Math.round(this.target))},Nj=function(){this.parallaxValues=this.items.map((e,t)=>{let s=this.current*this.viewport.itemWidth;return e.style.transform=`translateX(${s}px)`,s})},Oj=function(){this.parallaxValues=this.items.map((e,t)=>{let s=this.current+t,a=(P_(s,this.items.length)-t)*this.viewport.itemWidth;return e.style.transform=`translateX(${a}px)`,P_(s,this.items.length)})},Lj=function(){Li(this,ro,z_(Oi(this,ro),this.speed,1/this.config.lerpFactor,this.deltaTime)),this.speed*=this.config.speedDecay},b0=function(e){var t;Oi(this,sr)!==e&&(Li(this,lo,Oi(this,sr)),Li(this,sr,e),(t=this.onSlideChange)==null||t.call(this,Oi(this,sr),Oi(this,lo)))};var o8=l8;class u8 extends o8{constructor(t,s={}){super(t,s);Fe(this,"dots",[]);Fe(this,"arrows",[]);Fe(this,"onSlideChangeCallback");Fe(this,"parallaxy",[]);Fe(this,"onSlideChange",(t,s)=>{var a,o,u,c,f,d,m;(o=(a=this.items[s])==null?void 0:a.children[0])!=null&&o.children[0]&&this.items[s].children[0].children[0].classList.remove("active"),(c=(u=this.items[t])==null?void 0:u.children[0])!=null&&c.children[0]&&this.items[t].children[0].children[0].classList.add("active"),(f=this.dots[s])!=null&&f.children[0]&&this.dots[s].children[0].classList.remove("active-dot"),(d=this.dots[t])!=null&&d.children[0]&&this.dots[t].children[0].classList.add("active-dot"),(m=this.onSlideChangeCallback)==null||m.call(this,t,s)})}createInterface(t){const s=t.querySelector("[data-dots]"),a=t.querySelector("[data-arrows]");s&&(this.dots=[...s.children]),a&&(this.arrows=[...a.children])}setOnSlideChange(t){this.onSlideChangeCallback=t}goToNext(){const t=this.current;super.goToNext(),setTimeout(()=>{this.current!==t&&this.onSlideChange(this.current,t)},0)}goToPrev(){const t=this.current;super.goToPrev(),setTimeout(()=>{this.current!==t&&this.onSlideChange(this.current,t)},0)}goToIndex(t){const s=this.current;super.goToIndex(t),setTimeout(()=>{this.current!==s&&this.onSlideChange(this.current,s)},0)}setParallaxElements(t){this.parallaxy=t}}function c8(i={}){const e=C.useRef(null),t=C.useRef(null),[s,a]=C.useState(null),[o,u]=C.useState(0),c=C.useRef(0),f=450,d=C.useCallback(b=>{if(b&&!s){const S=new u8(b,i);S.setOnSlideChange(T=>{u(T)}),S.onSlideChange(0,0),kt.ticker.add(S.update.bind(S)),a(S)}e.current=b},[i,s]),m=C.useCallback(b=>{b&&s&&s.createInterface(b),t.current=b},[s]),y=C.useCallback(b=>{s&&s.setParallaxElements(b)},[s]),w=C.useCallback(()=>{s&&s.goToNext()},[s]),x=C.useCallback(()=>{s&&s.goToPrev()},[s]),_=C.useCallback(b=>{s&&s.goToIndex(b)},[s]);return C.useEffect(()=>{if(!s)return;const b=T=>{T.preventDefault(),c.current+=Math.abs(T.deltaY),c.current>=f&&(T.deltaY>0?s.goToNext():s.goToPrev(),c.current=0)},S=e.current;if(S)return S.addEventListener("wheel",b,{passive:!1}),()=>{S.removeEventListener("wheel",b)}},[s]),C.useEffect(()=>()=>{s&&(kt.ticker.remove(s.update.bind(s)),s.destroy())},[s]),{ref:d,interfaceRef:m,slider:s,currentSlide:o,goToNext:w,goToPrev:x,goToIndex:_,setParallaxElements:y}}const h8=[
+kt.registerPlugin(Ae);const $6={initial:{opacity:0},animate:()=>({opacity:1,transition:{duration:.8,ease:[.25,.46,.45,.94],delay:.5}})};
+function W6(){const{pathname:i}=oi();return C.useEffect(()=>{if(document.querySelector("title").textContent="عسل عرب ⁂ من کی‌ام؟",i==="/about"){document.body.style.overflow="visible";const e=document.querySelector("html");e&&(e.style.overflow="visible")}},[i]),v.jsx(v.Fragment,{children:v.jsxs("section",{className:"w-full h-full relative",id:"section-projects",children:[v.jsx(le.div,{className:"w-full h-full relative",variants:$6,initial:"initial",animate:"animate",custom:0,children:v.jsx("div",{className:"w-screen min-h-screen max-md:min-h-dvh",children:v.jsx(q6,{})})}),v.jsx(Oc,{isModalOpen:!1,currentSection:0})]})})}const gf={initial:{opacity:0},animate:()=>({opacity:1,transition:{duration:.8,ease:[.25,.46,.45,.94],delay:1}})};function Z6(){return v.jsxs(v.Fragment,{children:[v.jsx(le.div,{variants:gf,initial:"initial",animate:"animate",custom:0,className:"fixed top-2 left-2 w-2 h-2 border-t-2 border-l-2 border-white/50 z-50"}),v.jsx(le.div,{variants:gf,initial:"initial",animate:"animate",custom:0,className:"fixed top-2 right-2 w-2 h-2 border-t-2 border-r-2 border-white/50 z-50"}),v.jsx(le.div,{variants:gf,initial:"initial",animate:"animate",custom:0,className:"fixed bottom-2 left-2 w-2 h-2 border-b-2 border-l-2 border-white/50 z-50"}),v.jsx(le.div,{variants:gf,initial:"initial",animate:"animate",custom:0,className:"fixed bottom-2 right-2 w-2 h-2 border-b-2 border-r-2 border-white/50 z-50"})]})}const K6=({children:i})=>{const e=oi(),[t,s]=C.useState(!1),[a,o]=C.useState(!1);C.useEffect(()=>{const c=()=>{s(!0),o(!0)},f=()=>{s(!1),setTimeout(()=>{o(!1)},100)};return window.addEventListener("page-exit-start",c),window.addEventListener("page-enter-start",f),()=>{window.removeEventListener("page-exit-start",c),window.removeEventListener("page-enter-start",f)}},[]);const u={hidden:{opacity:0},visible:{opacity:1,transition:{duration:.4,ease:[.55,.06,.68,.19],onComplete:()=>{const c=new CustomEvent("page-exit-complete");window.dispatchEvent(c)}}},exit:{opacity:0,transition:{duration:.4,ease:[.25,.46,.45,.94]}}};return v.jsxs(v.Fragment,{children:[v.jsx("div",{children:i},e.pathname),v.jsx(Z6,{}),v.jsx(us,{children:a&&v.jsx(le.div,{className:"fixed inset-0 bg-[#0a0a0a] pointer-events-none z-[9999999]",variants:u,initial:"hidden",animate:t?"visible":"exit",exit:"exit"})})]})};var Q6=Object.create,{getPrototypeOf:J6,defineProperty:k_,getOwnPropertyNames:e8}=Object,t8=Object.prototype.hasOwnProperty,i8=(i,e,t)=>{t=i!=null?Q6(J6(i)):{};let s=k_(t,"default",{value:i,enumerable:!0});for(let a of e8(i))t8.call(s,a)||k_(s,a,{get:()=>i[a],enumerable:!0});return s},n8=(i,e)=>()=>(e||i((e={exports:{}}).exports,e),e.exports),s8=n8((i,e)=>{(function(t,s){typeof i=="object"&&typeof e<"u"?e.exports=s():typeof define=="function"&&define.amd?define(s):(t||self).virtualScroll=s()})(i,function(){var t=0;function s(b){return"__private_"+t+++"_"+b}function a(b,S){if(!Object.prototype.hasOwnProperty.call(b,S))throw new TypeError("attempted to use private field on non-instance");return b}function o(){}o.prototype={on:function(b,S,T){var j=this.e||(this.e={});return(j[b]||(j[b]=[])).push({fn:S,ctx:T}),this},once:function(b,S,T){var j=this;function A(){j.off(b,A),S.apply(T,arguments)}return A._=S,this.on(b,A,T)},emit:function(b){for(var S=[].slice.call(arguments,1),T=((this.e||(this.e={}))[b]||[]).slice(),j=0,A=T.length;j<A;j++)T[j].fn.apply(T[j].ctx,S);return this},off:function(b,S){var T=this.e||(this.e={}),j=T[b],A=[];if(j&&S)for(var R=0,N=j.length;R<N;R++)j[R].fn!==S&&j[R].fn._!==S&&A.push(j[R]);return A.length?T[b]=A:delete T[b],this}};var u=o;u.TinyEmitter=o;var c,f="virtualscroll",d=s("options"),m=s("el"),y=s("emitter"),w=s("event"),x=s("touchStart"),_=s("bodyTouchAction");return function(){function b(T){var j=this;Object.defineProperty(this,d,{writable:!0,value:void 0}),Object.defineProperty(this,m,{writable:!0,value:void 0}),Object.defineProperty(this,y,{writable:!0,value:void 0}),Object.defineProperty(this,w,{writable:!0,value:void 0}),Object.defineProperty(this,x,{writable:!0,value:void 0}),Object.defineProperty(this,_,{writable:!0,value:void 0}),this._onWheel=function(A){var R=a(j,d)[d],N=a(j,w)[w];N.deltaX=A.wheelDeltaX||-1*A.deltaX,N.deltaY=A.wheelDeltaY||-1*A.deltaY,c.isFirefox&&A.deltaMode===1&&(N.deltaX*=R.firefoxMultiplier,N.deltaY*=R.firefoxMultiplier),N.deltaX*=R.mouseMultiplier,N.deltaY*=R.mouseMultiplier,j._notify(A)},this._onMouseWheel=function(A){var R=a(j,w)[w];R.deltaX=A.wheelDeltaX?A.wheelDeltaX:0,R.deltaY=A.wheelDeltaY?A.wheelDeltaY:A.wheelDelta,j._notify(A)},this._onTouchStart=function(A){var R=A.targetTouches?A.targetTouches[0]:A;a(j,x)[x].x=R.pageX,a(j,x)[x].y=R.pageY},this._onTouchMove=function(A){var R=a(j,d)[d];R.preventTouch&&!A.target.classList.contains(R.unpreventTouchClass)&&A.preventDefault();var N=a(j,w)[w],O=A.targetTouches?A.targetTouches[0]:A;N.deltaX=(O.pageX-a(j,x)[x].x)*R.touchMultiplier,N.deltaY=(O.pageY-a(j,x)[x].y)*R.touchMultiplier,a(j,x)[x].x=O.pageX,a(j,x)[x].y=O.pageY,j._notify(A)},this._onKeyDown=function(A){var R=a(j,w)[w];R.deltaX=R.deltaY=0;var N=window.innerHeight-40;switch(A.keyCode){case 37:case 38:R.deltaY=a(j,d)[d].keyStep;break;case 39:case 40:R.deltaY=-a(j,d)[d].keyStep;break;case 32:R.deltaY=N*(A.shiftKey?1:-1);break;default:return}j._notify(A)},a(this,m)[m]=window,T&&T.el&&(a(this,m)[m]=T.el,delete T.el),c||(c={hasWheelEvent:"onwheel"in document,hasMouseWheelEvent:"onmousewheel"in document,hasTouch:"ontouchstart"in document,hasTouchWin:navigator.msMaxTouchPoints&&navigator.msMaxTouchPoints>1,hasPointer:!!window.navigator.msPointerEnabled,hasKeyDown:"onkeydown"in document,isFirefox:navigator.userAgent.indexOf("Firefox")>-1}),a(this,d)[d]=Object.assign({mouseMultiplier:1,touchMultiplier:2,firefoxMultiplier:15,keyStep:120,preventTouch:!1,unpreventTouchClass:"vs-touchmove-allowed",useKeyboard:!0,useTouch:!0},T),a(this,y)[y]=new u,a(this,w)[w]={y:0,x:0,deltaX:0,deltaY:0},a(this,x)[x]={x:null,y:null},a(this,_)[_]=null,a(this,d)[d].passive!==void 0&&(this.listenerOptions={passive:a(this,d)[d].passive})}var S=b.prototype;return S._notify=function(T){var j=a(this,w)[w];j.x+=j.deltaX,j.y+=j.deltaY,a(this,y)[y].emit(f,{x:j.x,y:j.y,deltaX:j.deltaX,deltaY:j.deltaY,originalEvent:T})},S._bind=function(){c.hasWheelEvent&&a(this,m)[m].addEventListener("wheel",this._onWheel,this.listenerOptions),c.hasMouseWheelEvent&&a(this,m)[m].addEventListener("mousewheel",this._onMouseWheel,this.listenerOptions),c.hasTouch&&a(this,d)[d].useTouch&&(a(this,m)[m].addEventListener("touchstart",this._onTouchStart,this.listenerOptions),a(this,m)[m].addEventListener("touchmove",this._onTouchMove,this.listenerOptions)),c.hasPointer&&c.hasTouchWin&&(a(this,_)[_]=document.body.style.msTouchAction,document.body.style.msTouchAction="none",a(this,m)[m].addEventListener("MSPointerDown",this._onTouchStart,!0),a(this,m)[m].addEventListener("MSPointerMove",this._onTouchMove,!0)),c.hasKeyDown&&a(this,d)[d].useKeyboard&&document.addEventListener("keydown",this._onKeyDown)},S._unbind=function(){c.hasWheelEvent&&a(this,m)[m].removeEventListener("wheel",this._onWheel),c.hasMouseWheelEvent&&a(this,m)[m].removeEventListener("mousewheel",this._onMouseWheel),c.hasTouch&&(a(this,m)[m].removeEventListener("touchstart",this._onTouchStart),a(this,m)[m].removeEventListener("touchmove",this._onTouchMove)),c.hasPointer&&c.hasTouchWin&&(document.body.style.msTouchAction=a(this,_)[_],a(this,m)[m].removeEventListener("MSPointerDown",this._onTouchStart,!0),a(this,m)[m].removeEventListener("MSPointerMove",this._onTouchMove,!0)),c.hasKeyDown&&a(this,d)[d].useKeyboard&&document.removeEventListener("keydown",this._onKeyDown)},S.on=function(T,j){a(this,y)[y].on(f,T,j);var A=a(this,y)[y].e;A&&A[f]&&A[f].length===1&&this._bind()},S.off=function(T,j){a(this,y)[y].off(f,T,j);var A=a(this,y)[y].e;(!A[f]||A[f].length<=0)&&this._unbind()},S.destroy=function(){a(this,y)[y].off(),this._unbind()},b}()})}),r8=i8(s8());function z_(i,e,t,s){let a=1-Math.exp(-t*s);return i+(e-i)*a}function P_(i,e){let t=i%e;return Math.abs(t)>e/2&&(t=t>0?t-e:t+e),t}var a8={infinite:!0,snap:!0,dragSensitivity:.005,lerpFactor:.3,scrollSensitivity:1,snapStrength:.1,speedDecay:.85,bounceLimit:1,virtualScroll:{mouseMultiplier:.5,touchMultiplier:2,firefoxMultiplier:30,useKeyboard:!1,passive:!0},setOffset:({itemWidth:i,wrapperWidth:e})=>i,scrollInput:!1},ro,Sc,ao,nr,Gr,sr,lo,Ne,Cj,Nf,Dj,w0,Rj,ku,zu,Pu,Nj,Oj,Lj,b0;class l8{constructor(e,t={}){er(this,Ne);Fe(this,"speed",0);er(this,ro,0);er(this,Sc,0);er(this,ao,0);Fe(this,"deltaTime",0);er(this,nr,!0);er(this,Gr,!1);er(this,sr,0);er(this,lo,0);Fe(this,"config");Fe(this,"wrapper");Fe(this,"items");Fe(this,"viewport");Fe(this,"isDragging",!1);Fe(this,"dragStart",0);Fe(this,"dragStartTarget",0);Fe(this,"isVisible",!1);Fe(this,"current",0);Fe(this,"target",0);Fe(this,"maxScroll",0);Fe(this,"resizeTimeout");Fe(this,"virtualScroll");Fe(this,"observer");Fe(this,"touchStartY");Fe(this,"touchStartX");Fe(this,"scrollDirection");Fe(this,"parallaxValues");Fe(this,"webglValue",0);Fe(this,"onSlideChange");Fe(this,"onResize");Fe(this,"onUpdate");this.config={...a8,...t},t.onSlideChange&&(this.onSlideChange=t.onSlideChange),t.onResize&&(this.onResize=t.onResize),t.onUpdate&&(this.onUpdate=t.onUpdate),delete this.config.onSlideChange,delete this.config.onResize,delete this.config.onUpdate,this.wrapper=e,this.items=[...e.children],this.current=0,this.target=0,this.isDragging=!1,this.dragStart=0,this.dragStartTarget=0,this.isVisible=!1,Li(this,sr,0),Li(this,lo,0),ct(this,Ne,Nf).call(this),ct(this,Ne,Cj).call(this),ct(this,Ne,Dj).call(this),this.wrapper.style.cursor="grab",ct(this,Ne,Nf).call(this),ct(this,Ne,Rj).call(this)}update(){var t;if(!this.isVisible||!Oi(this,nr))return;let e=performance.now();if(this.deltaTime=(e-Oi(this,ao))/1e3,Li(this,ao,e),this.config.snap&&!this.isDragging){let s=Math.round(this.target)-this.target;this.target+=s*this.config.snapStrength}if(this.current=z_(this.current,this.target,1/this.config.lerpFactor,this.deltaTime),this.config.infinite){let s=Math.round(-this.current),a=this.items.length,o=(s%a+a)%a;ct(this,Ne,b0).call(this,o),ct(this,Ne,Oj).call(this)}else ct(this,Ne,b0).call(this,Math.round(Math.abs(this.current))),ct(this,Ne,Nj).call(this);ct(this,Ne,Lj).call(this),(t=this.onUpdate)==null||t.call(this,this)}goToNext(){this.config.infinite?this.target=Math.round(this.target-1):this.target=Math.max(this.maxScroll,Math.round(this.target-1))}goToPrev(){this.config.infinite?this.target=Math.round(this.target+1):this.target=Math.min(0,Math.round(this.target+1))}goToIndex(e){this.target=-e}set snap(e){this.config.snap=e}getProgress(){let e=this.items.length;return Math.abs(this.current)%e/e}destroy(){this.kill(),window.removeEventListener("mousemove",e=>ct(this,Ne,zu).call(this,e)),window.removeEventListener("mouseup",()=>ct(this,Ne,Pu).call(this)),window.removeEventListener("touchmove",e=>{let t=e.touches[0];ct(this,Ne,zu).call(this,t)}),window.removeEventListener("touchend",()=>ct(this,Ne,Pu).call(this)),this.wrapper.removeEventListener("mousedown",e=>ct(this,Ne,ku).call(this,e)),this.wrapper.removeEventListener("touchstart",e=>{let t=e.touches[0];ct(this,Ne,ku).call(this,t)}),this.resizeTimeout&&clearTimeout(this.resizeTimeout),this.virtualScroll&&this.config.scrollInput&&this.virtualScroll.destroy(),this.observer&&this.observer.disconnect()}get currentSlide(){return Oi(this,sr)}kill(){Li(this,nr,!1),this.items.forEach(e=>{e.style.transform=""}),this.current=0,this.target=0,this.speed=0,Li(this,ro,0)}init(){Li(this,nr,!0),Li(this,ao,performance.now())}set paused(e){Li(this,Gr,e)}get paused(){return Oi(this,Gr)}get progress(){if(this.config.infinite){let e=-this.target,t=this.items.length;return(e%t+t)%t/(t-1)}else{let e=Math.abs(this.current),t=Math.abs(this.maxScroll);return Math.max(0,Math.min(1,e/t))}}resize(){ct(this,Ne,Nf).call(this);let e=Oi(this,nr),t=this.isVisible;Li(this,nr,!0),this.isVisible=!0,this.update(),Li(this,nr,e),this.isVisible=t}}ro=new WeakMap,Sc=new WeakMap,ao=new WeakMap,nr=new WeakMap,Gr=new WeakMap,sr=new WeakMap,lo=new WeakMap,Ne=new WeakSet,Cj=function(){let e={root:null,rootMargin:"50px",threshold:0};this.observer=new IntersectionObserver(t=>{t.forEach(s=>{this.isVisible=s.isIntersecting})},e),this.observer.observe(this.wrapper)},Nf=function(){this.viewport={itemWidth:this.items[0].getBoundingClientRect().width,wrapperWidth:this.wrapper.clientWidth,totalWidth:this.items.reduce((e,t)=>e+t.clientWidth,0)},Li(this,Sc,this.config.setOffset(this.viewport)),this.maxScroll=-(this.viewport.totalWidth-Oi(this,Sc))/this.viewport.itemWidth,queueMicrotask(()=>{var e;(e=this.onResize)==null||e.call(this,this)})},Dj=function(){let e=f=>ct(this,Ne,ku).call(this,f),t=f=>ct(this,Ne,zu).call(this,f),s=()=>ct(this,Ne,Pu).call(this);this.wrapper.addEventListener("mousedown",e),window.addEventListener("mousemove",t),window.addEventListener("mouseup",s);let a=5,o=f=>{let d=f.touches[0];this.touchStartY=d.clientY,this.touchStartX=d.clientX,this.scrollDirection=void 0,ct(this,Ne,ku).call(this,d)},u=f=>{let d=f.touches[0],m=Math.abs(d.clientY-this.touchStartY),y=Math.abs(d.clientX-this.touchStartX);!this.scrollDirection&&(y>a||m>a)&&(this.scrollDirection=y>m?"horizontal":"vertical"),this.scrollDirection==="horizontal"&&(f.preventDefault(),ct(this,Ne,zu).call(this,d))},c=()=>{this.scrollDirection=void 0,ct(this,Ne,Pu).call(this)};this.wrapper.addEventListener("touchstart",o),window.addEventListener("touchmove",u,{passive:!1}),window.addEventListener("touchend",c),new ResizeObserver(()=>{this.resizeTimeout&&clearTimeout(this.resizeTimeout),this.resizeTimeout=setTimeout(()=>this.resize(),10)}).observe(this.wrapper)},w0=function(e){if(!this.config.infinite){if(e>this.config.bounceLimit)return this.config.bounceLimit;if(e<this.maxScroll-this.config.bounceLimit)return this.maxScroll-this.config.bounceLimit}return e},Rj=function(){this.virtualScroll=new r8.default({...this.config.virtualScroll,el:this.wrapper});let e=5;this.virtualScroll.on(t=>{if(!this.isDragging&&!Oi(this,Gr)){if(t.touchDevice){let o=Math.abs(t.deltaY),u=Math.abs(t.deltaX);if(o<e&&u<e||o>u)return}let s=(this.config.scrollInput?Math.abs(t.deltaX)>Math.abs(t.deltaY)?t.deltaX:t.deltaY:t.deltaX)*this.config.scrollSensitivity*.001,a=this.target+s;this.config.infinite||(a>0?a=0:a<this.maxScroll&&(a=this.maxScroll)),this.target=ct(this,Ne,w0).call(this,a),this.speed=-s*10}})},ku=function(e){Oi(this,Gr)||(this.isDragging=!0,this.dragStart=e.clientX,this.dragStartTarget=this.target,this.wrapper.style.cursor="grabbing")},zu=function(e){if(!this.isDragging||Oi(this,Gr))return;let t=e.clientX-this.dragStart,s=this.dragStartTarget+t*this.config.dragSensitivity;this.target=ct(this,Ne,w0).call(this,s),"movementX"in e&&(this.speed+=e.movementX*.01)},Pu=function(){if(this.isDragging=!1,this.wrapper.style.cursor="grab",!this.config.infinite){if(this.target>0)this.target=0;else if(this.target<this.maxScroll)this.target=this.maxScroll;else if(this.config.snap){let e=Math.round(this.target);this.target=Math.min(0,Math.max(this.maxScroll,e))}}else this.config.snap&&(this.target=Math.round(this.target))},Nj=function(){this.parallaxValues=this.items.map((e,t)=>{let s=this.current*this.viewport.itemWidth;return e.style.transform=`translateX(${s}px)`,s})},Oj=function(){this.parallaxValues=this.items.map((e,t)=>{let s=this.current+t,a=(P_(s,this.items.length)-t)*this.viewport.itemWidth;return e.style.transform=`translateX(${a}px)`,P_(s,this.items.length)})},Lj=function(){Li(this,ro,z_(Oi(this,ro),this.speed,1/this.config.lerpFactor,this.deltaTime)),this.speed*=this.config.speedDecay},b0=function(e){var t;Oi(this,sr)!==e&&(Li(this,lo,Oi(this,sr)),Li(this,sr,e),(t=this.onSlideChange)==null||t.call(this,Oi(this,sr),Oi(this,lo)))};var o8=l8;class u8 extends o8{constructor(t,s={}){super(t,s);Fe(this,"dots",[]);Fe(this,"arrows",[]);Fe(this,"onSlideChangeCallback");Fe(this,"parallaxy",[]);Fe(this,"onSlideChange",(t,s)=>{var a,o,u,c,f,d,m;(o=(a=this.items[s])==null?void 0:a.children[0])!=null&&o.children[0]&&this.items[s].children[0].children[0].classList.remove("active"),(c=(u=this.items[t])==null?void 0:u.children[0])!=null&&c.children[0]&&this.items[t].children[0].children[0].classList.add("active"),(f=this.dots[s])!=null&&f.children[0]&&this.dots[s].children[0].classList.remove("active-dot"),(d=this.dots[t])!=null&&d.children[0]&&this.dots[t].children[0].classList.add("active-dot"),(m=this.onSlideChangeCallback)==null||m.call(this,t,s)})}createInterface(t){const s=t.querySelector("[data-dots]"),a=t.querySelector("[data-arrows]");s&&(this.dots=[...s.children]),a&&(this.arrows=[...a.children])}setOnSlideChange(t){this.onSlideChangeCallback=t}goToNext(){const t=this.current;super.goToNext(),setTimeout(()=>{this.current!==t&&this.onSlideChange(this.current,t)},0)}goToPrev(){const t=this.current;super.goToPrev(),setTimeout(()=>{this.current!==t&&this.onSlideChange(this.current,t)},0)}goToIndex(t){const s=this.current;super.goToIndex(t),setTimeout(()=>{this.current!==s&&this.onSlideChange(this.current,s)},0)}setParallaxElements(t){this.parallaxy=t}}function c8(i={}){const e=C.useRef(null),t=C.useRef(null),[s,a]=C.useState(null),[o,u]=C.useState(0),c=C.useRef(0),f=450,d=C.useCallback(b=>{if(b&&!s){const S=new u8(b,i);S.setOnSlideChange(T=>{u(T)}),S.onSlideChange(0,0),kt.ticker.add(S.update.bind(S)),a(S)}e.current=b},[i,s]),m=C.useCallback(b=>{b&&s&&s.createInterface(b),t.current=b},[s]),y=C.useCallback(b=>{s&&s.setParallaxElements(b)},[s]),w=C.useCallback(()=>{s&&s.goToNext()},[s]),x=C.useCallback(()=>{s&&s.goToPrev()},[s]),_=C.useCallback(b=>{s&&s.goToIndex(b)},[s]);return C.useEffect(()=>{if(!s)return;const b=T=>{T.preventDefault(),c.current+=Math.abs(T.deltaY),c.current>=f&&(T.deltaY>0?s.goToNext():s.goToPrev(),c.current=0)},S=e.current;if(S)return S.addEventListener("wheel",b,{passive:!1}),()=>{S.removeEventListener("wheel",b)}},[s]),C.useEffect(()=>()=>{s&&(kt.ticker.remove(s.update.bind(s)),s.destroy())},[s]),{ref:d,interfaceRef:m,slider:s,currentSlide:o,goToNext:w,goToPrev:x,goToIndex:_,setParallaxElements:y}}const h8=[
   {
     "title": "Lumiera",
     "content": {
