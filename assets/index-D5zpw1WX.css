@@ -270,3 +270,84 @@ span[aria-label="Touch anywhere to view"] {
 .webgl-slider.vertical .webgl-slider__figure:nth-child(4) { height: 85dvh !important; left: 5vw !important; top: 305dvh !important; width: 90vw !important; }
 .webgl-slider.vertical .webgl-slider__figure:nth-child(5) { height: 85dvh !important; left: 5vw !important; top: 405dvh !important; width: 90vw !important; }
 .webgl-slider.vertical .webgl-slider__figure:nth-child(6) { height: 85dvh !important; left: 5vw !important; top: 505dvh !important; width: 90vw !important; }
+
+
+/* Refined About Page Styles */
+.about-glass-card {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 20px !important;
+  padding: 24px !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.about-glass-card:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.6) !important;
+}
+
+.about-icon-box {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 14px !important;
+  background: rgba(255, 255, 255, 0.07) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #d4a373 !important;
+  margin-bottom: 16px !important;
+  flex-shrink: 0 !important;
+}
+
+.about-input-field {
+  width: 100% !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 14px !important;
+  padding: 12px 16px !important;
+  color: #ffffff !important;
+  font-size: 13px !important;
+  font-family: inherit !important;
+  outline: none !important;
+  transition: all 0.25s ease !important;
+  direction: rtl !important;
+}
+
+.about-input-field:focus {
+  border-color: rgba(255, 255, 255, 0.45) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.08) !important;
+}
+
+.about-input-field::placeholder {
+  color: rgba(255, 255, 255, 0.35) !important;
+}
+
+.about-submit-btn {
+  width: 100% !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: none !important;
+  border-radius: 14px !important;
+  padding: 13px 20px !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  font-family: inherit !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  transition: all 0.25s ease !important;
+}
+
+.about-submit-btn:hover {
+  background: #e6e6e6 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2) !important;
+}
