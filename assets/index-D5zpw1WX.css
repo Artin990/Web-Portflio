@@ -50,60 +50,8 @@ span[aria-label="Touch anywhere to view"] {
   z-index: 50 !important;
 }
 
-.project-live-btn {
-  display: inline-flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 12px !important;
-  padding: 6px 20px 6px 8px !important;
-  border-radius: 9999px !important;
-  background: rgba(255, 255, 255, 0.08) !important;
-  border: 1px solid rgba(255, 255, 255, 0.22) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  text-decoration: none !important;
-  cursor: pointer !important;
-  pointer-events: auto !important;
-  direction: rtl !important;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  box-shadow: 0 10px 30px -5px rgba(0,0,0,0.7) !important;
-  clip-path: inset(0 round 9999px) !important;
-  -webkit-clip-path: inset(0 round 9999px) !important;
-  isolation: isolate !important;
-  overflow: hidden !important;
-}
-.project-live-btn:hover {
-  background: rgba(255, 255, 255, 0.16) !important;
-  border-color: rgba(255, 255, 255, 0.45) !important;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.5), 0 0 20px rgba(229, 169, 122, 0.25) !important;
-  transform: translateY(-1px) !important;
-}
-.project-live-btn-text {
-  font-family: 'Poppins', 'Peyda', sans-serif !important;
-  font-size: 13.5px !important;
-  font-weight: 700 !important;
-  color: #ffffff !important;
-  white-space: nowrap !important;
-  user-select: none !important;
-  letter-spacing: 0.02em !important;
-}
-.project-live-btn-icon {
-  width: 34px !important;
-  height: 34px !important;
-  border-radius: 50% !important;
-  background: rgba(255, 255, 255, 0.15) !important;
-  border: 1px solid rgba(255, 255, 255, 0.3) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  flex-shrink: 0 !important;
-  transition: transform 0.3s ease, background 0.3s ease !important;
-}
-.project-live-btn:hover .project-live-btn-icon {
-  background: rgba(255, 255, 255, 0.3) !important;
-  transform: scale(1.08) rotate(-5deg) !important;
-}
+
+
 
 
 /* ==== In-Page Live Modal (index.html #live-preview-modal) ==== */
@@ -235,3 +183,57 @@ span[aria-label="Touch anywhere to view"] {
   height: 0 !important;
 }
 
+
+
+.project-title-wrapper {
+  margin-bottom: 26px !important;
+  padding-bottom: 8px !important;
+  width: 100% !important;
+}
+
+.project-live-btn {
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  padding-right: 36px !important;
+  padding-left: 10px !important;
+  gap: 20px !important;
+  min-height: 52px !important;
+  border-radius: 9999px !important;
+  background: rgba(255, 255, 255, 0.09) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  direction: rtl !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.project-live-btn:hover {
+  background: rgba(255, 255, 255, 0.18) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 255, 255, 0.12) !important;
+  transform: translateY(-2px) !important;
+}
+
+.project-live-btn:active {
+  transform: translateY(0px) scale(0.97) !important;
+}
+
+.project-live-btn-text {
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
+  color: #ffffff !important;
+  white-space: nowrap !important;
+  user-select: none !important;
+  line-height: 1.2 !important;
+  display: inline-block !important;
+  letter-spacing: 0.2px !important;
+  padding-right: 4px !important;
+}
