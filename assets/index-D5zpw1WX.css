@@ -102,6 +102,26 @@ span[aria-label="Touch anywhere to view"] {
   letter-spacing: 0.2px !important;
 }
 
+#live-preview-modal {
+  display: none !important;
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 100000 !important;
+  background: rgba(0, 0, 0, 0.78) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 24px !important;
+  box-sizing: border-box !important;
+}
+
+#live-preview-modal.active {
+  display: flex !important;
+}
+
 
 .webgl-slider-mobile, .webgl-slider {
   height: 100% !important;
